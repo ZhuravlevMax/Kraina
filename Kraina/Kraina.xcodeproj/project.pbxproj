@@ -58,7 +58,6 @@
 				11C4A92EA8528B90D01DBCB0 /* Pods-Kraina.debug.xcconfig */,
 				6D97549D04B9FBC88B55359D /* Pods-Kraina.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
