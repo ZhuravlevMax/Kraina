@@ -15,9 +15,24 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zxn-ZW-bHd">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zxn-ZW-bHd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Ovy-jj-V1B"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Zxn-ZW-bHd" secondAttribute="trailing" id="RpL-c3-loJ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Zxn-ZW-bHd" secondAttribute="bottom" id="Umq-Fl-mHo"/>
+                            <constraint firstItem="Zxn-ZW-bHd" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="bIG-zM-2dX"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="forMapView" destination="Zxn-ZW-bHd" id="EPL-cl-yD8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
