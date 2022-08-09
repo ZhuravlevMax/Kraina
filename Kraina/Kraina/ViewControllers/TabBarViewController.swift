@@ -14,23 +14,19 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         
         tabBar.backgroundColor = UIColor.white
-        guard let currentWeatherVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WeatherStoryboard") as? WeatherViewController else {return}
+        guard let MainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryboard") as? MainViewController else {return}
         guard let MapVC = UIStoryboard(name: "MapStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MapStoryboard") as? MapViewController else {return}
-        guard let SettingsVC = UIStoryboard(name: "SettingsStoryboard", bundle: nil).instantiateViewController(withIdentifier: "SettingsStoryboard") as? SettingsViewController else {return}
-        guard let FavotiteVC = UIStoryboard(name: "FavoriteCitiesStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteCitiesStoryboard") as? FavoriteCitiesViewController else {return}
+        guard let FavotiteVC = UIStoryboard(name: "FavoriteStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteStoryboard") as? FavoriteViewController else {return}
 
-                viewControllers = [currentWeatherVC, MapVC, SettingsVC, FavotiteVC]
-        currentWeatherVC.tabBarItem.title = NSLocalizedString("SceneDelegate.tabBarController.currentWeatherVC.tabBarItem.title", comment: "")
-        currentWeatherVC.tabBarItem.image = UIImage(systemName: "cloud.sun")
+                viewControllers = [MainVC, MapVC, FavotiteVC]
+        MainVC.tabBarItem.title = "Главная"
+        MainVC.tabBarItem.image = UIImage(systemName: "house")
         
-        MapVC.tabBarItem.title = NSLocalizedString("SceneDelegate.tabBarController.MapVC.tabBarItem.title", comment: "")
+        MapVC.tabBarItem.title = "Карта"
         MapVC.tabBarItem.image = UIImage(systemName: "map")
         
-        SettingsVC.tabBarItem.title = NSLocalizedString("SceneDelegate.tabBarController.SettingsVC.tabBarItem.title", comment: "")
-        SettingsVC.tabBarItem.image = UIImage(systemName: "gearshape")
-        
-        FavotiteVC.tabBarItem.title = NSLocalizedString("SceneDelegate.tabBarController.FavotiteVC.tabBarItem.title", comment: "")
-        FavotiteVC.tabBarItem.image = UIImage(systemName: "star")
+        FavotiteVC.tabBarItem.title = "Избранное"
+        FavotiteVC.tabBarItem.image = UIImage(systemName: "bookmark")
     }
     
 
