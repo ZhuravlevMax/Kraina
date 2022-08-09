@@ -11,19 +11,17 @@ class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = "Избранное"
+        
+        //MARK: - Внешний вид navigationController
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.green
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // With a red background, make the title more readable.
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
