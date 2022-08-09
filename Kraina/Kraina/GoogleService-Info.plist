@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>456091420246-o2lea285j2gia804a48obh9ghtk2oeja.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.456091420246-o2lea285j2gia804a48obh9ghtk2oeja</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDFuRE4Xe6F6SPGHANuyJao5rES4PwvGO8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>456091420246</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ZhuravlevMax.Kraina</string>
+	<key>PROJECT_ID</key>
+	<string>kraina-761cd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kraina-761cd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:456091420246:ios:92d906f0ba87954f705df7</string>
+</dict>
+</plist>

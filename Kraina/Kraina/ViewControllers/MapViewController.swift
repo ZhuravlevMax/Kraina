@@ -45,24 +45,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         let position2 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
         let marker2 = GMSMarker(position: position2)
 
-        let position3 = CLLocationCoordinate2D(latitude: 30.30, longitude: -122.46)
-        let marker3 = GMSMarker(position: position3)
-
-        let position4 = CLLocationCoordinate2D(latitude: 30, longitude: -122.23)
-        let marker4 = GMSMarker(position: position4)
-
-        let position5 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.33)
-        let marker5 = GMSMarker(position: position5)
-
-        let position6 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
-        let marker6 = GMSMarker(position: position6)
-
-        let position7 = CLLocationCoordinate2D(latitude: 30.30, longitude: -122.46)
-        let marker7 = GMSMarker(position: position7)
-
-        let position8 = CLLocationCoordinate2D(latitude: 30, longitude: -122.23)
-        let marker8 = GMSMarker(position: position8)
-        let markerArray = [marker1, marker2, marker3, marker4, marker5, marker6, marker7, marker8]
+        let markerArray = [marker1, marker2]
         //Добавляю точки в менеджер кластеров
         clusterManager.add(markerArray)
         
@@ -70,7 +53,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 
     }
     
-    //Функция по нажатию на кластер или маркер
+    //MARK: - Функция по нажатию на кластер или маркер
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
       // center the map on tapped marker
       mapView.animate(toLocation: marker.position)
