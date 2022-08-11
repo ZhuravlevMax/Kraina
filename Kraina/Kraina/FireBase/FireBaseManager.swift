@@ -40,7 +40,6 @@ class FireBaseManager {
                         guard let firstModel = modelsArray.first?.data() else {return}
                         dataDictionary = firstModel
                         print(dataDictionary["name"])
-                        
                     }
                 }
             }
@@ -52,7 +51,7 @@ class FireBaseManager {
         db.collection(collection).document(docName).getDocument { document, error in
             guard error == nil else { completion(nil); return}
             
-            let doc = FireBaseDocument(adress: document?.get("adress") as! String, longtitude: document?.get("longtitude") as! String, latitude: document?.get("latitude") as! String, description: document?.get("description") as! String, name: document?.get("name") as! String)
+            let doc = FireBaseDocument(adress: document?.get() as! String, longtitude: document?.get("longtitude") as! String, latitude: document?.get("latitude") as! String, description: document?.get("description") as! String, name: document?.get("name") as! String)
             completion(doc)
         }
     }
