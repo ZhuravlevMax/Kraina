@@ -23,6 +23,7 @@
 		94D849AE28A2E87A00A06B6D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */; };
 		94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */; };
 		94DE307128A2F2B6003B5DF4 /* FireBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */; };
+		94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */; };
 		A15365B6BB8F12B935496593 /* Pods_Kraina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2904552F156C4587AD370719 /* Pods_Kraina.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseManager.swift; sourceTree = "<group>"; };
 		94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseDocument.swift; sourceTree = "<group>"; };
+		94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseEnum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */,
+				94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */,
 				94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */,
 			);
 			path = FireBase;
@@ -293,6 +296,7 @@
 				94D8499828A29E7000A06B6D /* TabBarViewController.swift in Sources */,
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,
 				94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */,
+				94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */,
 				94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */,
 				94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */,
 				94D8499C28A29FB400A06B6D /* MapViewController.swift in Sources */,

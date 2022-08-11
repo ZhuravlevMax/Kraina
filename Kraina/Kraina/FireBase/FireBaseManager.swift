@@ -37,7 +37,8 @@ class FireBaseManager {
                         print("\(document.documentID) => \(document.data())")
                         modelsArray.append(document)
                         print(modelsArray)
-                        dataDictionary = (modelsArray.first?.data())!
+                        guard let firstModel = modelsArray.first?.data() else {return}
+                        dataDictionary = firstModel
                         print(dataDictionary["name"])
                         
                     }
@@ -66,9 +67,10 @@ class FireBaseManager {
         
         let fileReference = pathReference.child(picName + ".jpeg")
         fileReference.getData(maxSize: 2024*2024) { data, error in
-            guard error == nil else { completion(image); return}
-            
-            image = UIImage(data: data!)!
+            guard let dataUnwrapped = data else {return}
+            guard error == nil, let imageUnwrapped = UIImage(data: dataUnwrapped) else { completion(image); return}
+
+            image = imageUnwrapped
             
             completion(image)
         }
