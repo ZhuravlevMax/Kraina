@@ -32,12 +32,11 @@ class MainViewController: UIViewController {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-        
-        
+
     }
 
     @IBAction func rainAction(_ sender: Any) {
-        Kraina.FireBaseManager.shared.getPost(collection: FireBaseCollectionsEnum.castles.rawValue, docName: FireBaseCastlesEnum.bihovskiyZamok.rawValue) { doc in
+        Kraina.FireBaseManager.shared.getPost(collection: "\(FireBaseCollectionsEnum.castles)", docName: "\(FireBaseCastlesEnum.bihovskiyZamok)") { doc in
             guard let docUnwrapped = doc else {return}
 
             self.documentArray.append(docUnwrapped)
@@ -52,23 +51,13 @@ class MainViewController: UIViewController {
             self.picture.image = image
         }
         
-        FireBaseManager.shared.getMultipleAll(collection: FireBaseCollectionsEnum.castles.rawValue, completion: { models in
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)", completion: { models in
             guard let Id = models.first?.documentID else {return}
             print(models.count)
             self.descriptionLabel.text = Id
             
         })
     }
-    
-//    @IBAction func snowAction(_ sender: Any) {
-//        FireBaseManager.shared.getPost(collection: "cars", docName: "middleCar") { doc in
-//            guard doc != nil else {return}
-//            self.label1.text = doc?.field1
-//            self.label2.text = doc?.field2
-//        }
-//        FireBaseManager.shared.getImage(picName: "snow") { image in
-//            self.picture.image = image
-//        }
-//    }
+
 }
 

@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum FireBaseCollectionsEnum: String {
+enum FireBaseCollectionsEnum {
     case castles
 }
-enum FireBaseFieldsEnum: String {
+enum FireBaseFieldsEnum {
     case adress
     case name
     case longtitude
@@ -18,7 +18,7 @@ enum FireBaseFieldsEnum: String {
     case description
 }
 
-enum FireBaseCastlesEnum: String {
+enum FireBaseCastlesEnum {
     case bihovskiyZamok
     case mkrskiy
 }
