@@ -49,9 +49,15 @@ class FireBaseManager {
     func getPost(collection: String, docName:String, completion: @escaping (FireBaseDocument?) -> Void) {
         let db = configureFB()
         db.collection(collection).document(docName).getDocument { document, error in
-            guard error == nil else { completion(nil); return}
+            guard error == nil,
+                  let adressUnwrapped = document?.get(FireBaseFieldsEnum.adress.rawValue) as? String,
+                  let longtitudeUnwrapped = document?.get(FireBaseFieldsEnum.longtitude.rawValue) as? String,
+                  let latitudeUnwrapped = document?.get(FireBaseFieldsEnum.latitude.rawValue) as? String,
+                  let descriptionUnwrapped = document?.get(FireBaseFieldsEnum.description.rawValue) as? String,
+                  let nameUnwrapped = document?.get(FireBaseFieldsEnum.name.rawValue) as? String
+                  else { completion(nil); return}
             
-            let doc = FireBaseDocument(adress: document?.get() as! String, longtitude: document?.get("longtitude") as! String, latitude: document?.get("latitude") as! String, description: document?.get("description") as! String, name: document?.get("name") as! String)
+            let doc = FireBaseDocument(adress: adressUnwrapped, longtitude: longtitudeUnwrapped, latitude: latitudeUnwrapped, description: descriptionUnwrapped, name: nameUnwrapped)
             completion(doc)
         }
     }
@@ -59,7 +65,7 @@ class FireBaseManager {
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
         let reference = storage.reference()
-        let pathReference = reference.child("bihovskiyZamok")
+        let pathReference = reference.child(FireBaseCastlesEnum.bihovskiyZamok.rawValue)
         
         
         var image: UIImage = UIImage(named: "defaultPic")!

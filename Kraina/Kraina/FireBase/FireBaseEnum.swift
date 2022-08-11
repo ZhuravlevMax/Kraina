@@ -15,7 +15,7 @@ enum FireBaseFieldsEnum: String {
     case description
 }
 
-enum CastlesEnum: String {
+enum FireBaseCastlesEnum: String {
     case bihovskiyZamok
     case mkrskiy
 }
