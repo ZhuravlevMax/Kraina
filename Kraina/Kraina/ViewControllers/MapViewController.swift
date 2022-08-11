@@ -44,8 +44,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 
         let position2 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
         let marker2 = GMSMarker(position: position2)
+        
+        let position3 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.33)
+        let marker3 = GMSMarker(position: position3)
 
-        let markerArray = [marker1, marker2]
+        let position4 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
+        let marker4 = GMSMarker(position: position4)
+
+        let markerArray = [marker1, marker2, marker3, marker4]
         //Добавляю точки в менеджер кластеров
         clusterManager.add(markerArray)
         

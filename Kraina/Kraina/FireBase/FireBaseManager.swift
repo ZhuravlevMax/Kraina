@@ -24,12 +24,34 @@ class FireBaseManager {
         return db
     }
     
+     func getMultipleAll(collection: String) {
+            // [START get_multiple_all]
+        let db = configureFB()
+            db.collection(collection).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    var modelsArray: [QueryDocumentSnapshot] = []
+                    var dataDictionary:[String : Any] = [:]
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        modelsArray.append(document)
+                        print(modelsArray)
+                        dataDictionary = (modelsArray.first?.data())!
+                        print(dataDictionary["name"])
+                        
+                    }
+                }
+            }
+            // [END get_multiple_all]
+        }
+    
     func getPost(collection: String, docName:String, completion: @escaping (FireBaseDocument?) -> Void) {
         let db = configureFB()
         db.collection(collection).document(docName).getDocument { document, error in
             guard error == nil else { completion(nil); return}
             
-            let doc = FireBaseDocument(field1: document?.get("field1") as! String, field2: document?.get("field2") as! String)
+            let doc = FireBaseDocument(adress: document?.get("adress") as! String, longtitude: document?.get("longtitude") as! String, latitude: document?.get("latitude") as! String, description: document?.get("description") as! String, name: document?.get("name") as! String)
             completion(doc)
         }
     }
@@ -37,7 +59,8 @@ class FireBaseManager {
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
         let reference = storage.reference()
-        let pathReference = reference.child("pictures")
+        let pathReference = reference.child("bihovskiyZamok")
+        
         
         var image: UIImage = UIImage(named: "defaultPic")!
         

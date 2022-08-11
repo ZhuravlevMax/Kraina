@@ -8,6 +8,9 @@
 import Foundation
 
 struct FireBaseDocument {
-    let field1: String
-    let field2: String
+    let adress: String
+    let longtitude: String
+    let latitude: String
+    let description: String
+    let name: String
 }

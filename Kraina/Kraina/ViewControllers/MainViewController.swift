@@ -10,9 +10,14 @@ import UIKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var picture: UIImageView!
-    @IBOutlet weak var label1: UILabel!
+    @IBOutlet weak var adressLabel: UILabel!
     
-    @IBOutlet weak var label2: UILabel!
+    @IBOutlet weak var longtitudeLabel: UILabel!
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    var documentArray: [FireBaseDocument] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,25 +37,33 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func rainAction(_ sender: Any) {
-        FireBaseManager.shared.getPost(collection: "cars", docName: "smallCar") { doc in
+        Kraina.FireBaseManager.shared.getPost(collection: "castles", docName: "bihovskiyZamok") { doc in
             guard doc != nil else {return}
-            self.label1.text = doc?.field1
-            self.label2.text = doc?.field2
+
+            self.documentArray.append(doc!)
+            self.adressLabel.text = doc?.adress
+            self.longtitudeLabel.text = doc?.longtitude
+            self.latitudeLabel.text = doc?.latitude
+            self.descriptionLabel.text = doc?.description
+            self.nameLabel.text = doc?.name
+
         }
-        FireBaseManager.shared.getImage(picName: "clouds") { image in
+        Kraina.FireBaseManager.shared.getImage(picName: "bihovskiyZamok2") { image in
             self.picture.image = image
         }
+        
+        FireBaseManager.shared.getMultipleAll(collection: "castles") 
     }
     
-    @IBAction func snowAction(_ sender: Any) {
-        FireBaseManager.shared.getPost(collection: "cars", docName: "middleCar") { doc in
-            guard doc != nil else {return}
-            self.label1.text = doc?.field1
-            self.label2.text = doc?.field2
-        }
-        FireBaseManager.shared.getImage(picName: "snow") { image in
-            self.picture.image = image
-        }
-    }
+//    @IBAction func snowAction(_ sender: Any) {
+//        FireBaseManager.shared.getPost(collection: "cars", docName: "middleCar") { doc in
+//            guard doc != nil else {return}
+//            self.label1.text = doc?.field1
+//            self.label2.text = doc?.field2
+//        }
+//        FireBaseManager.shared.getImage(picName: "snow") { image in
+//            self.picture.image = image
+//        }
+//    }
 }
 

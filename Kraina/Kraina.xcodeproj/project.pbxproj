@@ -102,10 +102,8 @@
 			children = (
 				94D8498328A29D9C00A06B6D /* AppDelegate.swift */,
 				94D8498528A29D9C00A06B6D /* SceneDelegate.swift */,
-				94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */,
-				94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */,
-				94D849AB28A2E5D200A06B6D /* UIView+Extension.swift */,
-				94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */,
+				94DE307428A5158E003B5DF4 /* FireBase */,
+				94DE307528A51599003B5DF4 /* Extensions */,
 				94D849A128A2A08B00A06B6D /* ViewControllers */,
 				94D849A228A2A09D00A06B6D /* Storyboards */,
 				94D8498C28A29DA000A06B6D /* Assets.xcassets */,
@@ -135,6 +133,24 @@
 				94D8499D28A2A00D00A06B6D /* FavoriteStoryboard.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		94DE307428A5158E003B5DF4 /* FireBase */ = {
+			isa = PBXGroup;
+			children = (
+				94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */,
+				94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */,
+			);
+			path = FireBase;
+			sourceTree = "<group>";
+		};
+		94DE307528A51599003B5DF4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				94D849AB28A2E5D200A06B6D /* UIView+Extension.swift */,
+				94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
