@@ -15,22 +15,20 @@ extension UIView{
         gradient.startPoint = CGPoint(x: 0, y: 0) // Top left corner.
         gradient.endPoint = CGPoint(x: 1, y: 1)
         gradient.frame = self.bounds
-        
         self.layer.insertSublayer(gradient, at: 0)
         self.layer.masksToBounds = true
     }
     
     func assignBackground(imageName: String){
-            let background = UIImage(named: imageName)
-
-            var imageView : UIImageView!
-            imageView = UIImageView(frame: self.bounds)
+        let background = UIImage(named: imageName)
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: self.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
-            imageView.clipsToBounds = true
-            imageView.image = background
-            imageView.center = self.center
-            self.addSubview(imageView)
-            self.sendSubviewToBack(imageView)
-        }
-
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = self.center
+        self.addSubview(imageView)
+        self.sendSubviewToBack(imageView)
+    }
+    
 }

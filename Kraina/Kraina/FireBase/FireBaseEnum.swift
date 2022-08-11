@@ -10,6 +10,7 @@ import Foundation
 enum FireBaseCollectionsEnum {
     case castles
 }
+
 enum FireBaseFieldsEnum {
     case adress
     case name

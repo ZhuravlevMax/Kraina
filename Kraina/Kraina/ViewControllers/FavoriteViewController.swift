@@ -17,11 +17,9 @@ class FavoriteViewController: UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.green
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // With a red background, make the title more readable.
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
     }
-    
-
 }

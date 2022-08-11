@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -21,8 +21,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         let navigationControllerMain = UINavigationController(rootViewController: MainVC)
         let navigationControllerMap = UINavigationController(rootViewController: MapVC)
         let navigationControllerFavorite = UINavigationController(rootViewController: FavotiteVC)
-
-                viewControllers = [navigationControllerMain, navigationControllerMap, navigationControllerFavorite]
+        
+        viewControllers = [navigationControllerMain, navigationControllerMap, navigationControllerFavorite]
         navigationControllerMain.tabBarItem.title = "Главная"
         navigationControllerMain.tabBarItem.image = UIImage(systemName: "house")
         
@@ -33,5 +33,5 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
     }
     
-
+    
 }
