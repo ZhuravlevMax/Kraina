@@ -37,22 +37,27 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func rainAction(_ sender: Any) {
-        Kraina.FireBaseManager.shared.getPost(collection: "castles", docName: "bihovskiyZamok") { doc in
-            guard doc != nil else {return}
+        Kraina.FireBaseManager.shared.getPost(collection: FireBaseCollectionsEnum.castles.rawValue, docName: FireBaseCastlesEnum.bihovskiyZamok.rawValue) { doc in
+            guard let docUnwrapped = doc else {return}
 
-            self.documentArray.append(doc!)
-            self.adressLabel.text = doc?.adress
-            self.longtitudeLabel.text = doc?.longtitude
-            self.latitudeLabel.text = doc?.latitude
-            self.descriptionLabel.text = doc?.description
-            self.nameLabel.text = doc?.name
+            self.documentArray.append(docUnwrapped)
+            self.adressLabel.text = docUnwrapped.adress
+            self.longtitudeLabel.text = docUnwrapped.longtitude
+            self.latitudeLabel.text = docUnwrapped.latitude
+            
+            self.nameLabel.text = docUnwrapped.name
 
         }
         Kraina.FireBaseManager.shared.getImage(picName: "bihovskiyZamok2") { image in
             self.picture.image = image
         }
         
-        FireBaseManager.shared.getMultipleAll(collection: "castles") 
+        FireBaseManager.shared.getMultipleAll(collection: FireBaseCollectionsEnum.castles.rawValue, completion: { models in
+            guard let Id = models.first?.documentID else {return}
+            print(models.count)
+            self.descriptionLabel.text = Id
+            
+        })
     }
     
 //    @IBAction func snowAction(_ sender: Any) {

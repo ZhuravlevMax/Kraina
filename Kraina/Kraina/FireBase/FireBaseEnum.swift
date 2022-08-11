@@ -7,6 +7,9 @@
 
 import Foundation
 
+enum FireBaseCollectionsEnum: String {
+    case castles
+}
 enum FireBaseFieldsEnum: String {
     case adress
     case name

@@ -15,16 +15,17 @@ import FirebaseFirestore
 class FireBaseManager {
     
     static let shared = FireBaseManager()
+    var db = Firestore.firestore()
+    let settings = FirestoreSettings()
     
     private func configureFB() -> Firestore {
-        var db: Firestore!
-        let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
         return db
     }
     
-     func getMultipleAll(collection: String) {
+    //MARK: - функция для получения всей коллекции
+     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
             // [START get_multiple_all]
         let db = configureFB()
             db.collection(collection).getDocuments() { (querySnapshot, err) in
@@ -32,20 +33,17 @@ class FireBaseManager {
                     print("Error getting documents: \(err)")
                 } else {
                     var modelsArray: [QueryDocumentSnapshot] = []
-                    var dataDictionary:[String : Any] = [:]
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
-                        modelsArray.append(document)
-                        print(modelsArray)
-                        guard let firstModel = modelsArray.first?.data() else {return}
-                        dataDictionary = firstModel
-                        print(dataDictionary["name"])
+                        modelsArray.append(document)     
                     }
+                    completion(modelsArray)
                 }
             }
             // [END get_multiple_all]
         }
     
+    //MARK: - функция для получения полей одного документа
     func getPost(collection: String, docName:String, completion: @escaping (FireBaseDocument?) -> Void) {
         let db = configureFB()
         db.collection(collection).document(docName).getDocument { document, error in
