@@ -9,8 +9,7 @@ import Foundation
 
 struct FireBaseDocument {
     let adress: String
-    let longtitude: String
-    let latitude: String
+    let coordinate: [Double]
     let description: String
     let name: String
 }

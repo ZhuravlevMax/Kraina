@@ -803,6 +803,7 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - FirebaseAnalytics
@@ -812,6 +813,7 @@ DEPENDENCIES:
   - FirebaseStorage
   - Google-Maps-iOS-Utils (~> 4.1.0)
   - GoogleMaps
+  - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
@@ -842,6 +844,7 @@ SPEC REPOS:
     - Libuv-gRPC
     - nanopb
     - PromisesObjC
+    - SnapKit
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -871,7 +874,8 @@ SPEC CHECKSUMS:
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: be3eee333e592b8547d763c3ee9781f9c993b085
+PODFILE CHECKSUM: a7fe1d01eb5e2cb730a2db3627218acde41312de
 
 COCOAPODS: 1.11.3

@@ -46,12 +46,11 @@ class FireBaseManager {
         db.collection(collection).document(docName).getDocument { document, error in
             guard error == nil,
                   let adressUnwrapped = document?.get("\(FireBaseFieldsEnum.adress)") as? String,
-                  let longtitudeUnwrapped = document?.get("\(FireBaseFieldsEnum.longtitude)") as? String,
-                  let latitudeUnwrapped = document?.get("\(FireBaseFieldsEnum.latitude)") as? String,
+                  let coordinateUnwrapped = document?.get("\(FireBaseFieldsEnum.coordinate)") as? [Double],
                   let descriptionUnwrapped = document?.get("\(FireBaseFieldsEnum.description)") as? String,
                   let nameUnwrapped = document?.get("\(FireBaseFieldsEnum.name)") as? String
             else { completion(nil); return}
-            let doc = FireBaseDocument(adress: adressUnwrapped, longtitude: longtitudeUnwrapped, latitude: latitudeUnwrapped, description: descriptionUnwrapped, name: nameUnwrapped)
+            let doc = FireBaseDocument(adress: adressUnwrapped, coordinate: coordinateUnwrapped, description: descriptionUnwrapped, name: nameUnwrapped)
             completion(doc)
         }
     }
@@ -85,6 +84,20 @@ class FireBaseManager {
         return [""]
     }
     
+    //MARK: - метод для получения массива с координатами
+    
+        func getCoordinatesArray(model: QueryDocumentSnapshot) -> [Double] {
+            let modelData = model.data()
+            
+            let coordinatesDict = modelData.first { key, value in
+                return key.contains("\(FireBaseFieldsEnum.coordinate)")
+            }
+            
+            if let coordinates = coordinatesDict.map({$0.value as? [Double]}), let coordinatesArray = coordinates {
+                return coordinatesArray
+            }
+            return [0]
+        }
 }
 
 

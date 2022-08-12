@@ -8,14 +8,14 @@
 import UIKit
 import GoogleMaps
 import GoogleMapsUtils
+import SnapKit
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
     
-    //MARK: - Работа с Outlets
-    @IBOutlet weak var forMapView: UIView!
+    lazy var forMapView = UIView()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -23,11 +23,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         view.layoutSubviews()
         
+        //View for googleMaps
+        forMapView.frame = view.frame
+        view.addSubview(forMapView)
+        
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
         let camera = GMSCameraPosition.camera(withLatitude: 47.60, longitude: -122.33, zoom: 9.0)
         mapView = GMSMapView.map(withFrame: forMapView.frame, camera: camera)
-        forMapView.addSubview(mapView)
+        self.forMapView.addSubview(mapView)
         
         mapView.delegate = self
         
@@ -56,6 +60,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         clusterManager.add(markerArray)
         
         clusterManager.cluster()
+        
+        updateViewConstraints()
     }
     
     //MARK: - Функция по нажатию на кластер или маркер
@@ -71,5 +77,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
         NSLog("Did tap a normal marker")
         return false
+    }
+    
+    override func updateViewConstraints() {
+        
+        //для view для googleMaps
+        forMapView.snp.makeConstraints {
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+        super.updateViewConstraints()
     }
 }

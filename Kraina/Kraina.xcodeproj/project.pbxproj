@@ -14,7 +14,6 @@
 		94D8498D28A29DA000A06B6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94D8498C28A29DA000A06B6D /* Assets.xcassets */; };
 		94D8499028A29DA000A06B6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94D8498E28A29DA000A06B6D /* LaunchScreen.storyboard */; };
 		94D8499828A29E7000A06B6D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8499728A29E7000A06B6D /* TabBarViewController.swift */; };
-		94D8499A28A29F9600A06B6D /* MapStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94D8499928A29F9600A06B6D /* MapStoryboard.storyboard */; };
 		94D8499C28A29FB400A06B6D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8499B28A29FB400A06B6D /* MapViewController.swift */; };
 		94D8499E28A2A00D00A06B6D /* FavoriteStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94D8499D28A2A00D00A06B6D /* FavoriteStoryboard.storyboard */; };
 		94D849A028A2A01A00A06B6D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8499F28A2A01A00A06B6D /* FavoriteViewController.swift */; };
@@ -40,7 +39,6 @@
 		94D8498F28A29DA000A06B6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94D8499128A29DA000A06B6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94D8499728A29E7000A06B6D /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		94D8499928A29F9600A06B6D /* MapStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapStoryboard.storyboard; sourceTree = "<group>"; };
 		94D8499B28A29FB400A06B6D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		94D8499D28A2A00D00A06B6D /* FavoriteStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoriteStoryboard.storyboard; sourceTree = "<group>"; };
 		94D8499F28A2A01A00A06B6D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				94D8498928A29D9C00A06B6D /* Main.storyboard */,
-				94D8499928A29F9600A06B6D /* MapStoryboard.storyboard */,
 				94D8499D28A2A00D00A06B6D /* FavoriteStoryboard.storyboard */,
 			);
 			path = Storyboards;
@@ -219,7 +216,6 @@
 			files = (
 				94D8499028A29DA000A06B6D /* LaunchScreen.storyboard in Resources */,
 				94D8498D28A29DA000A06B6D /* Assets.xcassets in Resources */,
-				94D8499A28A29F9600A06B6D /* MapStoryboard.storyboard in Resources */,
 				94D8499E28A2A00D00A06B6D /* FavoriteStoryboard.storyboard in Resources */,
 				94D8498B28A29D9C00A06B6D /* Main.storyboard in Resources */,
 				94D849A828A2DF1A00A06B6D /* GoogleService-Info.plist in Resources */,

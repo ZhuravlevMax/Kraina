@@ -19,7 +19,11 @@ enum FireBaseCastlesEnum {
 enum FireBaseFieldsEnum {
     case adress
     case name
-    case longtitude
-    case latitude
+    case coordinate
     case description
+}
+
+enum FirebaseCoordinateEnum: Int {
+    case longtitude = 0
+    case latitude
 }
