@@ -24,6 +24,6 @@ enum FireBaseFieldsEnum {
 }
 
 enum FirebaseCoordinateEnum: Int {
-    case longtitude = 0
-    case latitude
+    case latitude = 0
+    case longtitude
 }

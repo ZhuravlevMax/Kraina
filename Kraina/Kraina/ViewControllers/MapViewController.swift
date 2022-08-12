@@ -14,7 +14,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
-    
+    var coordinatesArray: [[Double]] = []
+    var markerArray: [GMSMarker] = []
     lazy var forMapView = UIView()
     
     //MARK: - viewDidLoad
@@ -27,40 +28,37 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         forMapView.frame = view.frame
         view.addSubview(forMapView)
         
-        //MARK: - Работа с googleMaps
-        //Добавляю карту на view
-        let camera = GMSCameraPosition.camera(withLatitude: 47.60, longitude: -122.33, zoom: 9.0)
-        mapView = GMSMapView.map(withFrame: forMapView.frame, camera: camera)
-        self.forMapView.addSubview(mapView)
-        
-        mapView.delegate = self
-        
-        //Работа с кластерами
-        let iconGenerator = GMUDefaultClusterIconGenerator()
-        let algoritm = GMUNonHierarchicalDistanceBasedAlgorithm()
-        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
-        clusterManager = GMUClusterManager(map: mapView, algorithm: algoritm, renderer: renderer)
-        clusterManager.setMapDelegate(self)
-        
-        //Создаю точки для проверки работы кластеров
-        let position1 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.33)
-        let marker1 = GMSMarker(position: position1)
-        
-        let position2 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
-        let marker2 = GMSMarker(position: position2)
-        
-        let position3 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.33)
-        let marker3 = GMSMarker(position: position3)
-        
-        let position4 = CLLocationCoordinate2D(latitude: 47.60, longitude: -122.46)
-        let marker4 = GMSMarker(position: position4)
-        
-        let markerArray = [marker1, marker2, marker3, marker4]
-        //Добавляю точки в менеджер кластеров
-        clusterManager.add(markerArray)
-        
-        clusterManager.cluster()
-        
+        DispatchQueue.main.async {
+            //MARK: - Работа с googleMaps
+            //Добавляю карту на view
+            let camera = GMSCameraPosition.camera(withLatitude: 53.518096, longitude: 30.259606, zoom: 9.0)
+            self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
+            self.forMapView.addSubview(self.mapView)
+            
+            self.mapView.delegate = self
+            
+            //Работа с кластерами
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+            let algoritm = GMUNonHierarchicalDistanceBasedAlgorithm()
+            let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
+            self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
+            self.clusterManager.setMapDelegate(self)
+            
+            //Создаю точки для проверки работы кластеров
+
+            for coordinate in self.coordinatesArray {
+                let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+                let marker = GMSMarker(position: position)
+                
+                self.markerArray.append(marker)
+            }
+            
+            //Добавляю точки в менеджер кластеров
+            self.clusterManager.add(self.markerArray)
+            
+            self.clusterManager.cluster()
+        }
+
         updateViewConstraints()
     }
     

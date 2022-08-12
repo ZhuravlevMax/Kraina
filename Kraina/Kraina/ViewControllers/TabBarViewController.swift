@@ -35,6 +35,14 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         navigationControllerFavorite.tabBarItem.title = "Избранное"
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
+        
+        
+        //Подгружаю координаты для MapView
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)") { models in
+            for model in models {
+            MapVC.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: model))
+            }
+        }
     }
     
     
