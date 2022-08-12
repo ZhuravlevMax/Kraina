@@ -11,15 +11,15 @@ enum FireBaseCollectionsEnum {
     case castles
 }
 
+enum FireBaseCastlesEnum {
+    case bihovskiyZamok
+    case mirskiyZamok
+}
+
 enum FireBaseFieldsEnum {
     case adress
     case name
     case longtitude
     case latitude
     case description
-}
-
-enum FireBaseCastlesEnum {
-    case bihovskiyZamok
-    case mkrskiy
 }

@@ -44,17 +44,15 @@ class MainViewController: UIViewController {
             self.nameLabel.text = docUnwrapped.name
         }
         
+        
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)", completion: { models in
-            guard let Id = models.first?.documentID,
-                  let modelData = models.first?.data(),
-                  let model = models.first
+            
+            models.count
+            guard let Id = models.first?.documentID
+                  //let model = models[1]
             else {return}
-            
-            var imagesDict = modelData.first { key, value in
-                return key.contains("images")
-            }
-            
-            let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: model)
+            // Пример работы с картинками
+            let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: models[1])
             
             for imagesUrl in imagesUrlArray {
                 guard let url = URL(string: imagesUrl),
@@ -63,10 +61,7 @@ class MainViewController: UIViewController {
             }
             
             self.descriptionLabel.text = Id
-            
-            
+
         })
     }
 }
-
-//kraina-761cd.appspot.com/castles/bihovskiyZamok/bihovskiyZamok1.jpeg
