@@ -22,7 +22,7 @@ class FireBaseManager {
         self.settings = settings
         Firestore.firestore().settings = settings
     }
-    //MARK: - функция для получения всей коллекции
+    //MARK: - метод для получения всей коллекции
     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
         // [START get_multiple_all]
         db.collection(collection).getDocuments() { (querySnapshot, err) in
@@ -32,7 +32,7 @@ class FireBaseManager {
                 var modelsArray: [QueryDocumentSnapshot] = []
                 guard let querySnapshot = querySnapshot else {return}
                 for document in querySnapshot.documents {
-                    print("\(document.documentID) => \(document.data())")
+                    //print("\(document.documentID) => \(document.data())")
                     modelsArray.append(document)
                 }
                 completion(modelsArray)
@@ -41,7 +41,7 @@ class FireBaseManager {
         // [END get_multiple_all]
     }
     
-    //MARK: - функция для получения полей одного документа
+    //MARK: - метод для получения полей одного документа
     func getPost(collection: String, docName:String, completion: @escaping (FireBaseDocument?) -> Void) {
         db.collection(collection).document(docName).getDocument { document, error in
             guard error == nil,
@@ -56,20 +56,35 @@ class FireBaseManager {
         }
     }
     
-    //MARK: - функция для получения одной картинки из папки в БД
+    //MARK: - метод для получения одной картинки из папки в БД
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
         let reference = storage.reference()
         let pathReference = reference.child("\(FireBaseCastlesEnum.bihovskiyZamok)")
         var image: UIImage = UIImage(named: "defaultPic")!
         let fileReference = pathReference.child(picName + ".jpeg")
-        fileReference.getData(maxSize: 2024*2024) { data, error in
+        fileReference.getData(maxSize: 4096) { data, error in
             guard let dataUnwrapped = data else {return}
             guard error == nil, let imageUnwrapped = UIImage(data: dataUnwrapped) else { completion(image); return}
             image = imageUnwrapped
             completion(image)
         }
     }
+    
+    //MARK: - метод для получения массива ссылок объекта
+    func getImagesPathArray(model: QueryDocumentSnapshot) -> [String] {
+        let modelData = model.data()
+        
+        let imagesDict = modelData.first { key, value in
+            return key.contains("images")
+        }
+        
+        if let imageUrls = imagesDict.map({$0.value as? [String]}), let imagesUrlArray = imageUrls {
+            return imagesUrlArray
+        }
+        return [""]
+    }
+    
 }
 
 

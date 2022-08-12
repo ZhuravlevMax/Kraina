@@ -44,15 +44,29 @@ class MainViewController: UIViewController {
             self.nameLabel.text = docUnwrapped.name
         }
         
-        Kraina.FireBaseManager.shared.getImage(picName: "bihovskiyZamok2") { image in
-            self.picture.image = image
-        }
-        
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)", completion: { models in
-            guard let Id = models.first?.documentID else {return}
-            print(models.count)
+            guard let Id = models.first?.documentID,
+                  let modelData = models.first?.data(),
+                  let model = models.first
+            else {return}
+            
+            var imagesDict = modelData.first { key, value in
+                return key.contains("images")
+            }
+            
+            let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: model)
+            
+            for imagesUrl in imagesUrlArray {
+                guard let url = URL(string: imagesUrl),
+                      let data = try? Data(contentsOf: url) else {return}
+                self.picture.image = UIImage(data: data)
+            }
+            
             self.descriptionLabel.text = Id
+            
+            
         })
     }
 }
 
+//kraina-761cd.appspot.com/castles/bihovskiyZamok/bihovskiyZamok1.jpeg
