@@ -75,7 +75,7 @@ class FireBaseManager {
         let modelData = model.data()
         
         let imagesDict = modelData.first { key, value in
-            return key.contains("images")
+            return key.contains("\(FireBaseFieldsEnum.images)")
         }
         
         if let imageUrls = imagesDict.map({$0.value as? [String]}), let imagesUrlArray = imageUrls {
@@ -86,18 +86,34 @@ class FireBaseManager {
     
     //MARK: - метод для получения массива с координатами
     
-        func getCoordinatesArray(model: QueryDocumentSnapshot) -> [Double] {
-            let modelData = model.data()
-            
-            let coordinatesDict = modelData.first { key, value in
-                return key.contains("\(FireBaseFieldsEnum.coordinate)")
-            }
-            
-            if let coordinates = coordinatesDict.map({$0.value as? [Double]}), let coordinatesArray = coordinates {
-                return coordinatesArray
-            }
-            return [0]
+    func getCoordinatesArray(model: QueryDocumentSnapshot) -> [Double] {
+        let modelData = model.data()
+        
+        let coordinatesDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.coordinate)")
         }
+        
+        if let coordinates = coordinatesDict.map({$0.value as? [Double]}), let coordinatesArray = coordinates {
+            return coordinatesArray
+        }
+        return [0]
+    }
+    //MARK: - метод для получения названия достопримечательности по кооринатам
+    @discardableResult func getNameByCoordinate(models: [QueryDocumentSnapshot], latitude: Double) -> String {
+        for model in models {
+            let coordinates = getCoordinatesArray(model: model)
+            if coordinates.contains(latitude){
+                let modelData = model.data()
+                let nameDict = modelData.first { key, value in
+                    return key.contains("\(FireBaseFieldsEnum.name)")
+                }
+                if let name = nameDict.map({ $0.value as? String}), let nameUnwrapped = name {
+                    return nameUnwrapped
+                }
+            }
+        }
+        return ""
+    }
 }
 
 

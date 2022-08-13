@@ -21,6 +21,7 @@ enum FireBaseFieldsEnum {
     case name
     case coordinate
     case description
+    case images
 }
 
 enum FirebaseCoordinateEnum: Int {

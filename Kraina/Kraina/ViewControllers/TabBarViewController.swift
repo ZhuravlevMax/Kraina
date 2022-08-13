@@ -39,6 +39,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         //Подгружаю координаты для MapView
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)") { models in
+            MapVC.models = models
             for model in models {
             MapVC.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: model))
             }

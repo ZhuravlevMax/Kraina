@@ -9,11 +9,16 @@ import UIKit
 import GoogleMaps
 import GoogleMapsUtils
 import SnapKit
+import FirebaseCore
+import FirebaseStorage
+import FirebaseDatabase
+import FirebaseFirestore
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
+    var models: [QueryDocumentSnapshot] = []
     var coordinatesArray: [[Double]] = []
     var markerArray: [GMSMarker] = []
     lazy var forMapView = UIView()
@@ -31,7 +36,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         DispatchQueue.main.async {
             //MARK: - Работа с googleMaps
             //Добавляю карту на view
-            let camera = GMSCameraPosition.camera(withLatitude: 53.518096, longitude: 30.259606, zoom: 9.0)
+            let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5.5)
             self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
             self.forMapView.addSubview(self.mapView)
             
@@ -73,6 +78,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             NSLog("Did tap cluster")
             return true
         }
+        print(FireBaseManager.shared.getNameByCoordinate(models: models, latitude: marker.position.latitude))
         NSLog("Did tap a normal marker")
         return false
     }
