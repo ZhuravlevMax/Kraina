@@ -98,8 +98,9 @@ class FireBaseManager {
         }
         return [0]
     }
+    
     //MARK: - метод для получения названия достопримечательности по кооринатам
-    @discardableResult func getNameByCoordinate(models: [QueryDocumentSnapshot], latitude: Double) -> String {
+    func getNameByCoordinate(models: [QueryDocumentSnapshot], latitude: Double) -> String {
         for model in models {
             let coordinates = getCoordinatesArray(model: model)
             if coordinates.contains(latitude){
@@ -113,6 +114,27 @@ class FireBaseManager {
             }
         }
         return ""
+    }
+    
+    //MARK: - метод для получения достопримечательности по кооринатам
+    func getModelByCoordinate(collection: String, latitude: Double, completion: @escaping (QueryDocumentSnapshot) -> Void) {
+        db.collection(collection).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var model: QueryDocumentSnapshot?
+                guard let querySnapshot = querySnapshot else {return}
+                for document in querySnapshot.documents {
+                    //print("\(document.documentID) => \(document.data())")
+                    let coordinates = self.getCoordinatesArray(model: document)
+                    if coordinates.contains(latitude) {
+                        model = document
+                    }
+                }
+                guard let model = model else {return}
+                completion(model)
+            }
+        }
     }
 }
 

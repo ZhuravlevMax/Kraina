@@ -79,6 +79,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             return true
         }
         print(FireBaseManager.shared.getNameByCoordinate(models: models, latitude: marker.position.latitude))
+        FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.castles)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
+            print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
+        }
         NSLog("Did tap a normal marker")
         return false
     }
