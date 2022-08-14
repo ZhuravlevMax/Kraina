@@ -8,7 +8,12 @@
 import Foundation
 
 enum FireBaseCollectionsEnum {
-    case castles
+    case attraction
+}
+
+enum FireBaseTypeEnum {
+    case architecture
+    case religion
 }
 
 enum FireBaseCastlesEnum {

@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.castles)") { models in
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             guard let model = models.first else {return}
             self.coordinatesArray = FireBaseManager.shared.getCoordinatesArray(model: model)
             print(self.coordinatesArray[FirebaseCoordinateEnum.latitude.rawValue])
