@@ -22,7 +22,10 @@ class ModelViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = " ModelViewController"
+        
+        guard let model = model else {return}
+        title = FireBaseManager.shared.getModelName(model: model)
+        
         modelMainTableView.delegate = self
         modelMainTableView.dataSource = self
         modelMainTableView.register(ModelMainTableViewCell.self, forCellReuseIdentifier: ModelMainTableViewCell.identifier)

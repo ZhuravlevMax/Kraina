@@ -136,6 +136,17 @@ class FireBaseManager {
             }
         }
     }
+    
+    func getModelName(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let nameDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.name)")
+        }
+        if let name = nameDict.map({ $0.value as? String}), let nameUnwrapped = name {
+            return nameUnwrapped
+        }
+        return ""
+    }
 }
 
 
