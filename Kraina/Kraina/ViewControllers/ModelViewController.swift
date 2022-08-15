@@ -42,11 +42,10 @@ class ModelViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationBar.isTranslucent = true
         
         modelMainTableView.frame = view.bounds
-       // modelMainTableView.estimatedRowHeight = 85
+        modelMainTableView.estimatedRowHeight = 10
         modelMainTableView.rowHeight = UITableView.automaticDimension
         modelMainTableView.separatorStyle = .none
         view.addSubview(modelMainTableView)
-
     }
 
 }
@@ -60,11 +59,11 @@ extension ModelViewController {
         
         if let tableCell = modelMainTableView.dequeueReusableCell(withIdentifier: ModelMainTableViewCell.identifier, for: indexPath) as? ModelMainTableViewCell {
             tableCell.model = model
+            tableCell.buttonTapCallback = {
+                        print("Hi")
+                    }
             if let modelUnwrapped = model {
                 tableCell.setImage(model: modelUnwrapped)
-                tableCell.buttonPressed = {
-                          print("PRESSED")
-                           }
                 
             }
             
@@ -79,5 +78,4 @@ extension ModelViewController {
     }
     
 }
-
 

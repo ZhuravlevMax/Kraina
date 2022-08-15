@@ -15,19 +15,15 @@ class ModelMainTableViewCell: UITableViewCell {
     
     static let identifier = "ModelMainTableViewCell"
     
+    var buttonTapCallback: () -> ()  = { }
+    
     //MARK: - Создание переменных
     var mainImageView = UIImageView()
     var nameLabel = UILabel()
     var adressLabel = UILabel()
     var coordinatesLabel = UILabel()
     var showOnMapButton = UIButton(type: .system)
-    var buttonPressed : (() -> ()) = {}
 
-
-   
-
-        
-    
     //Сюда передаю нужную модель/достопримечательность
     var model: QueryDocumentSnapshot?
 
@@ -67,10 +63,14 @@ class ModelMainTableViewCell: UITableViewCell {
     
     //MARK: - Работа с внешним видом элементов
     func setImageViewConstraite() {
+        
+        
+        
         mainImageView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.height.equalTo(300)
             }
         DispatchQueue.main.async {
@@ -89,6 +89,7 @@ class ModelMainTableViewCell: UITableViewCell {
             self.showOnMapButton.setTitleColor(.white, for: .normal)
             self.showOnMapButton.setTitle("Показать на карте", for: .normal)
             self.showOnMapButton.layer.cornerRadius = 10
+            self.showOnMapButton.addTarget(self, action: #selector(self.showOnMapButtonPressed), for: .touchUpInside)
             
             
         }
@@ -124,13 +125,13 @@ class ModelMainTableViewCell: UITableViewCell {
 
     }
     
-//    @objc private func showOnMapButtonPressed() {
-//print("TAPPED")
-//    }
+    @objc private func showOnMapButtonPressed() {
+        buttonTapCallback()
+    }
     
-    @objc func buttonAction(_ sender: UIButton) {
-       //Call your closure here
-               buttonPressed()
-           }
+//    @objc func buttonAction(_ sender: UIButton) {
+//       //Call your closure here
+//               buttonPressed()
+//           }
     
 }
