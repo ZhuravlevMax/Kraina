@@ -12,11 +12,12 @@ class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Избранное"
+        view.backgroundColor = .white
         
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.green
+        appearance.backgroundColor = UIColor.gray
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance

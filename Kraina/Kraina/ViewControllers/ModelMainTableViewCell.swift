@@ -21,6 +21,7 @@ class ModelMainTableViewCell: UITableViewCell {
     var adressLabel = UILabel()
     var coordinatesLabel = UILabel()
     var showOnMapButton = UIButton(type: .system)
+    var buttonPressed : (() -> ()) = {}
 
 
    
@@ -123,8 +124,13 @@ class ModelMainTableViewCell: UITableViewCell {
 
     }
     
-    @objc private func showOnMapButtonPressed() {
-print("TAPPED")
-    }
+//    @objc private func showOnMapButtonPressed() {
+//print("TAPPED")
+//    }
+    
+    @objc func buttonAction(_ sender: UIButton) {
+       //Call your closure here
+               buttonPressed()
+           }
     
 }

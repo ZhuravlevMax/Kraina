@@ -62,6 +62,9 @@ extension ModelViewController {
             tableCell.model = model
             if let modelUnwrapped = model {
                 tableCell.setImage(model: modelUnwrapped)
+                tableCell.buttonPressed = {
+                          print("PRESSED")
+                           }
                 
             }
             

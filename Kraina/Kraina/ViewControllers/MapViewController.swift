@@ -26,6 +26,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         if models.isEmpty {
             loadView()
         }
