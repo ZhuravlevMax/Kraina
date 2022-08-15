@@ -41,8 +41,8 @@ class ModelViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         
+        modelMainTableView.estimatedRowHeight = 85
         modelMainTableView.frame = view.bounds
-        modelMainTableView.estimatedRowHeight = 10
         modelMainTableView.rowHeight = UITableView.automaticDimension
         modelMainTableView.separatorStyle = .none
         view.addSubview(modelMainTableView)

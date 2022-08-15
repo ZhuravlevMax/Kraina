@@ -65,14 +65,6 @@ class ModelMainTableViewCell: UITableViewCell {
     func setImageViewConstraite() {
         
         
-        
-        mainImageView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
-            $0.height.equalTo(300)
-            }
         DispatchQueue.main.async {
             guard let model = self.model else {return}
             self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
@@ -93,6 +85,14 @@ class ModelMainTableViewCell: UITableViewCell {
             
             
         }
+        
+        mainImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(200)
+            $0.height.equalTo(300)
+            }
         
         nameLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
