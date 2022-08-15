@@ -12,34 +12,43 @@ import FirebaseDatabase
 import FirebaseFirestore
 
 class ModelViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     var model: QueryDocumentSnapshot?
     
     let modelMainTableView: UITableView = {
         let table = UITableView()
         return table
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let model = model else {return}
-        title = FireBaseManager.shared.getModelName(model: model)
+        //title = FireBaseManager.shared.getModelName(model: model)
         
         modelMainTableView.delegate = self
         modelMainTableView.dataSource = self
         modelMainTableView.register(ModelMainTableViewCell.self, forCellReuseIdentifier: ModelMainTableViewCell.identifier)
         
-        modelMainTableView.frame = view.bounds
-        modelMainTableView.estimatedRowHeight = 85
-        modelMainTableView.rowHeight = UITableView.automaticDimension
-        modelMainTableView.separatorStyle = .none
-        view.addSubview(modelMainTableView)
+        initialize()
         
     }
     
-    
-    
+    private func initialize() {
+        
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        
+        modelMainTableView.frame = view.bounds
+       // modelMainTableView.estimatedRowHeight = 85
+        modelMainTableView.rowHeight = UITableView.automaticDimension
+        modelMainTableView.separatorStyle = .none
+        view.addSubview(modelMainTableView)
+
+    }
+
 }
 
 extension ModelViewController {
@@ -53,17 +62,19 @@ extension ModelViewController {
             tableCell.model = model
             if let modelUnwrapped = model {
                 tableCell.setImage(model: modelUnwrapped)
+                
             }
-            
             
             return tableCell
         }
+        
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
 }
 
 

@@ -136,7 +136,7 @@ class FireBaseManager {
             }
         }
     }
-    
+    //MARK: - метод для получения названия достопримечательности
     func getModelName(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
         let nameDict = modelData.first { key, value in
@@ -147,6 +147,21 @@ class FireBaseManager {
         }
         return ""
     }
+    
+    //MARK: - метод для получения адреса достопримечательности
+    func getModelAdress(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let nameDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.adress)")
+        }
+        if let adress = nameDict.map({ $0.value as? String}), let adressUnwrapped = adress {
+            return adressUnwrapped
+        }
+        return ""
+    }
+    
+    
+    
 }
 
 

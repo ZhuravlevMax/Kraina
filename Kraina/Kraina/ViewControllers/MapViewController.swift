@@ -14,7 +14,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
 
-class MapViewController: UIViewController, GMSMapViewDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate {
     
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
@@ -26,8 +26,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if models.isEmpty {
+            loadView()
+        }
         view.layoutSubviews()
+        self.tabBarController?.delegate = self
         
         //View for googleMaps
         forMapView.frame = view.frame
@@ -84,6 +87,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             
             let modelViewController = ModelViewController()
             modelViewController.model = QueryDocumentSnapshot
+            
             self.navigationController?.pushViewController(modelViewController, animated: true)
         }
         NSLog("Did tap a normal marker")
@@ -101,4 +105,5 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
         super.updateViewConstraints()
     }
+    
 }
