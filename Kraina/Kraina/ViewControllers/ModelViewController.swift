@@ -4,7 +4,6 @@
 //
 //  Created by Максим Журавлев on 14.08.22.
 //
-
 import UIKit
 import FirebaseCore
 import FirebaseStorage
@@ -43,24 +42,17 @@ class ModelViewController: UIViewController {
     //Сюда передаю нужную модель/достопримечательность
     var model: QueryDocumentSnapshot?
 
-//    let modelMainTableView: UITableView = {
-//        let table = UITableView()
-//        return table
-//    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        //убираю safe area
         modelScrollView.insetsLayoutMarginsFromSafeArea = false
         modelScrollView.contentInsetAdjustmentBehavior = .never
+        
         view.layoutSubviews()
         
-        showOnMapButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
-        showOnMapButton.setTitle("Посмотреть на карте", for: .normal)
-        showOnMapButton.layer.cornerRadius = 10
-        showOnMapButton.setTitleColor(.white, for: .normal)
-        showOnMapButton.addTarget(self, action: #selector(showOnMapButtonPressed), for: .touchUpInside)
+        
 
         
         guard let model = model else {return}
@@ -98,23 +90,17 @@ class ModelViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        
-//        modelMainTableView.estimatedRowHeight = 85
-//        modelMainTableView.frame = view.bounds
-//        modelMainTableView.rowHeight = UITableView.automaticDimension
-//        modelMainTableView.separatorStyle = .none
-//        view.addSubview(modelMainTableView)
     }
     
-//    func configureImageView() {
-//        mainImageView.clipsToBounds = true
-//    }
     //MARK: - Работа с внешним видом элементов
     func setImageViewConstraite() {
         
-        
-        
-        
+        showOnMapButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        showOnMapButton.setTitle("Посмотреть на карте", for: .normal)
+        showOnMapButton.layer.cornerRadius = 10
+        showOnMapButton.setTitleColor(.white, for: .normal)
+        showOnMapButton.addTarget(self, action: #selector(showOnMapButtonPressed), for: .touchUpInside)
+
         DispatchQueue.main.async {
             guard let model = self.model else {return}
             self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
@@ -129,21 +115,16 @@ class ModelViewController: UIViewController {
             
             self.modelDescription.numberOfLines = 0
             self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
-            
-            
-
-            
-            
-            
+            self.modelDescription.textAlignment = .justified
+            self.modelDescription.font = UIFont.systemFont(ofSize: 14, weight: .light)
         }
         
+        //MARK: - контсрейты для элементов
         modelScrollView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.leading.equalToSuperview()
-            //$0.width.equalToSuperview()
             $0.bottom.equalToSuperview()
-
             }
         
         contentView.snp.makeConstraints {
@@ -197,38 +178,5 @@ class ModelViewController: UIViewController {
         guard let imageURL = imagesUrlArray.first else {return}
             self.mainImageView.load(url: imageURL)
         mainImageView.contentMode = .scaleAspectFill
-
     }
-
-
 }
-
-//extension ModelViewController {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        1
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        if let tableCell = modelMainTableView.dequeueReusableCell(withIdentifier: ModelMainTableViewCell.identifier, for: indexPath) as? ModelMainTableViewCell {
-//            tableCell.model = model
-//            tableCell.buttonTapCallback = {
-//                        print("Hi")
-//                    }
-//            if let modelUnwrapped = model {
-//                tableCell.setImage(model: modelUnwrapped)
-//                
-//            }
-//            
-//            return tableCell
-//        }
-//        
-//        return UITableViewCell()
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-//    
-//}
-
