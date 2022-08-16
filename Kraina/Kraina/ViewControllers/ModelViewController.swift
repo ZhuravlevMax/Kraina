@@ -51,17 +51,9 @@ class ModelViewController: UIViewController {
         modelScrollView.contentInsetAdjustmentBehavior = .never
         
         view.layoutSubviews()
-        
-        
 
-        
         guard let model = model else {return}
-        //title = FireBaseManager.shared.getModelName(model: model)
-        
-//        modelMainTableView.delegate = self
-//        modelMainTableView.dataSource = self
-//        modelMainTableView.register(ModelMainTableViewCell.self, forCellReuseIdentifier: ModelMainTableViewCell.identifier)
-        
+
         //MARK: - добавление элементов UI на View
         view.addSubview(modelScrollView)
         modelScrollView.addSubview(contentView)
@@ -80,13 +72,10 @@ class ModelViewController: UIViewController {
         
     }
     
-    @objc private func showOnMapButtonPressed() {
-        print("LOL")
-    }
+   
     
     private func initialize() {
-        
-        
+
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -115,7 +104,7 @@ class ModelViewController: UIViewController {
             
             self.modelDescription.numberOfLines = 0
             self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
-            self.modelDescription.textAlignment = .justified
+            self.modelDescription.textAlignment = .left
             self.modelDescription.font = UIFont.systemFont(ofSize: 14, weight: .light)
         }
         
@@ -178,5 +167,16 @@ class ModelViewController: UIViewController {
         guard let imageURL = imagesUrlArray.first else {return}
             self.mainImageView.load(url: imageURL)
         mainImageView.contentMode = .scaleAspectFill
+    }
+    
+    @objc private func showOnMapButtonPressed() {
+        
+        let mapViewcontroller = MapViewController()
+        guard let model = model else {return}
+        
+        mapViewcontroller.model = model
+        mapViewcontroller.showModelOnMap(coordinates: FireBaseManager.shared.getCoordinatesArray(model: model))
+        self.navigationController?.pushViewController(mapViewcontroller, animated: true)
+        print("LOL")
     }
 }

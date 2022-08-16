@@ -19,6 +19,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
     var models: [QueryDocumentSnapshot] = []
+    var model: QueryDocumentSnapshot?
     var coordinatesArray: [[Double]] = []
     var markerArray: [GMSMarker] = []
     lazy var forMapView = UIView()
@@ -37,7 +38,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         forMapView.frame = view.frame
         view.addSubview(forMapView)
         
-        DispatchQueue.main.async {
             //MARK: - Работа с googleMaps
             //Добавляю карту на view
             let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5.5)
@@ -66,7 +66,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
             self.clusterManager.add(self.markerArray)
             
             self.clusterManager.cluster()
-        }
+        
 
         updateViewConstraints()
     }
@@ -93,6 +93,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         }
         NSLog("Did tap a normal marker")
         return false
+    }
+    
+    func showModelOnMap(coordinates: [Double]) {
+        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 10)
+        self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
+        self.forMapView.addSubview(self.mapView)
+        
+        let position = CLLocationCoordinate2D(latitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
+        let marker = GMSMarker(position: position)
+        
+        self.mapView.delegate = self
     }
     
     override func updateViewConstraints() {
