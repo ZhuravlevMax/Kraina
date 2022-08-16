@@ -157,7 +157,7 @@ class ModelViewController: UIViewController {
         modelDescription.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(showOnMapButton).inset(80)
-            $0.bottom.equalToSuperview().offset(-50)
+            $0.bottom.equalToSuperview().offset(-80)
         }
                 
     }
@@ -171,12 +171,12 @@ class ModelViewController: UIViewController {
     
     @objc private func showOnMapButtonPressed() {
         
-        let mapViewcontroller = MapViewController()
+        let forModelMapVC  = ForModelMapViewController()
         guard let model = model else {return}
         
-        mapViewcontroller.model = model
-        mapViewcontroller.showModelOnMap(coordinates: FireBaseManager.shared.getCoordinatesArray(model: model))
-        self.navigationController?.pushViewController(mapViewcontroller, animated: true)
+        forModelMapVC.model = model
+        forModelMapVC.coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
+        self.navigationController?.pushViewController(forModelMapVC, animated: true)
         print("LOL")
     }
 }
