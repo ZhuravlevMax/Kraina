@@ -160,6 +160,17 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения описания достопримечательности
+    func getModelDescription(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let descriptionDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.description)")
+        }
+        if let description = descriptionDict.map({ $0.value as? String}), let descriptionUnwrapped = description {
+            return descriptionUnwrapped
+        }
+        return ""
+    }
     
     
 }

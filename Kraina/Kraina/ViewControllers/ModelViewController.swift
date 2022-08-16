@@ -19,6 +19,26 @@ class ModelViewController: UIViewController {
     var adressLabel = UILabel()
     var coordinatesLabel = UILabel()
     var showOnMapButton = UIButton(type: .system)
+    var modelDescription = UILabel()
+    
+    private lazy var modelScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.frame = view.frame
+        scrollView.contentSize = contentSize
+        return scrollView
+    }()
+    
+    private var contentSize: CGSize {
+        CGSize(width: view.frame.width, height: view.frame.height)
+    }
+    
+    private lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        contentView.frame.size = contentSize
+        return contentView
+    }()
 
     //Сюда передаю нужную модель/достопримечательность
     var model: QueryDocumentSnapshot?
@@ -32,7 +52,16 @@ class ModelViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        modelScrollView.insetsLayoutMarginsFromSafeArea = false
+        modelScrollView.contentInsetAdjustmentBehavior = .never
         view.layoutSubviews()
+        
+        showOnMapButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        showOnMapButton.setTitle("Посмотреть на карте", for: .normal)
+        showOnMapButton.layer.cornerRadius = 10
+        showOnMapButton.setTitleColor(.white, for: .normal)
+        showOnMapButton.addTarget(self, action: #selector(showOnMapButtonPressed), for: .touchUpInside)
+
         
         guard let model = model else {return}
         //title = FireBaseManager.shared.getModelName(model: model)
@@ -42,22 +71,26 @@ class ModelViewController: UIViewController {
 //        modelMainTableView.register(ModelMainTableViewCell.self, forCellReuseIdentifier: ModelMainTableViewCell.identifier)
         
         //MARK: - добавление элементов UI на View
-        self.view.addSubview(self.mainImageView)
-        self.view.addSubview(self.nameLabel)
-        self.view.addSubview(self.adressLabel)
-        self.view.addSubview(self.coordinatesLabel)
-        self.view.addSubview(self.showOnMapButton)
+        view.addSubview(modelScrollView)
+        modelScrollView.addSubview(contentView)
+        contentView.addSubview(mainImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(adressLabel)
+        contentView.addSubview(coordinatesLabel)
+        contentView.addSubview(showOnMapButton)
+        contentView.addSubview(modelDescription)
         
-        self.setImage(model: model)
-        self.configureImageView()
-        self.setImageViewConstraite()
-        
-        
+        setImage(model: model)
+        //self.configureImageView()
+        setImageViewConstraite()
+
         initialize()
         
     }
     
-    
+    @objc private func showOnMapButtonPressed() {
+        print("LOL")
+    }
     
     private func initialize() {
         
@@ -73,13 +106,13 @@ class ModelViewController: UIViewController {
 //        view.addSubview(modelMainTableView)
     }
     
-    func configureImageView() {
-        
-        mainImageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
-        mainImageView.clipsToBounds = true
-    }
+//    func configureImageView() {
+//        mainImageView.clipsToBounds = true
+//    }
     //MARK: - Работа с внешним видом элементов
     func setImageViewConstraite() {
+        
+        
         
         
         DispatchQueue.main.async {
@@ -94,19 +127,38 @@ class ModelViewController: UIViewController {
             self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
             self.adressLabel.font = UIFont.systemFont(ofSize: 11, weight: .light)
             
-            self.showOnMapButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 35/255, alpha: 1)
-            self.showOnMapButton.setTitleColor(.white, for: .normal)
-            self.showOnMapButton.setTitle("Показать на карте", for: .normal)
-            self.showOnMapButton.layer.cornerRadius = 10
-            self.showOnMapButton.addTarget(self, action: #selector(self.showOnMapButtonPressed), for: .touchUpInside)
+            self.modelDescription.numberOfLines = 0
+            self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
+            
+            
+
+            
             
             
         }
+        
+        modelScrollView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
+            //$0.width.equalToSuperview()
+            $0.bottom.equalToSuperview()
+
+            }
+        
+        contentView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
+
+            }
         
         mainImageView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
+            $0.width.equalTo(view)
             $0.height.equalTo(300)
 
             }
@@ -128,9 +180,14 @@ class ModelViewController: UIViewController {
         
         showOnMapButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(coordinatesLabel).inset(50)
+            $0.top.equalTo(coordinatesLabel).inset(30)
             $0.height.equalTo(50)
-            
+        }
+
+        modelDescription.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(showOnMapButton).inset(80)
+            $0.bottom.equalToSuperview().offset(-50)
         }
                 
     }
@@ -139,12 +196,10 @@ class ModelViewController: UIViewController {
         let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: model)
         guard let imageURL = imagesUrlArray.first else {return}
             self.mainImageView.load(url: imageURL)
+        mainImageView.contentMode = .scaleAspectFill
 
     }
-    
-    @objc private func showOnMapButtonPressed() {
-        print("FAFA")
-    }
+
 
 }
 
