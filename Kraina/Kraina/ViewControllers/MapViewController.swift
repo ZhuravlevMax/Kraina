@@ -22,11 +22,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     var model: QueryDocumentSnapshot?
     var coordinatesArray: [[Double]] = []
     var markerArray: [GMSMarker] = []
+    
     lazy var forMapView = UIView()
+    lazy var popupView = UIView()
+    var nameModel = UILabel()
+    var adressModel = UILabel()
+    var moveToButton = UIButton()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
         if models.isEmpty {
             loadView()
@@ -36,7 +42,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         //View for googleMaps
         forMapView.frame = view.frame
+        
         view.addSubview(forMapView)
+        view.addSubview(popupView)
+        popupView.addSubview(nameModel)
+        popupView.addSubview(adressModel)
+        popupView.addSubview(moveToButton)
+        
+        popupView.backgroundColor = .white
+        popupView.layer.cornerRadius = 20
+        
+        
         
             //MARK: - Работа с googleMaps
             //Добавляю карту на view
@@ -86,10 +102,27 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
             print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
             
-            let modelViewController = ModelViewController()
-            modelViewController.model = QueryDocumentSnapshot
+            self.nameModel.numberOfLines = 0
+            self.nameModel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            self.nameModel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
             
-            self.navigationController?.pushViewController(modelViewController, animated: true)
+            self.adressModel.numberOfLines = 0
+            self.adressModel.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+            self.adressModel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
+            
+            self.moveToButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+            self.moveToButton.setTitle("Узнать больше", for: .normal)
+            self.moveToButton.layer.cornerRadius = 10
+            self.moveToButton.setTitleColor(.white, for: .normal)
+            self.moveToButton.addTarget(self, action: #selector(self.moveToButtonPressed), for: .touchUpInside)
+            
+            self.model = QueryDocumentSnapshot
+            
+            //достаю попап
+            UIView.animate(withDuration: 0.5) {
+                self.popupView.snp.updateConstraints {
+                    $0.bottom.equalToSuperview()}
+                self.view.layoutIfNeeded()}
         }
         NSLog("Did tap a normal marker")
         return false
@@ -106,6 +139,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.mapView.delegate = self
     }
     
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        
+        //скрываю попап
+        UIView.animate(withDuration: 0.5) {
+            self.popupView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().offset(250)}
+            self.view.layoutIfNeeded()}
+    }
+    
     override func updateViewConstraints() {
         
         //для view для googleMaps
@@ -115,7 +157,42 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
             $0.height.equalToSuperview()
             $0.width.equalToSuperview()
         }
+        
+        //popup view
+        popupView.snp.makeConstraints {
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.height.equalTo(250)
+            $0.bottom.equalToSuperview().offset(250)
+            // $0.width.equalToSuperview()
+        }
+        
+        nameModel.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(20)
+            $0.right.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(20)
+        }
+        
+        adressModel.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(20)
+            $0.right.equalToSuperview().inset(20)
+            $0.top.equalTo(nameModel).inset(40)
+        }
+        
+        moveToButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(adressModel).inset(50)
+            $0.height.equalTo(50)
+        }
         super.updateViewConstraints()
+    }
+    
+    @objc private func moveToButtonPressed() {
+        let modelViewController = ModelViewController()
+                    modelViewController.model = model
+        
+                    self.navigationController?.pushViewController(modelViewController, animated: true)
+        print("LOL")
     }
     
 }

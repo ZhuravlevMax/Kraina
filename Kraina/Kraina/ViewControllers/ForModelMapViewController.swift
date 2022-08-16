@@ -18,10 +18,10 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     
     private var mapView: GMSMapView!
     var model: QueryDocumentSnapshot?
-    lazy var forMapView = UIView()
-    lazy var popupView = UIView()
     var coordinate: [Double]?
     
+    lazy var forMapView = UIView()
+    lazy var popupView = UIView()
     var nameModel = UILabel()
     var adressModel = UILabel()
     var moveToButton = UIButton()
@@ -33,6 +33,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         view.layoutSubviews()
         //View for googleMaps
         forMapView.frame = view.frame
+        
         view.addSubview(forMapView)
         view.addSubview(popupView)
         popupView.addSubview(nameModel)
@@ -44,9 +45,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         
         
         guard let coordinate = coordinate,
-        let modelUnwrapped = model else {
-            return
-        }
+        let modelUnwrapped = model else { return }
         
         nameModel.numberOfLines = 0
         nameModel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
