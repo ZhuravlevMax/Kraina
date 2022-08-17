@@ -21,8 +21,7 @@ extension UIView{
     
     func assignBackground(imageName: String){
         let background = UIImage(named: imageName)
-        var imageView : UIImageView!
-        imageView = UIImageView(frame: self.bounds)
+        let imageView = UIImageView(frame: self.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = background

@@ -129,10 +129,10 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         mapView.animate(toLocation: marker.position)
         
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
-            print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
+            //print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
             
             //достаю попап
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.2) {
                 self.popupView.snp.updateConstraints {
                     $0.bottom.equalToSuperview()}
                 self.view.layoutIfNeeded()}
@@ -146,7 +146,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         //скрываю попап
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
             self.popupView.snp.updateConstraints {
                 $0.bottom.equalToSuperview().offset(250)}
             self.view.layoutIfNeeded()}

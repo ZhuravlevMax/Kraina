@@ -37,12 +37,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
         
         
-        //Подгружаю координаты для MapView
+        //Передаю модели на MapVC
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
-            MapVC.models = models
-            for model in models {
-            MapVC.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: model))
-            }
+            MapVC.setModels(modelsForSet: models)
         }
     }
     
