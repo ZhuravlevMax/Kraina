@@ -124,6 +124,7 @@ class FireBaseManager {
             } else {
                 var model: QueryDocumentSnapshot?
                 guard let querySnapshot = querySnapshot else {return}
+                
                 for document in querySnapshot.documents {
                     //print("\(document.documentID) => \(document.data())")
                     let coordinates = self.getCoordinatesArray(model: document)
