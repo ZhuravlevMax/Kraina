@@ -25,7 +25,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     private var markerArray: [GMSMarker] = []
     
     //MARK: - Cоздание элементов UI
-    private lazy var forMapView = UIView()
+    private var forMapView: UIView = {
+        let viewForMap = UIView()
+        return viewForMap
+    }()
+    
     private lazy var popupView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -62,17 +66,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         super.viewDidLoad()
         view.layoutSubviews()
         
+        forMapView.frame = view.frame
         view.backgroundColor = .white
         self.tabBarController?.delegate = self
-        
-        //Добавляю координаты моделей на карту для отображения маркеров и кластеров
-        guard let modelsUnwrapped = models else {return}
-        modelsUnwrapped.forEach({
-            coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
-        })
-        
-        //View for googleMaps
-        forMapView.frame = view.frame
         
         //MARK: - Добавление элементов на экран
         view.addSubview(forMapView)
@@ -80,6 +76,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         popupView.addSubview(nameModelLabel)
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(moveToButton)
+        
+        
+        //Добавляю координаты моделей на карту для отображения маркеров и кластеров
+        guard let modelsUnwrapped = models else {return}
+        modelsUnwrapped.forEach({
+            coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
+        })
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
@@ -95,18 +98,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
-        
-        for coordinate in self.coordinatesArray {
-            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-            let marker = GMSMarker(position: position)
+
+            for coordinate in self.coordinatesArray {
+                let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+                let marker = GMSMarker(position: position)
+                
+                self.markerArray.append(marker)
+            }
             
-            self.markerArray.append(marker)
-        }
-        
-        //Добавляю точки в менеджер кластеров
-        self.clusterManager.add(self.markerArray)
-        
-        self.clusterManager.cluster()
+            //Добавляю точки в менеджер кластеров
+            self.clusterManager.add(self.markerArray)
+            
+            self.clusterManager.cluster()
         
         updateViewConstraints()
     }

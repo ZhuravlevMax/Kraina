@@ -41,13 +41,13 @@ class ModelViewController: UIViewController {
         return label
     }()
     
-    private var showOnMapButton: UIButton = {
+    private var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
         button.setTitle("Посмотреть на карте", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showOnMapButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showDescriptionButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -97,7 +97,7 @@ class ModelViewController: UIViewController {
         contentView.addSubview(nameLabel)
         contentView.addSubview(adressLabel)
         contentView.addSubview(coordinatesLabel)
-        contentView.addSubview(showOnMapButton)
+        contentView.addSubview(showDescriptionButton)
         contentView.addSubview(modelDescription)
         
         self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
@@ -156,7 +156,7 @@ class ModelViewController: UIViewController {
             $0.top.equalTo(adressLabel).inset(30)
         }
         
-        showOnMapButton.snp.makeConstraints {
+        showDescriptionButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(coordinatesLabel).inset(30)
             $0.height.equalTo(50)
@@ -164,7 +164,7 @@ class ModelViewController: UIViewController {
         
         modelDescription.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(showOnMapButton).inset(80)
+            $0.top.equalTo(showDescriptionButton).inset(80)
             $0.bottom.equalToSuperview().offset(-80)
         }
         super.updateViewConstraints()
@@ -177,7 +177,7 @@ class ModelViewController: UIViewController {
     }
     
     //MARK: - Действие при нажатии кнопки showOnMapButton
-    @objc private func showOnMapButtonPressed() {
+    @objc private func showDescriptionButtonPressed() {
         
         let forModelMapVC  = ForModelMapViewController()
         guard let model = model else {return}

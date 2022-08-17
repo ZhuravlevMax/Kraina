@@ -20,17 +20,49 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     private var mapView: GMSMapView!
     private var model: QueryDocumentSnapshot?
     private var coordinates: [Double] = []
-    private lazy var forMapView = UIView()
-    private lazy var popupView = UIView()
-    private var nameModel = UILabel()
-    private var adressModel = UILabel()
-    private var moveToButton = UIButton()
+    
+    //MARK: - Cоздание элементов UI
+    private lazy var forMapView: UIView = {
+        let viewForMap = UIView()
+        viewForMap.frame = view.frame
+        return viewForMap
+    }()
+    
+    private lazy var popupView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    private var nameModel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    
+    private var adressModel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        return label
+    }()
+    
+    private var moveToButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.setTitle("Построить маршрут", for: .normal)
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(moveToButtonPressed), for: .touchUpInside)
+        return button
+    }()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         view.backgroundColor = .white
         view.layoutSubviews()
         
@@ -43,28 +75,9 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         
         guard let modelUnwrapped = model else { return }
         coordinates = FireBaseManager.shared.getCoordinatesArray(model: modelUnwrapped)
-        
-        //MARK: - Работа с внешним видом элементов
-        //View for googleMaps
-        forMapView.frame = view.frame
-        
-        popupView.backgroundColor = .white
-        popupView.layer.cornerRadius = 20
-        
-        nameModel.numberOfLines = 0
-        nameModel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         nameModel.text = FireBaseManager.shared.getModelName(model: modelUnwrapped)
-        
-        adressModel.numberOfLines = 0
-        adressModel.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
         adressModel.text = FireBaseManager.shared.getModelAdress(model: modelUnwrapped)
-        
-        moveToButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
-        moveToButton.setTitle("Построить маршрут", for: .normal)
-        moveToButton.layer.cornerRadius = 10
-        moveToButton.setTitleColor(.white, for: .normal)
-        moveToButton.addTarget(self, action: #selector(moveToButtonPressed), for: .touchUpInside)
-        
+
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
         let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 15)
@@ -119,6 +132,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         super.updateViewConstraints()
     }
     
+    //MARK: - Метод для добавления маркера на карту
     private func addMarker(mapView: GMSMapView, latData: Double, lonData: Double) {
         //MARK: - работа с маркером
         mapView.clear()
@@ -128,7 +142,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         mapView.selectedMarker = marker
     }
     
-    //MARK: - Функция по нажатию на кластер или маркер
+    //MARK: - Метод по нажатию на кластер или маркер
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // center the map on tapped marker
         mapView.animate(toLocation: marker.position)
