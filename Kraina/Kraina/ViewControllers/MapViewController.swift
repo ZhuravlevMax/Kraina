@@ -181,8 +181,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     //MARK: - Действие кнопки moveToButton
     @objc private func moveToButtonPressed() {
         let modelViewController = ModelViewController()
-        modelViewController.model = model
-        
+        guard let modelUnwrapped = model else {return}
+        modelViewController.setModel(modelToSet: modelUnwrapped)
         self.navigationController?.pushViewController(modelViewController, animated: true)
         print("LOL")
     }

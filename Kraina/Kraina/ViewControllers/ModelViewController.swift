@@ -13,12 +13,12 @@ import FirebaseFirestore
 class ModelViewController: UIViewController {
     
     //MARK: - Создание переменных
-    var mainImageView = UIImageView()
-    var nameLabel = UILabel()
-    var adressLabel = UILabel()
-    var coordinatesLabel = UILabel()
-    var showOnMapButton = UIButton(type: .system)
-    var modelDescription = UILabel()
+   private var mainImageView = UIImageView()
+   private var nameLabel = UILabel()
+   private var adressLabel = UILabel()
+   private var coordinatesLabel = UILabel()
+   private var showOnMapButton = UIButton(type: .system)
+   private var modelDescription = UILabel()
     
     private lazy var modelScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -40,7 +40,7 @@ class ModelViewController: UIViewController {
     }()
 
     //Сюда передаю нужную модель/достопримечательность
-    var model: QueryDocumentSnapshot?
+    private var model: QueryDocumentSnapshot?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,15 +65,13 @@ class ModelViewController: UIViewController {
         contentView.addSubview(modelDescription)
         
         setImage(model: model)
-        //self.configureImageView()
+
         setImageViewConstraite()
 
         initialize()
         
     }
-    
-   
-    
+
     private func initialize() {
 
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -82,7 +80,7 @@ class ModelViewController: UIViewController {
     }
     
     //MARK: - Работа с внешним видом элементов
-    func setImageViewConstraite() {
+   private func setImageViewConstraite() {
         
         showOnMapButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
         showOnMapButton.setTitle("Посмотреть на карте", for: .normal)
@@ -162,7 +160,7 @@ class ModelViewController: UIViewController {
                 
     }
     
-    func setImage(model: QueryDocumentSnapshot) {
+   private func setImage(model: QueryDocumentSnapshot) {
         let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: model)
         guard let imageURL = imagesUrlArray.first else {return}
             self.mainImageView.load(url: imageURL)
@@ -179,4 +177,10 @@ class ModelViewController: UIViewController {
         self.navigationController?.pushViewController(forModelMapVC, animated: true)
         print("LOL")
     }
+    
+    //MARK: - Метод для получения модели из других VC
+    func setModel(modelToSet: QueryDocumentSnapshot) {
+        model = modelToSet
+    }
+    
 }
