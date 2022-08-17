@@ -42,6 +42,7 @@ class ModelViewController: UIViewController {
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
 
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -167,13 +168,14 @@ class ModelViewController: UIViewController {
         mainImageView.contentMode = .scaleAspectFill
     }
     
+    //MARK: - Действие при нажатии кнопки showOnMapButton
     @objc private func showOnMapButtonPressed() {
         
         let forModelMapVC  = ForModelMapViewController()
         guard let model = model else {return}
         
-        forModelMapVC.model = model
-        forModelMapVC.coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
+        forModelMapVC.setModel(modelToSet: model)
+        //forModelMapVC.coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
         self.navigationController?.pushViewController(forModelMapVC, animated: true)
         print("LOL")
     }

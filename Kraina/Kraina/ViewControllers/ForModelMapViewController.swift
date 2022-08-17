@@ -16,36 +16,40 @@ import FirebaseFirestore
 
 class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     
+    //MARK: - Создание переменных
     private var mapView: GMSMapView!
-    var model: QueryDocumentSnapshot?
-    var coordinate: [Double]?
+    private var model: QueryDocumentSnapshot?
+    private var coordinates: [Double] = []
+    private lazy var forMapView = UIView()
+    private lazy var popupView = UIView()
+    private var nameModel = UILabel()
+    private var adressModel = UILabel()
+    private var moveToButton = UIButton()
     
-    lazy var forMapView = UIView()
-    lazy var popupView = UIView()
-    var nameModel = UILabel()
-    var adressModel = UILabel()
-    var moveToButton = UIButton()
-    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         view.backgroundColor = .white
         view.layoutSubviews()
-        //View for googleMaps
-        forMapView.frame = view.frame
         
+        //MARK: - Добавление элементов на экран
         view.addSubview(forMapView)
         view.addSubview(popupView)
         popupView.addSubview(nameModel)
         popupView.addSubview(adressModel)
         popupView.addSubview(moveToButton)
         
+        guard let modelUnwrapped = model else { return }
+        coordinates = FireBaseManager.shared.getCoordinatesArray(model: modelUnwrapped)
+        
+        //MARK: - Работа с внешним видом элементов
+        //View for googleMaps
+        forMapView.frame = view.frame
+        
         popupView.backgroundColor = .white
         popupView.layer.cornerRadius = 20
-        
-        
-        guard let coordinate = coordinate,
-        let modelUnwrapped = model else { return }
         
         nameModel.numberOfLines = 0
         nameModel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -63,17 +67,18 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
-        let camera = GMSCameraPosition.camera(withLatitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 15)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
         self.forMapView.addSubview(self.mapView)
         
         self.mapView.delegate = self
         
-        addMarker(mapView: mapView, latData: coordinate[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+        addMarker(mapView: mapView, latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
         
         updateViewConstraints()
     }
     
+    //MARK: - контсрейты для элементов
     override func updateViewConstraints() {
         
         //для view для googleMaps
@@ -110,11 +115,11 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
             $0.top.equalTo(adressModel).inset(50)
             $0.height.equalTo(50)
         }
-
+        
         super.updateViewConstraints()
     }
     
-    func addMarker(mapView: GMSMapView, latData: Double, lonData: Double) {
+    private func addMarker(mapView: GMSMapView, latData: Double, lonData: Double) {
         //MARK: - работа с маркером
         mapView.clear()
         let marker = GMSMarker()
@@ -143,6 +148,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         return false
     }
     
+    //MARK: - Метод при нажатии на карту
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         //скрываю попап
@@ -152,8 +158,14 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
             self.view.layoutIfNeeded()}
     }
     
+    //MARK: - действие при нажатии на кнопку moveToButton
     @objc private func moveToButtonPressed() {
         print("LOL")
+    }
+    
+    //MARK: - Метод для получения модели из других VC
+    func setModel(modelToSet: QueryDocumentSnapshot) {
+        model = modelToSet
     }
 }
 
