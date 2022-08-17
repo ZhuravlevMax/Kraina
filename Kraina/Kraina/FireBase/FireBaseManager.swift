@@ -78,8 +78,8 @@ class FireBaseManager {
             return key.contains("\(FireBaseFieldsEnum.images)")
         }
         
-        if let imageUrls = imagesDict.map({$0.value as? [String]}), let imagesUrlArray = imageUrls {
-            return imagesUrlArray
+        if let imagesDictUnwrapped = imagesDict, let imageUrls = imagesDictUnwrapped.value as? [String] {
+            return imageUrls
         }
         return [""]
     }
@@ -93,8 +93,8 @@ class FireBaseManager {
             return key.contains("\(FireBaseFieldsEnum.coordinate)")
         }
         
-        if let coordinates = coordinatesDict.map({$0.value as? [Double]}), let coordinatesArray = coordinates {
-            return coordinatesArray
+        if let coordinatesDictUnwrapped = coordinatesDict, let coordinates = coordinatesDictUnwrapped.value as? [Double] {
+            return coordinates
         }
         return [0]
     }
@@ -108,8 +108,8 @@ class FireBaseManager {
                 let nameDict = modelData.first { key, value in
                     return key.contains("\(FireBaseFieldsEnum.name)")
                 }
-                if let name = nameDict.map({ $0.value as? String}), let nameUnwrapped = name {
-                    return nameUnwrapped
+                if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
+                    return name
                 }
             }
         }
@@ -143,8 +143,8 @@ class FireBaseManager {
         let nameDict = modelData.first { key, value in
             return key.contains("\(FireBaseFieldsEnum.name)")
         }
-        if let name = nameDict.map({ $0.value as? String}), let nameUnwrapped = name {
-            return nameUnwrapped
+        if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
+            return name
         }
         return ""
     }
@@ -152,11 +152,11 @@ class FireBaseManager {
     //MARK: - метод для получения адреса достопримечательности
     func getModelAdress(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
-        let nameDict = modelData.first { key, value in
+        let adressDict = modelData.first { key, value in
             return key.contains("\(FireBaseFieldsEnum.adress)")
         }
-        if let adress = nameDict.map({ $0.value as? String}), let adressUnwrapped = adress {
-            return adressUnwrapped
+        if let adressDictUnwrapped = adressDict, let adress = adressDictUnwrapped.value as? String {
+            return adress
         }
         return ""
     }
@@ -167,8 +167,8 @@ class FireBaseManager {
         let descriptionDict = modelData.first { key, value in
             return key.contains("\(FireBaseFieldsEnum.description)")
         }
-        if let description = descriptionDict.map({ $0.value as? String}), let descriptionUnwrapped = description {
-            return descriptionUnwrapped
+        if let descriptionDictUnwrapped = descriptionDict, let description = descriptionDictUnwrapped.value as? String {
+            return description
         }
         return ""
     }

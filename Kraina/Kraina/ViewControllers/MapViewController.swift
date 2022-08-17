@@ -79,10 +79,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
-        guard let modelsUnwrapped = models else {return}
-        modelsUnwrapped.forEach({
-            coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
-        })
+        if let modelsUnwrapped = models {
+            modelsUnwrapped.forEach({
+                coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
+            })
+        } else {
+            FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { [self] models in
+                models.forEach({
+                    self.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
+                })
+                self.doClusters(coordinatesArray: self.coordinatesArray)
+            }
+        }
+        
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
@@ -98,18 +107,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
-
-            for coordinate in self.coordinatesArray {
-                let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-                let marker = GMSMarker(position: position)
-                
-                self.markerArray.append(marker)
-            }
+        
+        for coordinate in self.coordinatesArray {
+            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+            let marker = GMSMarker(position: position)
             
-            //Добавляю точки в менеджер кластеров
-            self.clusterManager.add(self.markerArray)
-            
-            self.clusterManager.cluster()
+            self.markerArray.append(marker)
+        }
+        
+        //Добавляю точки в менеджер кластеров
+        self.clusterManager.add(self.markerArray)
+        
+        self.clusterManager.cluster()
         
         updateViewConstraints()
     }
@@ -128,7 +137,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         }
         
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
-
+            
             //MARK: - Текст для лейблов
             self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
             self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
@@ -205,6 +214,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     //MARK: - Метод для передачи моделей из других VC
     func setModels(modelsForSet: [QueryDocumentSnapshot]) {
         models = modelsForSet
+    }
+    
+    func doClusters(coordinatesArray: [[Double]]) {
+        for coordinate in coordinatesArray {
+            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+            let marker = GMSMarker(position: position)
+            
+            self.markerArray.append(marker)
+        }
+        
+        //Добавляю точки в менеджер кластеров
+        self.clusterManager.add(self.markerArray)
+        
+        self.clusterManager.cluster()
     }
     
 }
