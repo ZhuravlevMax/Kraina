@@ -16,6 +16,7 @@ import FirebaseFirestore
 
 class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate {
     
+    //MARK: - Создание переменных
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
     private var models: [QueryDocumentSnapshot]?
@@ -23,11 +24,38 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     private var coordinatesArray: [[Double]] = []
     private var markerArray: [GMSMarker] = []
     
+    //MARK: - Cоздание элементов UI
     private lazy var forMapView = UIView()
-    private lazy var popupView = UIView()
-    private var nameModelLabel = UILabel()
-    private var adressModelLabel = UILabel()
-    private var moveToButton = UIButton()
+    private lazy var popupView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    private lazy var nameModelLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.numberOfLines = 0
+        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return nameLabel
+    }()
+    
+    private lazy var adressModelLabel: UILabel = {
+        let adressLabel = UILabel()
+        adressLabel.numberOfLines = 0
+        adressLabel.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        return adressLabel
+    }()
+    
+    private lazy var moveToButton: UIButton = {
+        let moveButton = UIButton()
+        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        moveButton.setTitle("Узнать больше", for: .normal)
+        moveButton.layer.cornerRadius = 10
+        moveButton.setTitleColor(.white, for: .normal)
+        moveButton.addTarget(self, action: #selector(self.moveToButtonPressed), for: .touchUpInside)
+        return moveButton
+    }()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -97,26 +125,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         }
         
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
-            //print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
-            
-            //MARK: - Настройка отображения элементов
-            self.popupView.backgroundColor = .white
-            self.popupView.layer.cornerRadius = 20
-            
-            self.nameModelLabel.numberOfLines = 0
-            self.nameModelLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+
+            //MARK: - Текст для лейблов
             self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
-            
-            self.adressModelLabel.numberOfLines = 0
-            self.adressModelLabel.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
             self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
-            
-            self.moveToButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
-            self.moveToButton.setTitle("Узнать больше", for: .normal)
-            self.moveToButton.layer.cornerRadius = 10
-            self.moveToButton.setTitleColor(.white, for: .normal)
-            self.moveToButton.addTarget(self, action: #selector(self.moveToButtonPressed), for: .touchUpInside)
-            
             self.model = QueryDocumentSnapshot
             
             //достаю попап
