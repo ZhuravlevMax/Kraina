@@ -18,4 +18,14 @@ extension UIView{
         self.layer.insertSublayer(gradient, at: 0)
         self.layer.masksToBounds = true
     }
+
+        func dropShadow(scale: Bool = true) {
+            layer.masksToBounds = false
+            layer.shadowColor = UIColor.black.cgColor
+            layer.shadowOpacity = 0.4
+            layer.shadowOffset = .zero
+            layer.shadowRadius = 10
+            layer.shouldRasterize = true
+            layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+        }
 }
