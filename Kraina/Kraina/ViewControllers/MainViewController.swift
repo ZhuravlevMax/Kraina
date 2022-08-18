@@ -131,8 +131,9 @@ class MainViewController: UIViewController {
         }
         
         logInView.snp.makeConstraints {
-            $0.trailing.leading.equalToSuperview().inset(40)
-            $0.bottom.top.equalToSuperview().inset(250)
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.equalTo(450)
+            $0.trailing.leading.equalToSuperview().inset(20)
         }
         
         titleLoginLable.snp.makeConstraints {
@@ -172,6 +173,7 @@ class MainViewController: UIViewController {
             $0.height.equalTo(50)
         }
         
+        hideKeyboardWhenTappedAround()
         super.updateViewConstraints()
     }
     //MARK: - Действие кнопки logIn

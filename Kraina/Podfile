@@ -6,6 +6,7 @@ target 'Kraina' do
   use_frameworks!
 
   # Pods for Kraina
+
 pod 'GoogleMaps'
 pod 'Google-Maps-iOS-Utils', '~> 4.1.0'
 pod 'FirebaseAnalytics'
@@ -17,6 +18,8 @@ pod 'FirebaseFirestore'
 pod 'SnapKit', '~> 5.0.0'
 pod 'FirebaseUI/Auth'
 pod 'FirebaseUI/Google'
+pod 'GoogleSignIn'
+pod 'Firebase'
 
 
 end
