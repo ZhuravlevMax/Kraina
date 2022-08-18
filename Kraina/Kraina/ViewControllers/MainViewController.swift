@@ -70,7 +70,9 @@ class MainViewController: UIViewController {
         moveButton.setTitle("Войти", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
+        moveButton.dropShadow()
         moveButton.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
+        moveButton.dropShadow()
         return moveButton
     }()
     
@@ -89,6 +91,7 @@ class MainViewController: UIViewController {
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
         moveButton.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
+        moveButton.dropShadow()
         return moveButton
     }()
     
