@@ -8,17 +8,28 @@
 import Foundation
 
 enum FireBaseCollectionsEnum {
-    case castles
+    case attraction
 }
-enum FireBaseFieldsEnum {
-    case adress
-    case name
-    case longtitude
-    case latitude
-    case description
+
+enum FireBaseTypeEnum {
+    case architecture
+    case religion
 }
 
 enum FireBaseCastlesEnum {
     case bihovskiyZamok
-    case mkrskiy
+    case mirskiyZamok
+}
+
+enum FireBaseFieldsEnum {
+    case adress
+    case name
+    case coordinate
+    case description
+    case images
+}
+
+enum FirebaseCoordinateEnum: Int {
+    case latitude = 0
+    case longtitude
 }
