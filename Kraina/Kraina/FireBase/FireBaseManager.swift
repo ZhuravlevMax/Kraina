@@ -26,19 +26,10 @@ class FireBaseManager {
     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
         // [START get_multiple_all]
         db.collection(collection).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var modelsArray: [QueryDocumentSnapshot] = []
-                guard let querySnapshot = querySnapshot else {return}
-                for document in querySnapshot.documents {
-                    //print("\(document.documentID) => \(document.data())")
-                    modelsArray.append(document)
-                }
-                completion(modelsArray)
-            }
+            guard let querySnapshot = querySnapshot else {return}
+            let modelsArray = querySnapshot.documents
+            completion(modelsArray)
         }
-        // [END get_multiple_all]
     }
     
     //MARK: - метод для получения полей одного документа
@@ -119,22 +110,16 @@ class FireBaseManager {
     //MARK: - метод для получения достопримечательности по кооринатам
     func getModelByCoordinate(collection: String, latitude: Double, completion: @escaping (QueryDocumentSnapshot) -> Void) {
         db.collection(collection).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var model: QueryDocumentSnapshot?
-                guard let querySnapshot = querySnapshot else {return}
-                
-                for document in querySnapshot.documents {
-                    //print("\(document.documentID) => \(document.data())")
-                    let coordinates = self.getCoordinatesArray(model: document)
-                    if coordinates.contains(latitude) {
-                        model = document
-                    }
+            guard let querySnapshot = querySnapshot else {return}
+            var model: QueryDocumentSnapshot?
+            querySnapshot.documents.forEach({
+                let coordinates = self.getCoordinatesArray(model: $0)
+                if coordinates.contains(latitude) {
+                    model = $0
                 }
-                guard let model = model else {return}
-                completion(model)
-            }
+            })
+            guard let model = model else {return}
+            completion(model)
         }
     }
     //MARK: - метод для получения названия достопримечательности

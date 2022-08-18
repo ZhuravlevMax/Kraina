@@ -171,8 +171,7 @@ class ModelViewController: UIViewController {
     }
     
     private func setImage(model: QueryDocumentSnapshot) {
-        let imagesUrlArray = FireBaseManager.shared.getImagesPathArray(model: model)
-        guard let imageURL = imagesUrlArray.first else {return}
+        guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
         self.mainImageView.load(url: imageURL)
     }
     

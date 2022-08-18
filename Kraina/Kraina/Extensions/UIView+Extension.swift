@@ -18,16 +18,4 @@ extension UIView{
         self.layer.insertSublayer(gradient, at: 0)
         self.layer.masksToBounds = true
     }
-    
-    func assignBackground(imageName: String){
-        let background = UIImage(named: imageName)
-        let imageView = UIImageView(frame: self.bounds)
-        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = background
-        imageView.center = self.center
-        self.addSubview(imageView)
-        self.sendSubviewToBack(imageView)
-    }
-    
 }
