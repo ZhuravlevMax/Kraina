@@ -15,6 +15,8 @@ pod 'FirebaseFirestore'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
 pod 'SnapKit', '~> 5.0.0'
+pod 'FirebaseUI/Auth'
+pod 'FirebaseUI/Google'
 
 
 end

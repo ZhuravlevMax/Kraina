@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
         return nameLabel
     }()
     
-   private lazy var nameTextField: UITextField = {
+    private lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Введите Логин"
@@ -51,18 +51,18 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-         let textField = UITextField()
-         textField.translatesAutoresizingMaskIntoConstraints = false
-         textField.placeholder = "Введите Пароль"
-         textField.keyboardType = UIKeyboardType.default
-         textField.returnKeyType = UIReturnKeyType.done
-         textField.autocorrectionType = UITextAutocorrectionType.no
-         textField.font = UIFont.systemFont(ofSize: 13)
-         textField.borderStyle = UITextField.BorderStyle.roundedRect
-         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
-         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-         return textField
-     }()
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Введите Пароль"
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.font = UIFont.systemFont(ofSize: 13)
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing;
+        textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        return textField
+    }()
     
     private lazy var logInButton: UIButton = {
         let moveButton = UIButton()
@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
         return moveButton
     }()
     
-
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,7 @@ class MainViewController: UIViewController {
         logInView.addSubview(logInButton)
         logInView.addSubview(createAccLabel)
         logInView.addSubview(сreateAccButton)
-
+        
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -171,7 +171,7 @@ class MainViewController: UIViewController {
             $0.top.equalTo(createAccLabel).inset(30)
             $0.height.equalTo(50)
         }
-
+        
         super.updateViewConstraints()
     }
     //MARK: - Действие кнопки logIn
@@ -181,8 +181,10 @@ class MainViewController: UIViewController {
     
     //MARK: - Действие кнопки createAcc
     @objc private func сreateAccButtonPressed() {
+        let registerVC  = RegistrationViewController()
+        self.present(registerVC, animated: true)
         print("create")
     }
-
-    }
+    
+}
 

@@ -10,6 +10,7 @@
 		945F75F728A8E9BA0013122D /* ModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F75F628A8E9B90013122D /* ModelViewController.swift */; };
 		945F75FB28A96FFE0013122D /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F75FA28A96FFE0013122D /* Image+Extension.swift */; };
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
+		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
 		94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498728A29D9C00A06B6D /* MainViewController.swift */; };
@@ -35,6 +36,7 @@
 		945F75F628A8E9B90013122D /* ModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewController.swift; sourceTree = "<group>"; };
 		945F75FA28A96FFE0013122D /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
+		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94D8498528A29D9C00A06B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,12 +123,13 @@
 		94D849A128A2A08B00A06B6D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				94D8499728A29E7000A06B6D /* TabBarViewController.swift */,
 				94D8498728A29D9C00A06B6D /* MainViewController.swift */,
+				94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */,
 				94D8499B28A29FB400A06B6D /* MapViewController.swift */,
 				945F75F628A8E9B90013122D /* ModelViewController.swift */,
 				94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */,
 				94D8499F28A2A01A00A06B6D /* FavoriteViewController.swift */,
-				94D8499728A29E7000A06B6D /* TabBarViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */,
 				94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */,
 				945F75FB28A96FFE0013122D /* Image+Extension.swift in Sources */,
+				94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */,
 				94D8499C28A29FB400A06B6D /* MapViewController.swift in Sources */,
 				945F75F728A8E9BA0013122D /* ModelViewController.swift in Sources */,
 				94D849A028A2A01A00A06B6D /* FavoriteViewController.swift in Sources */,
