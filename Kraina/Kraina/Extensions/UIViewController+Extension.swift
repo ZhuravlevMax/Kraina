@@ -39,4 +39,21 @@ extension UIViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
+    
+    //MARK: - Проверка введенного email
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    //MARK: - AlertController для ошибок
+    func doErrorAlert(title: String, message: String) {
+        let errorAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButtonAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController.addAction(okButtonAction)
+        self.present(errorAlertController, animated: true)
+    }
+    
+    
 }

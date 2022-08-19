@@ -24,17 +24,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        
-        FirebaseApp.configure()
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if user == nil {
-                self.window?.rootViewController = TabBarViewController()
+        window?.rootViewController = TabBarViewController()
+
+        Auth.auth().addStateDidChangeListener { [self] auth, user in
+            if user != nil {
+                window?.rootViewController = LogInViewController()
             } else {
-                self.window?.rootViewController = RegistrationViewController()
+                window?.rootViewController = TabBarViewController()
             }
         }
-        
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
