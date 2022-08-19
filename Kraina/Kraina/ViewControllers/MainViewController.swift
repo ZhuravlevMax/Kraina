@@ -21,6 +21,19 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
+    private lazy var logOutButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.setTitle("Выйти", for: .normal)
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.green, for: .highlighted)
+        button.dropShadow()
+        button.addTarget(self, action: #selector(self.logOutButtonPressed), for: .touchUpInside)
+        button.dropShadow()
+        return button
+    }()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +45,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)
+        mainView.addSubview(logOutButton)
         
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
@@ -52,8 +66,22 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             $0.trailing.leading.top.bottom.equalToSuperview()
         }
         
+        logOutButton.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        
         hideKeyboardWhenTappedAround()
         super.updateViewConstraints()
+    }
+    
+    //MARK: - Действие кнопки logOut
+    @objc private func logOutButtonPressed() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error)
+        }
     }
     
 }

@@ -175,7 +175,21 @@ class LogInViewController: UIViewController {
     
     //MARK: - Действие кнопки logIn
     @objc private func logInButtonPressed() {
+        
+        if let email = emailTextField.text,
+           let passwordText = passwordTextField.text {
+            if isValidEmail(testStr: email), passwordText.count > 5 {
+                Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
+                    
+                }
+                
+            } else {
+                doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+            }
 
+        }
+        
+        
         print("login")
     }
     
