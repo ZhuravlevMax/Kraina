@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Создание переменных
     var documentArray: [FireBaseDocument] = []
@@ -65,15 +65,16 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var logInButton: UIButton = {
-        let moveButton = UIButton()
-        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
-        moveButton.setTitle("Войти", for: .normal)
-        moveButton.layer.cornerRadius = 10
-        moveButton.setTitleColor(.white, for: .normal)
-        moveButton.dropShadow()
-        moveButton.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
-        moveButton.dropShadow()
-        return moveButton
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.setTitle("Войти", for: .normal)
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.green, for: .highlighted)
+        button.dropShadow()
+        button.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
+        button.dropShadow()
+        return button
     }()
     
     private lazy var createAccLabel: UILabel = {
@@ -85,20 +86,25 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var сreateAccButton: UIButton = {
-        let moveButton = UIButton()
-        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
-        moveButton.setTitle("Зарегистрироваться", for: .normal)
-        moveButton.layer.cornerRadius = 10
-        moveButton.setTitleColor(.white, for: .normal)
-        moveButton.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
-        moveButton.dropShadow()
-        return moveButton
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.setTitle("Зарегистрироваться", for: .normal)
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.green, for: .highlighted)
+        button.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
+        button.dropShadow()
+        return button
     }()
     
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameTextField.delegate = self
+        passwordTextField.delegate = self
+        
         view.layoutSubviews()
         
         title = "Главная"
@@ -189,6 +195,14 @@ class MainViewController: UIViewController {
         let registerVC  = RegistrationViewController()
         self.present(registerVC, animated: true)
         print("create")
+    }
+    
+}
+
+extension MainViewController: UITextViewDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
     
 }

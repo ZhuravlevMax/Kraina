@@ -23,12 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GMSServices.provideAPIKey("\(key)")
         }
         
-        FirebaseApp.configure()
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if user == nil {
-                
-            }
-        }
+        
         return true
     }
 
