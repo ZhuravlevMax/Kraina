@@ -88,6 +88,8 @@ class ModelViewController: UIViewController {
         view.backgroundColor = .white
         view.layoutSubviews()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addToFavoriteButtonPressed))
+        
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View
@@ -190,6 +192,11 @@ class ModelViewController: UIViewController {
     //MARK: - Метод для получения модели из других VC
     func setModel(modelToSet: QueryDocumentSnapshot) {
         model = modelToSet
+    }
+    
+    @objc private func addToFavoriteButtonPressed() {
+
+        print("LOL")
     }
     
 }

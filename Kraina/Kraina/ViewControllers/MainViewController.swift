@@ -57,6 +57,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         title = "Главная"
         view.backgroundColor = .white
         
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
+            print (models.first?.documentID)
+        }
+        
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)
         mainView.addSubview(logOutButton)
