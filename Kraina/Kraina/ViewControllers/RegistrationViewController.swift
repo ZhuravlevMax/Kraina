@@ -153,8 +153,8 @@ class RegistrationViewController: UIViewController {
                     print(error)
                     if let resultUnwrapped = result {
                         print(resultUnwrapped.user.uid)
-                        let ref = Database.database().reference().child("users")
-                        ref.child(resultUnwrapped.user.uid).updateChildValues(["email" : email, "favorites" : [""]])
+                        let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                        ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email, "\(UsersFieldsEnum.favorites)" : [""]])
                         
                     } else {
                         doErrorAlert(title: "Ошибка", message: "Возможно данный email уже зарегистрирован")

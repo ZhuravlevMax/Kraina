@@ -143,14 +143,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         //                                        guard let userId = FireBaseManager.shared.userID else {return}
         //                                        ref.child(userId).updateChildValues(["favorites" : userFavoritesUnwrappet])
         
-        FireBaseManager.shared.getUserFavoritesArray { favorites in
-            print(favorites)
-            var favoritesArray = favorites
-            favoritesArray.append("dadda")
-            let ref = Database.database().reference().child("users")
-            guard let userId = FireBaseManager.shared.userID else {return}
-            ref.child(userId).updateChildValues(["favorites" : favoritesArray])
-        }
+//        FireBaseManager.shared.getUserFavoritesArray { favorites in
+//            print(favorites)
+//            var favoritesArray = favorites
+//            favoritesArray.append("dadda")
+//            let ref = Database.database().reference().child("users")
+//            guard let userId = FireBaseManager.shared.userID else {return}
+//            ref.child(userId).updateChildValues(["favorites" : favoritesArray])
+//        }
         
     }
 }

@@ -9,6 +9,7 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import Firebase
 
 class ModelViewController: UIViewController {
     
@@ -80,7 +81,7 @@ class ModelViewController: UIViewController {
         contentView.frame.size = contentSize
         return contentView
     }()
-
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,7 +196,17 @@ class ModelViewController: UIViewController {
     }
     
     @objc private func addToFavoriteButtonPressed() {
-
+        FireBaseManager.shared.getUserFavoritesArray { [self] favorites in
+            print(favorites)
+            var favoritesArray = favorites
+            guard let model = model,
+                  !favoritesArray.contains(model.documentID),
+                  let userId = Auth.auth().currentUser?.uid
+            else {return}
+            favoritesArray.append("\(model.documentID)")
+            let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+            ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+        }
         print("LOL")
     }
     

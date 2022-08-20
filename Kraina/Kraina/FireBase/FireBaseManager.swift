@@ -19,7 +19,6 @@ class FireBaseManager {
     static let shared = FireBaseManager(settings: FirestoreSettings())
     var db = Firestore.firestore()
     let settings: FirestoreSettings
-    let userID = Auth.auth().currentUser?.uid
     let ref = Database.database().reference()
     var userFavorites: [String]?
     
@@ -169,7 +168,7 @@ class FireBaseManager {
     
     //MARK: - метод для получения всех данных пользователя
     func getUserData(completion: @escaping (Any) -> Void) {
-        guard let userId = userID else {
+        guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
         Database.database().reference().child("\(UsersFieldsEnum.users)").child(userId).observe(.value) { snapshot in
@@ -184,7 +183,7 @@ class FireBaseManager {
     
     //MARK: - метод получения избранного юзера
     func getUserFavoritesArray(completion: @escaping ([String]) -> Void) {
-        guard let userId = userID else {return}
+        guard let userId = Auth.auth().currentUser?.uid else {return}
         Database.database().reference().child("\(UsersFieldsEnum.users)").child(userId).getData {error, snapshot in
             guard let snapshotUnwrapped = snapshot else {return}
             if let value = snapshotUnwrapped.value, snapshotUnwrapped.exists(), let valueDict = value as? [String : Any] {
