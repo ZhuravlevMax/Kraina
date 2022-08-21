@@ -69,7 +69,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.gray
+        appearance.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance

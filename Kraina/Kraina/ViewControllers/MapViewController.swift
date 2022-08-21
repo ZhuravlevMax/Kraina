@@ -111,6 +111,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         for coordinate in self.coordinatesArray {
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
+            marker.icon = UIImage(named: "church2")
             
             self.markerArray.append(marker)
         }
@@ -220,6 +221,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         for coordinate in coordinatesArray {
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
+            marker.icon = UIImage(named: "church")
             
             self.markerArray.append(marker)
         }
