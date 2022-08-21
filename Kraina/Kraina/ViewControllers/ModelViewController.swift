@@ -83,7 +83,7 @@ class ModelViewController: UIViewController {
         return contentView
     }()
     
-    private lazy var navBarItem: UIButton = {
+    private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
         button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
@@ -93,6 +93,19 @@ class ModelViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.tintColor = UIColor.white
         button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.tintColor = UIColor.white
         return button
     }()
     
@@ -124,10 +137,18 @@ class ModelViewController: UIViewController {
         
         FireBaseManager.shared.getUserFavoritesArray {
             self.favoriteState = $0.contains(model.documentID)
-            self.favoriteState ? self.navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.navBarItem.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navBarItem)
+        let yourBackImage = UIImage(named: "back_button_image")
+        self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
+        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+ 
         setImage(model: model)
         initialize()
         updateViewConstraints()
@@ -215,6 +236,7 @@ class ModelViewController: UIViewController {
         model = modelToSet
     }
     
+    //MARK: - метод для кнопки добавить в избранное в нав баре
     @objc private func addToFavoriteButtonPressed() {
         FireBaseManager.shared.getUserFavoritesArray { [self] favorites in
             print(favorites)
@@ -224,16 +246,22 @@ class ModelViewController: UIViewController {
             else {return}
             
             if favoritesArray.contains(model.documentID) {
-                navBarItem.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
                 if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             } else {
-                navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
                 favoritesArray.append("\(model.documentID)")
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             }
         }
+    }
+    
+    //MARK: - метод для кнопки назад в нав баре
+    @objc private func backButtonPressed() {
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popToRootViewController(animated: true)
     }
 }
