@@ -13,6 +13,7 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import CoreLocation
 
 class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate {
     
@@ -108,11 +109,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
         
-        for coordinate in self.coordinatesArray {
-            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-            let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: "church2")
+        guard let models = models else {return}
+
+        for model in models {
             
+           let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
+        let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+            let marker = GMSMarker(position: position)
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: model))
             self.markerArray.append(marker)
         }
         
