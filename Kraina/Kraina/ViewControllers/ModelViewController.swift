@@ -82,6 +82,19 @@ class ModelViewController: UIViewController {
         return contentView
     }()
     
+    private lazy var navBarItem: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = UIColor.white
+        button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
+        return button
+    }()
+
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,8 +102,8 @@ class ModelViewController: UIViewController {
         view.backgroundColor = .white
         view.layoutSubviews()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addToFavoriteButtonPressed))
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navBarItem)
+
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View
@@ -203,6 +216,7 @@ class ModelViewController: UIViewController {
                   !favoritesArray.contains(model.documentID),
                   let userId = Auth.auth().currentUser?.uid
             else {return}
+            navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
             favoritesArray.append("\(model.documentID)")
             let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
             ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
