@@ -16,6 +16,7 @@ class ModelViewController: UIViewController {
     //MARK: - Создание переменных
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
+    private var favoriteState = false
     
     //MARK: - Создание элементов UI
     private var mainImageView: UIImageView = {
@@ -94,7 +95,7 @@ class ModelViewController: UIViewController {
         button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
         return button
     }()
-
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,8 +103,8 @@ class ModelViewController: UIViewController {
         view.backgroundColor = .white
         view.layoutSubviews()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navBarItem)
-
+        
+        
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View
@@ -121,6 +122,12 @@ class ModelViewController: UIViewController {
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
         
+        FireBaseManager.shared.getUserFavoritesArray {
+            self.favoriteState = $0.contains(model.documentID)
+            self.favoriteState ? self.navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.navBarItem.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navBarItem)
         setImage(model: model)
         initialize()
         updateViewConstraints()
@@ -213,15 +220,20 @@ class ModelViewController: UIViewController {
             print(favorites)
             var favoritesArray = favorites
             guard let model = model,
-                  !favoritesArray.contains(model.documentID),
                   let userId = Auth.auth().currentUser?.uid
             else {return}
-            navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-            favoritesArray.append("\(model.documentID)")
-            let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
-            ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+            
+            if favoritesArray.contains(model.documentID) {
+                navBarItem.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+            } else {
+                navBarItem.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                favoritesArray.append("\(model.documentID)")
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+            }
         }
-        print("LOL")
     }
-    
 }
