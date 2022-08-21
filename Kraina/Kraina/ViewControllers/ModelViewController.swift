@@ -149,6 +149,7 @@ class ModelViewController: UIViewController {
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
  
+        backToRoot()
         setImage(model: model)
         initialize()
         updateViewConstraints()
@@ -261,6 +262,20 @@ class ModelViewController: UIViewController {
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popToRootViewController(animated: true)
+    }
+}
+
+extension ModelViewController {
+    func backToRoot() {
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self,
+                                                        action: #selector(back))
+        swipeDownGesture.direction = .right
+        view.addGestureRecognizer(swipeDownGesture)
+    }
+    
+    @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popToRootViewController(animated: true)
     }
