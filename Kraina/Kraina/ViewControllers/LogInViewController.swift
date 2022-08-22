@@ -66,7 +66,7 @@ class LogInViewController: UIViewController {
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.backgroundColor = AppColorsEnum.mainAppColor
         button.setTitle("Войти", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -87,7 +87,7 @@ class LogInViewController: UIViewController {
     
     private lazy var сreateAccButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.backgroundColor = AppColorsEnum.mainAppColor
         button.setTitle("Зарегистрироваться", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -177,18 +177,14 @@ class LogInViewController: UIViewController {
     @objc private func logInButtonPressed() {
         
         if let email = emailTextField.text,
-           let passwordText = passwordTextField.text {
-            if isValidEmail(testStr: email), passwordText.count > 5 {
-                Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
-                    
-                }
-                
-            } else {
-                doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+           let passwordText = passwordTextField.text,
+           isValidEmail(testStr: email),
+           passwordText.count > 5 {
+            Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
             }
-            
+        } else {
+            doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
         }
-        print("login")
     }
     
     //MARK: - Действие кнопки createAcc

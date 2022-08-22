@@ -54,7 +54,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     
     private lazy var moveToButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        moveButton.backgroundColor = AppColorsEnum.mainAppColor
         moveButton.setTitle("Узнать больше", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
@@ -209,12 +209,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     func doClusters() {
         guard let models = models else {return}
         
-        for model in models {
-            
-            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
+        models.forEach {
+            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: model))
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
             self.markerArray.append(marker)
         }
         

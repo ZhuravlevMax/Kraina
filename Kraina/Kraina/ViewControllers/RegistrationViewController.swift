@@ -11,7 +11,7 @@ import Firebase
 class RegistrationViewController: UIViewController {
     
     //MARK: - Создание переменных
-    var successfullLabel: (()->())?
+    var successfullLabel: (() -> Void)?
     
     //MARK: - Создание элементов UI
     private lazy var registerView: UIView = {
@@ -75,7 +75,7 @@ class RegistrationViewController: UIViewController {
     
     private lazy var registerButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        moveButton.backgroundColor = AppColorsEnum.mainAppColor
         moveButton.setTitle("Подтвердить", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)

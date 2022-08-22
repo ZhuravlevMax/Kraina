@@ -17,7 +17,7 @@ class FavoriteViewController: UIViewController {
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        appearance.backgroundColor = AppColorsEnum.mainAppColor
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
