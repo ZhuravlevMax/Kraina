@@ -74,9 +74,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-        
-        
-        
+
         updateViewConstraints()
     }
     
@@ -95,8 +93,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             $0.leading.trailing.equalToSuperview().inset(50)
             $0.top.equalTo(logOutButton).inset(50)
         }
-        
-        
+
         hideKeyboardWhenTappedAround()
         super.updateViewConstraints()
     }

@@ -83,10 +83,8 @@ class RegistrationViewController: UIViewController {
         return moveButton
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         view.backgroundColor = .white
         
@@ -165,7 +163,5 @@ class RegistrationViewController: UIViewController {
             }
             print("register")
         }
-        
-        
     }
 }

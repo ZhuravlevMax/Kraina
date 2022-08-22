@@ -148,7 +148,7 @@ class ModelViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
- 
+        
         backToRoot()
         setImage(model: model)
         initialize()

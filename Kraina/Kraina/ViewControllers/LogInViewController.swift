@@ -186,10 +186,8 @@ class LogInViewController: UIViewController {
             } else {
                 doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
             }
-
+            
         }
-        
-        
         print("login")
     }
     

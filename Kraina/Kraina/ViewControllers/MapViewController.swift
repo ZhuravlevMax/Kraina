@@ -78,7 +78,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(moveToButton)
         
-        
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
             modelsUnwrapped.forEach({
@@ -135,7 +134,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
             self.model = QueryDocumentSnapshot
             
             //достаю попап
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.3) {
                 self.popupView.snp.updateConstraints {
                     $0.bottom.equalToSuperview()}
                 self.view.layoutIfNeeded()}
@@ -147,7 +146,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         //скрываю попап
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.3) {
             self.popupView.snp.updateConstraints {
                 $0.bottom.equalToSuperview().offset(250)}
             self.view.layoutIfNeeded()}
@@ -226,3 +225,5 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     }
     
 }
+
+
