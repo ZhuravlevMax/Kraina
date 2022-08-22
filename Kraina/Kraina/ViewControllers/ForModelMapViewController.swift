@@ -51,11 +51,24 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     
     private var moveToButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.backgroundColor = AppColorsEnum.mainAppColor
         button.setTitle("Построить маршрут", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(moveToButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.tintColor = UIColor.white
         return button
     }()
     
@@ -87,6 +100,9 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         self.mapView.delegate = self
         
         addMarker(mapView: mapView, latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
         
         updateViewConstraints()
     }
@@ -180,6 +196,12 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     //MARK: - Метод для получения модели из других VC
     func setModel(modelToSet: QueryDocumentSnapshot) {
         model = modelToSet
+    }
+    
+    //MARK: - метод для кнопки назад в нав баре
+    @objc private func backButtonPressed() {
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
 }
 

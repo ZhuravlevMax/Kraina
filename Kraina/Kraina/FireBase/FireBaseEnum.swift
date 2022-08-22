@@ -27,9 +27,16 @@ enum FireBaseFieldsEnum {
     case coordinate
     case description
     case images
+    case type
 }
 
 enum FirebaseCoordinateEnum: Int {
     case latitude = 0
     case longtitude
+}
+
+enum UsersFieldsEnum {
+    case users
+    case email
+    case favorites
 }

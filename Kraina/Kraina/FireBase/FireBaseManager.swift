@@ -11,17 +11,23 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import Firebase
 
 class FireBaseManager {
     
+    //MARK: - Объявление переменных
     static let shared = FireBaseManager(settings: FirestoreSettings())
     var db = Firestore.firestore()
     let settings: FirestoreSettings
+    let ref = Database.database().reference()
+    var userFavorites: [String]?
+    
     
     init (settings: FirestoreSettings) {
         self.settings = settings
         Firestore.firestore().settings = settings
     }
+    
     //MARK: - метод для получения всей коллекции
     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
         // [START get_multiple_all]
@@ -89,6 +95,8 @@ class FireBaseManager {
         }
         return [0]
     }
+    
+    
     
     //MARK: - метод для получения названия достопримечательности по кооринатам
     func getNameByCoordinate(models: [QueryDocumentSnapshot], latitude: Double) -> String {
@@ -158,6 +166,48 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения типа достопримечательности
+    func getModelType(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let typeDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.type)")
+        }
+        if let typeDictUnwrapped = typeDict, let type = typeDictUnwrapped.value as? String {
+            return type
+        }
+        return ""
+    }
+    
+    //MARK: - метод для получения всех данных пользователя
+    func getUserData(completion: @escaping (Any) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Database.database().reference().child("\(UsersFieldsEnum.users)").child(userId).observe(.value) { snapshot in
+            guard let value = snapshot.value, snapshot.exists() else {
+                print("ERROR")
+                return
+            }
+            completion(value)
+        }
+    }
+    
+    
+    //MARK: - метод получения избранного юзера
+    func getUserFavoritesArray(completion: @escaping ([String]) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {return}
+        Database.database().reference().child("\(UsersFieldsEnum.users)").child(userId).getData {error, snapshot in
+            guard let snapshotUnwrapped = snapshot else {return}
+            if let value = snapshotUnwrapped.value, snapshotUnwrapped.exists(), let valueDict = value as? [String : Any] {
+                let favoritesDict = valueDict.first { key, value in
+                    return key.contains("\(UsersFieldsEnum.favorites)")
+                }
+                guard let favoritesDictUnwrapped = favoritesDict, let favorites = favoritesDictUnwrapped.value as? [String] else {return}
+                completion(favorites)
+            }
+        }
+        
+    }
 }
 
 

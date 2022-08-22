@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMaps
 import FirebaseCore
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let key = Bundle.main.object(forInfoDictionaryKey: "GoogleMapsApiKey") as? String {
             GMSServices.provideAPIKey("\(key)")
         }
-        
         FirebaseApp.configure()
+
         return true
     }
 

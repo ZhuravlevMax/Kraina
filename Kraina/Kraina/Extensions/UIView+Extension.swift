@@ -24,8 +24,27 @@ extension UIView{
             layer.shadowColor = UIColor.black.cgColor
             layer.shadowOpacity = 0.4
             layer.shadowOffset = .zero
-            layer.shadowRadius = 10
+            layer.shadowRadius = 4
             layer.shouldRasterize = true
             layer.rasterizationScale = scale ? UIScreen.main.scale : 1
         }
+    
+    func hideView() {
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self,
+                                                        action: #selector(hide))
+        swipeDownGesture.direction = .down
+        self.addGestureRecognizer(swipeDownGesture)
+    }
+    
+    @objc func hide() {
+        
+        //скрываю попап
+        UIView.animate(withDuration: 5) {
+            self.snp.updateConstraints {
+                $0.bottom.equalToSuperview().offset(250)
+            }
+            self.layoutIfNeeded()
+        }
+    }
+    
 }

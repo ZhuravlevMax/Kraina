@@ -13,6 +13,7 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import CoreLocation
 
 class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate {
     
@@ -53,7 +54,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     
     private lazy var moveToButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        moveButton.backgroundColor = AppColorsEnum.mainAppColor
         moveButton.setTitle("Узнать больше", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
@@ -77,7 +78,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(moveToButton)
         
-        
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
             modelsUnwrapped.forEach({
@@ -88,7 +88,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
                 models.forEach({
                     self.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
                 })
-                self.doClusters(coordinatesArray: self.coordinatesArray)
+                self.doClusters()
             }
         }
         
@@ -108,17 +108,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
         
-        for coordinate in self.coordinatesArray {
-            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-            let marker = GMSMarker(position: position)
-            
-            self.markerArray.append(marker)
-        }
-        
-        //Добавляю точки в менеджер кластеров
-        self.clusterManager.add(self.markerArray)
-        
-        self.clusterManager.cluster()
+        doClusters()
         
         updateViewConstraints()
     }
@@ -144,7 +134,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
             self.model = QueryDocumentSnapshot
             
             //достаю попап
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.3) {
                 self.popupView.snp.updateConstraints {
                     $0.bottom.equalToSuperview()}
                 self.view.layoutIfNeeded()}
@@ -156,7 +146,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
         //скрываю попап
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.3) {
             self.popupView.snp.updateConstraints {
                 $0.bottom.equalToSuperview().offset(250)}
             self.view.layoutIfNeeded()}
@@ -216,11 +206,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         models = modelsForSet
     }
     
-    func doClusters(coordinatesArray: [[Double]]) {
-        for coordinate in coordinatesArray {
+    func doClusters() {
+        guard let models = models else {return}
+        
+        models.forEach {
+            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
-            
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
             self.markerArray.append(marker)
         }
         
@@ -231,3 +224,5 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     }
     
 }
+
+

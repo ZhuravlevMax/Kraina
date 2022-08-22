@@ -9,12 +9,14 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import Firebase
 
 class ModelViewController: UIViewController {
     
     //MARK: - Создание переменных
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
+    private var favoriteState = false
     
     //MARK: - Создание элементов UI
     private var mainImageView: UIImageView = {
@@ -43,7 +45,7 @@ class ModelViewController: UIViewController {
     
     private var showDescriptionButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+        button.backgroundColor = AppColorsEnum.mainAppColor
         button.setTitle("Посмотреть на карте", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -80,13 +82,41 @@ class ModelViewController: UIViewController {
         contentView.frame.size = contentSize
         return contentView
     }()
-
+    
+    private lazy var addToFavoriteButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = UIColor.white
+        button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.tintColor = UIColor.white
+        return button
+    }()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         view.layoutSubviews()
+        
+        
         
         guard let model = model else {return}
         
@@ -105,6 +135,21 @@ class ModelViewController: UIViewController {
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
         
+        FireBaseManager.shared.getUserFavoritesArray {
+            self.favoriteState = $0.contains(model.documentID)
+            self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
+        
+        let yourBackImage = UIImage(named: "back_button_image")
+        self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
+        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
+        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        backToRoot()
         setImage(model: model)
         initialize()
         updateViewConstraints()
@@ -192,4 +237,46 @@ class ModelViewController: UIViewController {
         model = modelToSet
     }
     
+    //MARK: - метод для кнопки добавить в избранное в нав баре
+    @objc private func addToFavoriteButtonPressed() {
+        FireBaseManager.shared.getUserFavoritesArray { [self] favorites in
+            print(favorites)
+            var favoritesArray = favorites
+            guard let model = model,
+                  let userId = Auth.auth().currentUser?.uid
+            else {return}
+            
+            if favoritesArray.contains(model.documentID) {
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+            } else {
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                favoritesArray.append("\(model.documentID)")
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+            }
+        }
+    }
+    
+    //MARK: - метод для кнопки назад в нав баре
+    @objc private func backButtonPressed() {
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popToRootViewController(animated: true)
+    }
+}
+
+extension ModelViewController {
+    func backToRoot() {
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self,
+                                                        action: #selector(back))
+        swipeDownGesture.direction = .right
+        view.addGestureRecognizer(swipeDownGesture)
+    }
+    
+    @objc func back() {
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popToRootViewController(animated: true)
+    }
 }
