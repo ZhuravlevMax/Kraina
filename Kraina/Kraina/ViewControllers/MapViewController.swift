@@ -89,7 +89,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
                 models.forEach({
                     self.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
                 })
-                self.doClusters(coordinatesArray: self.coordinatesArray)
+                self.doClusters()
             }
         }
         
@@ -109,21 +109,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
         
-        guard let models = models else {return}
-
-        for model in models {
-            
-           let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
-        let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-            let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: model))
-            self.markerArray.append(marker)
-        }
-        
-        //Добавляю точки в менеджер кластеров
-        self.clusterManager.add(self.markerArray)
-        
-        self.clusterManager.cluster()
+        doClusters()
         
         updateViewConstraints()
     }
@@ -221,12 +207,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         models = modelsForSet
     }
     
-    func doClusters(coordinatesArray: [[Double]]) {
-        for coordinate in coordinatesArray {
+    func doClusters() {
+        guard let models = models else {return}
+        
+        for model in models {
+            
+            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: "church")
-            
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: model))
             self.markerArray.append(marker)
         }
         
