@@ -48,13 +48,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     private lazy var adressModelLabel: UILabel = {
         let adressLabel = UILabel()
         adressLabel.numberOfLines = 0
-        adressLabel.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        adressLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
         return adressLabel
     }()
     
     private lazy var moveToButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppColor
+        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
         moveButton.setTitle("Узнать больше", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
@@ -62,10 +62,35 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         return moveButton
     }()
     
+    
+    lazy var modelCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: 100, height: 30)
+        
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        // collectionView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
+        collectionView.backgroundColor = .clear
+        
+        return collectionView
+        
+    }()
+    
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layoutSubviews()
+        
+        
+        modelCollectionView.delegate = self
+        modelCollectionView.dataSource = self
+        modelCollectionView.register(ModelCollectionViewCell.self, forCellWithReuseIdentifier: ModelCollectionViewCell.key)
         
         forMapView.frame = view.frame
         view.backgroundColor = .white
@@ -73,10 +98,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         //MARK: - Добавление элементов на экран
         view.addSubview(forMapView)
+        view.addSubview(modelCollectionView)
         view.addSubview(popupView)
         popupView.addSubview(nameModelLabel)
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(moveToButton)
+        //view.addSubview(modelCollectionView)
+        
+        
+        
         
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
@@ -181,13 +211,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         adressModelLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(nameModelLabel).inset(40)
+            $0.top.equalTo(nameModelLabel).inset(50)
         }
         
         moveToButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(adressModelLabel).inset(50)
             $0.height.equalTo(50)
+        }
+        
+        modelCollectionView.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
         super.updateViewConstraints()
     }
@@ -225,4 +261,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     
 }
 
+extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        9
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell {
+            collectionCell.setLabel(setText: "dwadwdwadwada")
+            collectionCell.backgroundColor = .white
+            collectionCell.layer.cornerRadius = 10
+            collectionCell.layer.borderWidth = 3
+            collectionCell.layer.borderColor = AppColorsEnum.mainAppCGColor
+            return collectionCell
+        }
+        return UICollectionViewCell()
+    }
+
+}
 

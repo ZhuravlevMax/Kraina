@@ -21,31 +21,33 @@ class ModelViewController: UIViewController {
     //MARK: - Создание элементов UI
     private var mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
     private var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 0
         return label
     }()
     
     private var adressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 11, weight: .ultraLight)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         label.numberOfLines = 0
         return label
     }()
     
     private var coordinatesLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
         return label
     }()
     
     private var showDescriptionButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.setTitle("Посмотреть на карте", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -85,7 +87,7 @@ class ModelViewController: UIViewController {
     
     private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
@@ -98,7 +100,7 @@ class ModelViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
@@ -193,12 +195,12 @@ class ModelViewController: UIViewController {
         
         adressLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(nameLabel).inset(30)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(10)
         }
         
         coordinatesLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(adressLabel).inset(30)
+            $0.top.equalTo(adressLabel.snp.bottom).offset(10)
         }
         
         showDescriptionButton.snp.makeConstraints {

@@ -11,6 +11,10 @@
 		945F75F728A8E9BA0013122D /* ModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F75F628A8E9B90013122D /* ModelViewController.swift */; };
 		945F75FB28A96FFE0013122D /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945F75FA28A96FFE0013122D /* Image+Extension.swift */; };
 		9469CA4728B3A5450025CD0F /* ColorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA4628B3A5450025CD0F /* ColorsEnum.swift */; };
+		9469CA4F28B3EF830025CD0F /* KrainaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA4E28B3EF830025CD0F /* KrainaTests.swift */; };
+		9469CA5C28B3F4BF0025CD0F /* KrainaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA5B28B3F4BF0025CD0F /* KrainaUITests.swift */; };
+		9469CA5E28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA5D28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift */; };
+		9469CA6528B4B26D0025CD0F /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */; };
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
@@ -31,6 +35,23 @@
 		A15365B6BB8F12B935496593 /* Pods_Kraina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2904552F156C4587AD370719 /* Pods_Kraina.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9469CA5028B3EF830025CD0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94D8497828A29D9C00A06B6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94D8497F28A29D9C00A06B6D;
+			remoteInfo = Kraina;
+		};
+		9469CA5F28B3F4BF0025CD0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94D8497828A29D9C00A06B6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94D8497F28A29D9C00A06B6D;
+			remoteInfo = Kraina;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2904552F156C4587AD370719 /* Pods_Kraina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kraina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.release.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.release.xcconfig"; sourceTree = "<group>"; };
@@ -39,6 +60,12 @@
 		945F75F628A8E9B90013122D /* ModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewController.swift; sourceTree = "<group>"; };
 		945F75FA28A96FFE0013122D /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		9469CA4628B3A5450025CD0F /* ColorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsEnum.swift; sourceTree = "<group>"; };
+		9469CA4C28B3EF820025CD0F /* KrainaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KrainaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9469CA4E28B3EF830025CD0F /* KrainaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrainaTests.swift; sourceTree = "<group>"; };
+		9469CA5928B3F4BF0025CD0F /* KrainaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KrainaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9469CA5B28B3F4BF0025CD0F /* KrainaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrainaUITests.swift; sourceTree = "<group>"; };
+		9469CA5D28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrainaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +88,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9469CA4928B3EF820025CD0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9469CA5628B3F4BF0025CD0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94D8497D28A29D9C00A06B6D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,10 +130,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9469CA4D28B3EF830025CD0F /* KrainaTests */ = {
+			isa = PBXGroup;
+			children = (
+				9469CA4E28B3EF830025CD0F /* KrainaTests.swift */,
+			);
+			path = KrainaTests;
+			sourceTree = "<group>";
+		};
+		9469CA5A28B3F4BF0025CD0F /* KrainaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9469CA5B28B3F4BF0025CD0F /* KrainaUITests.swift */,
+				9469CA5D28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift */,
+			);
+			path = KrainaUITests;
+			sourceTree = "<group>";
+		};
 		94D8497728A29D9C00A06B6D = {
 			isa = PBXGroup;
 			children = (
 				94D8498228A29D9C00A06B6D /* Kraina */,
+				9469CA4D28B3EF830025CD0F /* KrainaTests */,
+				9469CA5A28B3F4BF0025CD0F /* KrainaUITests */,
 				94D8498128A29D9C00A06B6D /* Products */,
 				3EBAADF395618D7A05B458F2 /* Pods */,
 				6FED24C6A47440A6C4E8F100 /* Frameworks */,
@@ -103,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				94D8498028A29D9C00A06B6D /* Kraina.app */,
+				9469CA4C28B3EF820025CD0F /* KrainaTests.xctest */,
+				9469CA5928B3F4BF0025CD0F /* KrainaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +195,7 @@
 				94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */,
 				942EFE2228AF713A00B52F1E /* LogInViewController.swift */,
 				94D8499B28A29FB400A06B6D /* MapViewController.swift */,
+				9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */,
 				945F75F628A8E9B90013122D /* ModelViewController.swift */,
 				94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */,
 				94D8499F28A2A01A00A06B6D /* FavoriteViewController.swift */,
@@ -171,6 +234,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9469CA4B28B3EF820025CD0F /* KrainaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9469CA5428B3EF830025CD0F /* Build configuration list for PBXNativeTarget "KrainaTests" */;
+			buildPhases = (
+				9469CA4828B3EF820025CD0F /* Sources */,
+				9469CA4928B3EF820025CD0F /* Frameworks */,
+				9469CA4A28B3EF820025CD0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9469CA5128B3EF830025CD0F /* PBXTargetDependency */,
+			);
+			name = KrainaTests;
+			productName = KrainaTests;
+			productReference = 9469CA4C28B3EF820025CD0F /* KrainaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9469CA5828B3F4BF0025CD0F /* KrainaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9469CA6128B3F4BF0025CD0F /* Build configuration list for PBXNativeTarget "KrainaUITests" */;
+			buildPhases = (
+				9469CA5528B3F4BF0025CD0F /* Sources */,
+				9469CA5628B3F4BF0025CD0F /* Frameworks */,
+				9469CA5728B3F4BF0025CD0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9469CA6028B3F4BF0025CD0F /* PBXTargetDependency */,
+			);
+			name = KrainaUITests;
+			productName = KrainaUITests;
+			productReference = 9469CA5928B3F4BF0025CD0F /* KrainaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		94D8497F28A29D9C00A06B6D /* Kraina */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94D8499428A29DA000A06B6D /* Build configuration list for PBXNativeTarget "Kraina" */;
@@ -198,9 +297,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					9469CA4B28B3EF820025CD0F = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 94D8497F28A29D9C00A06B6D;
+					};
+					9469CA5828B3F4BF0025CD0F = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 94D8497F28A29D9C00A06B6D;
+					};
 					94D8497F28A29D9C00A06B6D = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -220,11 +327,27 @@
 			projectRoot = "";
 			targets = (
 				94D8497F28A29D9C00A06B6D /* Kraina */,
+				9469CA4B28B3EF820025CD0F /* KrainaTests */,
+				9469CA5828B3F4BF0025CD0F /* KrainaUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9469CA4A28B3EF820025CD0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9469CA5728B3F4BF0025CD0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94D8497E28A29D9C00A06B6D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,6 +421,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9469CA4828B3EF820025CD0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9469CA4F28B3EF830025CD0F /* KrainaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9469CA5528B3F4BF0025CD0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9469CA5E28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift in Sources */,
+				9469CA5C28B3F4BF0025CD0F /* KrainaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94D8497C28A29D9C00A06B6D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +456,7 @@
 				94D8499C28A29FB400A06B6D /* MapViewController.swift in Sources */,
 				945F75F728A8E9BA0013122D /* ModelViewController.swift in Sources */,
 				942EFE2328AF713A00B52F1E /* LogInViewController.swift in Sources */,
+				9469CA6528B4B26D0025CD0F /* ModelCollectionViewCell.swift in Sources */,
 				94D849A028A2A01A00A06B6D /* FavoriteViewController.swift in Sources */,
 				94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */,
 				94DE307128A2F2B6003B5DF4 /* FireBaseDocument.swift in Sources */,
@@ -323,6 +464,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9469CA5128B3EF830025CD0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94D8497F28A29D9C00A06B6D /* Kraina */;
+			targetProxy = 9469CA5028B3EF830025CD0F /* PBXContainerItemProxy */;
+		};
+		9469CA6028B3F4BF0025CD0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94D8497F28A29D9C00A06B6D /* Kraina */;
+			targetProxy = 9469CA5F28B3F4BF0025CD0F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		94D8498928A29D9C00A06B6D /* Main.storyboard */ = {
@@ -344,6 +498,80 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9469CA5228B3EF830025CD0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K3XRV9KVYN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZhuravlevMax.KrainaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kraina.app/Kraina";
+			};
+			name = Debug;
+		};
+		9469CA5328B3EF830025CD0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K3XRV9KVYN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZhuravlevMax.KrainaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kraina.app/Kraina";
+			};
+			name = Release;
+		};
+		9469CA6228B3F4BF0025CD0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K3XRV9KVYN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZhuravlevMax.KrainaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Kraina;
+			};
+			name = Debug;
+		};
+		9469CA6328B3F4BF0025CD0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K3XRV9KVYN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ZhuravlevMax.KrainaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Kraina;
+			};
+			name = Release;
+		};
 		94D8499228A29DA000A06B6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -519,6 +747,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9469CA5428B3EF830025CD0F /* Build configuration list for PBXNativeTarget "KrainaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9469CA5228B3EF830025CD0F /* Debug */,
+				9469CA5328B3EF830025CD0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9469CA6128B3F4BF0025CD0F /* Build configuration list for PBXNativeTarget "KrainaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9469CA6228B3F4BF0025CD0F /* Debug */,
+				9469CA6328B3F4BF0025CD0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		94D8497B28A29D9C00A06B6D /* Build configuration list for PBXProject "Kraina" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

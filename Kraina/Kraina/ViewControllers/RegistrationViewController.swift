@@ -75,7 +75,7 @@ class RegistrationViewController: UIViewController {
     
     private lazy var registerButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppColor
+        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
         moveButton.setTitle("Подтвердить", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
