@@ -10,8 +10,18 @@ import Firebase
 
 class ModelCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Создание переменных
     static let key = "modelCell"
+    private var modelType: String?
+    private var models: [QueryDocumentSnapshot]?
+    var changeTypeDelegate: ChangeTypeDelegate?
+    override var isSelected: Bool {
+        didSet {
+            setSelectedAttribute(isSelected: isSelected)
+        }
+    }
     
+    //MARK: - Создание элементов UI
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -26,40 +36,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
         return nameLabel
     }()
     
-    private var modelType: String?
-    private var models: [QueryDocumentSnapshot]?
-    
-    var changeTypeDelegate: ChangeTypeDelegate?
-    
-    override var isSelected: Bool {
-        didSet {
-            setSelectedAttribute(isSelected: isSelected)
-        }
-    }
-    
-    func setSelectedAttribute(isSelected: Bool) {
-        
-        self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
-        var modelsToMapArray: [QueryDocumentSnapshot] = []
-        guard let models = models else {return}
-        
-        models.forEach {
-            var modelTypeFromDB = FireBaseManager.shared.getModelType(model: $0)
-            if self.modelType == modelTypeFromDB {
- 
-                modelsToMapArray.append($0)
-                
-            }
-            
-        }
-        guard let changeTypeDelegate = self.changeTypeDelegate else {return}
-        
-        changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
-        
-    }
-    
-    
-    
+    //MARK: - Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -68,6 +45,16 @@ class ModelCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(iconImageView)
         contentView.addSubview(modelName)
         
+        updateViewConstraints()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    //MARK: - Работа с констрейнтами
+    func updateViewConstraints() {
         iconImageView.snp.makeConstraints {
             $0.left.top.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(-10)
@@ -79,19 +66,9 @@ class ModelCollectionViewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(-10)
             //$0.centerY.equalToSuperview()
         }
-        
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        
-    }
-    
+    //MARK: - Метод для получения значений из других VC
     func setVar(setText: String, setType: String, image: UIImage, modelsSet: [QueryDocumentSnapshot]) {
         modelName.text = setText
         modelType = setType
@@ -100,5 +77,19 @@ class ModelCollectionViewCell: UICollectionViewCell {
         
     }
     
-    
+    //MARK: - Метод при выборе ячейки
+    func setSelectedAttribute(isSelected: Bool) {
+        
+        self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
+        var modelsToMapArray: [QueryDocumentSnapshot] = []
+        guard let models = models else {return}
+        models.forEach {
+            var modelTypeFromDB = FireBaseManager.shared.getModelType(model: $0)
+            if self.modelType == modelTypeFromDB {
+                modelsToMapArray.append($0)
+            }
+        }
+        guard let changeTypeDelegate = self.changeTypeDelegate else {return}
+        changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
+    }
 }

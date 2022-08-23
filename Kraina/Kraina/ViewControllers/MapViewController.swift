@@ -241,6 +241,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         models = modelsForSet
     }
     
+    //MARK: - Метод для выбора категорий по нажатию на ячейку через делегат
     func changeMarkerType(modelsSet: [QueryDocumentSnapshot]) {
         markerArray.removeAll()
         mapView.clear()
@@ -259,6 +260,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.clusterManager.cluster()
     }
     
+    //MARK: - Метод добавления кластеров на карту
     func doClusters() {
         guard let models = models else {return}
         
@@ -278,6 +280,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     
 }
 
+//MARK: - Работа с СollectionView
 extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         FireBaseTypeEnum.allCases.count

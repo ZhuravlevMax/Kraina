@@ -149,6 +149,25 @@
 			path = KrainaUITests;
 			sourceTree = "<group>";
 		};
+		94C23CC128B55244005965D5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				94D8498328A29D9C00A06B6D /* AppDelegate.swift */,
+				94D8498528A29D9C00A06B6D /* SceneDelegate.swift */,
+				94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		94C23CC228B55268005965D5 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				9469CA4628B3A5450025CD0F /* ColorsEnum.swift */,
+				94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		94D8497728A29D9C00A06B6D = {
 			isa = PBXGroup;
 			children = (
@@ -174,10 +193,8 @@
 		94D8498228A29D9C00A06B6D /* Kraina */ = {
 			isa = PBXGroup;
 			children = (
-				94D8498328A29D9C00A06B6D /* AppDelegate.swift */,
-				94D8498528A29D9C00A06B6D /* SceneDelegate.swift */,
-				9469CA4628B3A5450025CD0F /* ColorsEnum.swift */,
-				94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */,
+				94C23CC128B55244005965D5 /* Delegates */,
+				94C23CC228B55268005965D5 /* Enums */,
 				94DE307428A5158E003B5DF4 /* FireBase */,
 				94DE307528A51599003B5DF4 /* Extensions */,
 				94D849A128A2A08B00A06B6D /* ViewControllers */,
@@ -218,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				94DE306E28A2F065003B5DF4 /* FireBaseManager.swift */,
-				94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */,
 				94DE307028A2F2B6003B5DF4 /* FireBaseDocument.swift */,
 			);
 			path = FireBase;
