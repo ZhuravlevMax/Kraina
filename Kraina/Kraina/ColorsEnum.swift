@@ -11,4 +11,5 @@ import UIKit
 enum AppColorsEnum {
     static let mainAppUIColor = UIColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
     static let mainAppCGColor = CGColor(red: 43/255, green: 183/255, blue: 143/255, alpha: 1)
+    static let borderCGColor = CGColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1)
 }

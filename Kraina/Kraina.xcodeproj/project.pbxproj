@@ -17,6 +17,7 @@
 		9469CA6528B4B26D0025CD0F /* ModelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */; };
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
+		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
 		94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498728A29D9C00A06B6D /* MainViewController.swift */; };
@@ -68,6 +69,7 @@
 		9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCollectionViewCell.swift; sourceTree = "<group>"; };
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94D8498528A29D9C00A06B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				94D8498328A29D9C00A06B6D /* AppDelegate.swift */,
 				94D8498528A29D9C00A06B6D /* SceneDelegate.swift */,
 				9469CA4628B3A5450025CD0F /* ColorsEnum.swift */,
+				94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */,
 				94DE307428A5158E003B5DF4 /* FireBase */,
 				94DE307528A51599003B5DF4 /* Extensions */,
 				94D849A128A2A08B00A06B6D /* ViewControllers */,
@@ -445,6 +448,7 @@
 				94D849AE28A2E87A00A06B6D /* UIViewController+Extension.swift in Sources */,
 				94D8499828A29E7000A06B6D /* TabBarViewController.swift in Sources */,
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,
+				94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */,
 				9469CA4728B3A5450025CD0F /* ColorsEnum.swift in Sources */,
 				94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */,
 				94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */,

@@ -15,7 +15,9 @@ import FirebaseDatabase
 import FirebaseFirestore
 import CoreLocation
 
-class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate, ChangeTypeDelegate {
+    
+    
     
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
@@ -68,7 +70,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: 100, height: 30)
+        layout.itemSize = CGSize(width: 130, height: 40)
         
 //        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -103,10 +105,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         popupView.addSubview(nameModelLabel)
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(moveToButton)
-        //view.addSubview(modelCollectionView)
-        
-        
-        
+
         
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
@@ -222,7 +221,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         modelCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.height.equalTo(30)
+            $0.height.equalTo(40)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
         super.updateViewConstraints()
@@ -240,6 +239,24 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
     //MARK: - Метод для передачи моделей из других VC
     func setModels(modelsForSet: [QueryDocumentSnapshot]) {
         models = modelsForSet
+    }
+    
+    func changeMarkerType(modelsSet: [QueryDocumentSnapshot]) {
+        markerArray.removeAll()
+        mapView.clear()
+        clusterManager.clearItems()
+        modelsSet.forEach {
+            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
+            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+            let marker = GMSMarker(position: position)
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
+            self.markerArray.append(marker)
+        }
+        
+        //Добавляю точки в менеджер кластеров
+        self.clusterManager.add(self.markerArray)
+        
+        self.clusterManager.cluster()
     }
     
     func doClusters() {
@@ -263,20 +280,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
 
 extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        9
+        FireBaseTypeEnum.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell {
-            collectionCell.setLabel(setText: "dwadwdwadwada")
+        if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell,
+           let imageArchitecture = UIImage(named: "\(FireBaseTypeEnum.architecture)"),
+                 let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)") {
+            if let modelsUnwrapped = models {
+            switch indexPath.row {
+            case FireBaseTypeEnum.architecture.rawValue:
+                collectionCell.setVar(setText: "Архитектура", setType: "\(FireBaseTypeEnum.architecture)", image: imageArchitecture, modelsSet: modelsUnwrapped)
+            case FireBaseTypeEnum.religion.rawValue:
+                collectionCell.setVar(setText: "Религия", setType: "\(FireBaseTypeEnum.religion)", image: imageReligion, modelsSet: modelsUnwrapped)
+            default:
+                ""
+            }
+            }
+            collectionCell.changeTypeDelegate = self
             collectionCell.backgroundColor = .white
-            collectionCell.layer.cornerRadius = 10
-            collectionCell.layer.borderWidth = 3
-            collectionCell.layer.borderColor = AppColorsEnum.mainAppCGColor
+            collectionCell.layer.cornerRadius = 5
+            collectionCell.layer.borderWidth = 1
+            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
             return collectionCell
         }
         return UICollectionViewCell()
     }
+    
 
 }
 
