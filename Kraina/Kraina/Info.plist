@@ -36,6 +36,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
+		<string>yandexnavi</string>
 	</array>
 </dict>
 </plist>
