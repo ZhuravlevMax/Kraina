@@ -289,13 +289,16 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell,
            let imageArchitecture = UIImage(named: "\(FireBaseTypeEnum.architecture)"),
-                 let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)") {
+                 let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)"),
+           let imageMuseum = UIImage(named: "\(FireBaseTypeEnum.museum)") {
             if let modelsUnwrapped = models {
             switch indexPath.row {
             case FireBaseTypeEnum.architecture.rawValue:
                 collectionCell.setVar(setText: "Архитектура", setType: "\(FireBaseTypeEnum.architecture)", image: imageArchitecture, modelsSet: modelsUnwrapped)
             case FireBaseTypeEnum.religion.rawValue:
                 collectionCell.setVar(setText: "Религия", setType: "\(FireBaseTypeEnum.religion)", image: imageReligion, modelsSet: modelsUnwrapped)
+            case FireBaseTypeEnum.museum.rawValue:
+                                collectionCell.setVar(setText: "Музеи", setType: "\(FireBaseTypeEnum.museum)", image: imageMuseum, modelsSet: modelsUnwrapped)
             default:
                 ""
             }

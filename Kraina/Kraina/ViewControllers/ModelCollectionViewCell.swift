@@ -31,7 +31,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     private lazy var modelName: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        //nameLabel.textAlignment = .justified
+        nameLabel.textAlignment = .center
         nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return nameLabel
     }()
@@ -40,7 +40,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        //contentView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(iconImageView)
         contentView.addSubview(modelName)
@@ -57,13 +57,13 @@ class ModelCollectionViewCell: UICollectionViewCell {
     func updateViewConstraints() {
         iconImageView.snp.makeConstraints {
             $0.left.top.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(-10)
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         modelName.snp.makeConstraints {
             $0.left.equalTo(iconImageView.snp.right).offset(10)
-            $0.top.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(-10)
+            $0.top.right.equalToSuperview().inset(10)
+            $0.bottom.equalToSuperview().inset(10)
             //$0.centerY.equalToSuperview()
         }
     }
