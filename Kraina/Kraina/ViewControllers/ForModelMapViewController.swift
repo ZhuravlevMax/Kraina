@@ -75,7 +75,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         view.layoutSubviews()
         
@@ -90,7 +90,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         coordinates = FireBaseManager.shared.getCoordinatesArray(model: modelUnwrapped)
         nameModel.text = FireBaseManager.shared.getModelName(model: modelUnwrapped)
         adressModel.text = FireBaseManager.shared.getModelAdress(model: modelUnwrapped)
-
+        
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
         let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 15)
@@ -190,6 +190,9 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     
     //MARK: - действие при нажатии на кнопку moveToButton
     @objc private func moveToButtonPressed() {
+        
+        showGoogleApp(coordinates: coordinates)
+        
         print("LOL")
     }
     
@@ -202,6 +205,17 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+    }
+    
+    func showGoogleApp(coordinates: [Double]) {
+        guard let urlApp = URL(string:"comgooglemaps://"),
+              let urlDestination = URL(string: "comgooglemaps://?center=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&saddr=&daddr=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&zoom=14&views=traffic")  else {return}
+        
+        if (UIApplication.shared.canOpenURL(urlApp)) {
+            UIApplication.shared.openURL(urlDestination)
+        } else {
+            print("Can't use comgooglemaps://");
+        }
     }
 }
 
