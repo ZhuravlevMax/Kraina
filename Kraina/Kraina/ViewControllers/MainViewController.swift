@@ -24,7 +24,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var logOutButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.setTitle("Выйти", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -37,7 +37,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var getDataButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppColor
+        button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.setTitle("Получить", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -69,7 +69,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = AppColorsEnum.mainAppColor
+        appearance.backgroundColor = AppColorsEnum.mainAppUIColor
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance

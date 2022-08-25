@@ -11,9 +11,10 @@ enum FireBaseCollectionsEnum {
     case attraction
 }
 
-enum FireBaseTypeEnum {
-    case architecture
+enum FireBaseTypeEnum: Int, CaseIterable{
+    case architecture = 0
     case religion
+    case museum
 }
 
 enum FireBaseCastlesEnum {

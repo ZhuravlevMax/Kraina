@@ -40,6 +40,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             MapVC.setModels(modelsForSet: models)
         }
+        
+        tabBar.tintColor = AppColorsEnum.mainAppUIColor
+        
     }
     
     
