@@ -223,7 +223,6 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     func showYandexApp(coordinates: [Double]) {
         guard let urlApp = URL(string:"yandexnavi://"),
               let urlDestination = URL(string: "yandexnavi://build_route_on_map?lat_to=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue])&lon_to=\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])"),
-              let browserUrl = URL(string: "https://www.google.co.in/maps/dir/"),
               let browserUrlDestination = URL(string: "https://itunes.apple.com/ru/app/yandex.navigator/id474500851") else {return}
         
         if (UIApplication.shared.canOpenURL(urlApp)) {

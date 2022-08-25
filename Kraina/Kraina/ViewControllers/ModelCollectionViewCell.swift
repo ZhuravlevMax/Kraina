@@ -83,12 +83,10 @@ class ModelCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
         var modelsToMapArray: [QueryDocumentSnapshot] = []
         guard let models = models else {return}
-        models.forEach {
-            var modelTypeFromDB = FireBaseManager.shared.getModelType(model: $0)
-            if self.modelType == modelTypeFromDB {
-                modelsToMapArray.append($0)
-            }
+        models.map {
+            self.modelType == FireBaseManager.shared.getModelType(model: $0) ? (modelsToMapArray.append($0)) : ()
         }
+   
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
     }
