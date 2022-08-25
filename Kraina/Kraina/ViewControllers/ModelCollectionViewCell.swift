@@ -52,7 +52,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         iconImageView.snp.makeConstraints {
@@ -79,14 +79,13 @@ class ModelCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
-        
+
         self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
-        var modelsToMapArray: [QueryDocumentSnapshot] = []
         guard let models = models else {return}
-        models.map {
-            self.modelType == FireBaseManager.shared.getModelType(model: $0) ? (modelsToMapArray.append($0)) : ()
-        }
-   
+        let modelsToMapArray = models.filter({
+            self.modelType == FireBaseManager.shared.getModelType(model: $0)
+        })
+        
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
     }
