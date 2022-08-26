@@ -17,6 +17,7 @@ enum FireBaseTypeEnum: Int, CaseIterable{
     case museum
 }
 
+
 enum FireBaseCastlesEnum {
     case bihovskiyZamok
     case mirskiyZamok
@@ -29,6 +30,7 @@ enum FireBaseFieldsEnum {
     case description
     case images
     case type
+    case rusType
 }
 
 enum FirebaseCoordinateEnum: Int {

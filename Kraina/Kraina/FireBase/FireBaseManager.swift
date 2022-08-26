@@ -178,6 +178,18 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения типа на русском достопримечательности
+    func getModelRusType(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let typeDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.rusType)")
+        }
+        if let typeDictUnwrapped = typeDict, let type = typeDictUnwrapped.value as? String {
+            return type
+        }
+        return ""
+    }
+    
     //MARK: - метод для получения всех данных пользователя
     func getUserData(completion: @escaping (Any) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {

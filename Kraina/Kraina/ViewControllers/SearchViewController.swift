@@ -57,11 +57,11 @@ class SearchViewController: UIViewController {
         //MARK: - Работа с navigationController
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        navigationItem.setHidesBackButton(true, animated: true)
+        //navigationItem.setHidesBackButton(true, animated: true)
         let yourBackImage = UIImage(named: "back_button_image")
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
-        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -75,7 +75,8 @@ class SearchViewController: UIViewController {
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
-        dismiss(animated: true)
+        guard let navigationControllerUnwrapped = navigationController else {return}
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
     
 }
@@ -90,7 +91,7 @@ extension SearchViewController: UISearchResultsUpdating {
     
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popToRootViewController(animated: true)
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -130,9 +131,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let searchTableViewCell = searchTableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.key, for: indexPath) as? SearchTableViewCell {
+            searchTableViewCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row])
+            searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
+            searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
+            searchTableViewCell.sizeToFit()
+            
             return searchTableViewCell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let modelViewController = ModelViewController()
+        modelViewController.setModel(modelToSet: filteredModels[indexPath.row])
+        self.navigationController?.pushViewController(modelViewController, animated: true)
     }
     
     

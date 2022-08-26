@@ -145,7 +145,7 @@ class ModelViewController: UIViewController {
         let yourBackImage = UIImage(named: "back_button_image")
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
-        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        //self.navigationController?.navigationBar.backItem?.title = "Custom"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
@@ -265,7 +265,7 @@ class ModelViewController: UIViewController {
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popToRootViewController(animated: true)
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
 }
 
@@ -279,6 +279,6 @@ extension ModelViewController {
     
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popToRootViewController(animated: true)
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
 }
