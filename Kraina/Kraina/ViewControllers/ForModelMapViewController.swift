@@ -93,7 +93,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
-        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 13)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
         self.forMapView.addSubview(self.mapView)
         

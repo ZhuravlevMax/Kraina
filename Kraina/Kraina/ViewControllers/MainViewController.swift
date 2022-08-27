@@ -14,12 +14,26 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     var documentArray: [FireBaseDocument] = []
     var coordinatesArray: [Double] = []
     var userFavorites: [String]?
+    var models: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
+    }()
+    
+    private lazy var searchButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = .clear
+        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = UIColor.white
+        button.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
+        return button
     }()
     
     private lazy var logOutButton: UIButton = {
@@ -65,6 +79,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(mainView)
         mainView.addSubview(logOutButton)
         mainView.addSubview(getDataButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
         
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
@@ -109,5 +124,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func getDataButtonPressed() {
         
+    }
+    
+    //MARK: - метод для кнопки добавить в избранное в нав баре
+    @objc private func searchButtonPressed() {
+        let searchVC = SearchViewController()
+        //        let navigationControllerMain = UINavigationController(rootViewController: searchVC)
+        //        present(navigationControllerMain, animated: true)
+        searchVC.models = models
+        
+        self.navigationController?.pushViewController(searchVC, animated: true)
+
+        print("search")
     }
 }

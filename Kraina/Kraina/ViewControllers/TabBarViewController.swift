@@ -6,17 +6,19 @@
 //
 
 import UIKit
+import Firebase
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        tabBarController?.delegate = self
         
         tabBar.backgroundColor = UIColor.white
-//        guard let MainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryboard") as? MainViewController else {return}
-//        guard let MapVC = UIStoryboard(name: "MapStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MapStoryboard") as? MapViewController else {return}
-//        guard let FavotiteVC = UIStoryboard(name: "FavoriteStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteStoryboard") as? FavoriteViewController else {return}
+        //        guard let MainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryboard") as? MainViewController else {return}
+        //        guard let MapVC = UIStoryboard(name: "MapStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MapStoryboard") as? MapViewController else {return}
+        //        guard let FavotiteVC = UIStoryboard(name: "FavoriteStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteStoryboard") as? FavoriteViewController else {return}
         
         let MainVC = MainViewController()
         let MapVC = MapViewController()
@@ -35,11 +37,18 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         navigationControllerFavorite.tabBarItem.title = "Избранное"
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
-
+        
         //Передаю модели на MapVC
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             MapVC.setModels(modelsForSet: models)
+            MainVC.models = models
+            FavoriteVC.setModels(modelsForSet: models)
+            
+            //                favoritesModels = models.filter { model in
+            //                    favoritesNames.contains(FireBaseManager.shared.getModelName(model: model))
+            //                }
         }
+        
         
         tabBar.tintColor = AppColorsEnum.mainAppUIColor
         
