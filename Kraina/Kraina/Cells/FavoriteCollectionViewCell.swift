@@ -22,17 +22,13 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Создание элементов UI
-    private lazy var iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        return imageView
-    }()
-    
-    private lazy var modelName: UILabel = {
+
+    private lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        
         return nameLabel
     }()
     
@@ -41,9 +37,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         //contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(modelName)
+
+        contentView.addSubview(typeNameLabel)
         
         updateViewConstraints()
         
@@ -55,13 +50,10 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
-        iconImageView.snp.makeConstraints {
-            $0.left.top.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(10)
-        }
+
         
-        modelName.snp.makeConstraints {
-            $0.left.equalTo(iconImageView.snp.right).offset(10)
+        typeNameLabel.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(10)
             $0.top.right.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(10)
             //$0.centerY.equalToSuperview()
@@ -69,12 +61,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Метод для получения значений из других VC
-    func setVar(setText: String, setType: String, image: UIImage, modelsSet: [QueryDocumentSnapshot]) {
-        modelName.text = setText
-        modelType = setType
-        iconImageView.image = image
-        models = modelsSet
-        
+    func setVar(setText: String) {
+        typeNameLabel.text = setText.uppercased()
     }
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {

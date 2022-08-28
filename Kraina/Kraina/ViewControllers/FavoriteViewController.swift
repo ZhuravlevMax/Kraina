@@ -48,6 +48,8 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteCollectionViewCell.key)
         
+        
+        
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -140,8 +142,10 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.key, for: indexPath) as? FavoriteCollectionViewCell {
             
-            
-            
+            if let model = favouriteTypeArray[indexPath.row].first {
+                collectionCell.setVar(setText: FireBaseManager.shared.getModelRusType(model: model)
+                )
+            }
             collectionCell.backgroundColor = .white
             collectionCell.layer.cornerRadius = 5
             collectionCell.layer.borderWidth = 1
