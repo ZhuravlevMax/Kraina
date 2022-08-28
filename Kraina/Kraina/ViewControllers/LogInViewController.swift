@@ -23,7 +23,7 @@ class LogInViewController: UIViewController {
     private lazy var logInView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.dropShadow()
+        view.dropShadow(width: 2, height: 2)
         view.layer.cornerRadius = 20
         return view
     }()
@@ -71,9 +71,8 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
-        button.dropShadow()
+        button.dropShadow(width: 2, height: 2)
         button.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
-        button.dropShadow()
         return button
     }()
     
@@ -93,7 +92,7 @@ class LogInViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
         button.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
-        button.dropShadow()
+        button.dropShadow(width: 2, height: 2)
         return button
     }()
     

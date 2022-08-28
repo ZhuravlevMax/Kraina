@@ -143,14 +143,13 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
         if let collectionCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.key, for: indexPath) as? FavoriteCollectionViewCell {
             
             if let model = favouriteTypeArray[indexPath.row].first {
-                collectionCell.setVar(setText: FireBaseManager.shared.getModelRusType(model: model)
-                )
+                collectionCell.setVar(setText: FireBaseManager.shared.getModelRusType(model: model), count: favouriteTypeArray[indexPath.row].count)
             }
             collectionCell.backgroundColor = .white
             collectionCell.layer.cornerRadius = 5
-            collectionCell.layer.borderWidth = 1
+           // collectionCell.layer.borderWidth = 1
             collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
-            collectionCell.dropShadow(scale: true)
+            collectionCell.dropShadow(width: 2, height: 3)
             return collectionCell
         }
         return UICollectionViewCell()
@@ -159,7 +158,7 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = view.frame.size.width
-        return CGSize(width: width * 0.4, height: width * 0.3)
+        return CGSize(width: width * 0.41, height: width * 0.3)
         
     }
     

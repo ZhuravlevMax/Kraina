@@ -43,9 +43,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
-        button.dropShadow()
+        button.dropShadow(width: 2, height: 2)
         button.addTarget(self, action: #selector(self.logOutButtonPressed), for: .touchUpInside)
-        button.dropShadow()
         return button
     }()
     
@@ -56,9 +55,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
-        button.dropShadow()
+        button.dropShadow(width: 2, height: 2)
         button.addTarget(self, action: #selector(self.getDataButtonPressed), for: .touchUpInside)
-        button.dropShadow()
         return button
     }()
     

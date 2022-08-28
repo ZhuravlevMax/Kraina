@@ -32,6 +32,16 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return nameLabel
     }()
     
+    private lazy var countLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.numberOfLines = 0
+        nameLabel.textAlignment = .center
+        nameLabel.textColor = .gray
+        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        
+        return nameLabel
+    }()
+    
     //MARK: - Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +49,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         //contentView.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(typeNameLabel)
+        contentView.addSubview(countLabel)
         
         updateViewConstraints()
         
@@ -58,11 +69,19 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(10)
             //$0.centerY.equalToSuperview()
         }
+        
+        countLabel.snp.makeConstraints {
+            
+            $0.top.right.equalToSuperview().inset(10)
+
+            //$0.centerY.equalToSuperview()
+        }
     }
     
     //MARK: - Метод для получения значений из других VC
-    func setVar(setText: String) {
+    func setVar(setText: String, count: Int) {
         typeNameLabel.text = setText.uppercased()
+        countLabel.text = String(count)
     }
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
