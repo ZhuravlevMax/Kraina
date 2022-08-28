@@ -12,13 +12,17 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
     
     private var models: [QueryDocumentSnapshot]?
     private var favoriteModels = [QueryDocumentSnapshot]()
+    private var favouriteTypeArray: [[QueryDocumentSnapshot]] = []
+    private var architectureTypeArray = [QueryDocumentSnapshot]()
+    private var religionTypeArray = [QueryDocumentSnapshot]()
+    private var museumTypeArray = [QueryDocumentSnapshot]()
     private var favoritesNames: [String] = []
     
     //MARK: - Cоздание элементов UI
     lazy var favoriteCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-  
+        
         layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 20
         //layout.itemSize = CGSize(width: 130, height: 130)
@@ -54,14 +58,14 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         navigationItem.compactAppearance = appearance
         
         updateFavoriteArray()
-
+        
         view.addSubview(favoriteCollectionView)
         print(favoriteModels)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         self.tabBarController?.delegate = self
     }
     
@@ -82,7 +86,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         }
         super.updateViewConstraints()
     }
-
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
         if tabBarIndex == 2 {
@@ -98,37 +102,65 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
             favoriteModels = models.filter { model in
                 favoritesNames.contains(model.documentID)
             }
+            favouriteTypeArray.removeAll()
+            
+            architectureTypeArray = favoriteModels.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+            }
+            
+            religionTypeArray = favoriteModels.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+            }
+            
+            museumTypeArray = favoriteModels.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+            }
+            
+            architectureTypeArray.isEmpty ? () : (favouriteTypeArray.append(architectureTypeArray))
+            religionTypeArray.isEmpty ? () : (favouriteTypeArray.append(religionTypeArray))
+            museumTypeArray.isEmpty ? () : (favouriteTypeArray.append(museumTypeArray))
+            //favouriteTypeArray = [architectureTypeArray, religionTypeArray, museumTypeArray]
+            
+            print(favouriteTypeArray)
             favoriteCollectionView.reloadData()
+            
+            
         })
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = view.frame.size.width
-        return CGSize(width: width * 0.4, height: width * 0.4)
-        
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        }
 }
 
+//MARK: - Рабоnа с collectionView
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        favoriteModels.count
+        favouriteTypeArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.key, for: indexPath) as? FavoriteCollectionViewCell {
             
+            
+            
             collectionCell.backgroundColor = .white
             collectionCell.layer.cornerRadius = 5
             collectionCell.layer.borderWidth = 1
             collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+            collectionCell.dropShadow(scale: true)
             return collectionCell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = view.frame.size.width
+        return CGSize(width: width * 0.4, height: width * 0.3)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
     
