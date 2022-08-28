@@ -38,7 +38,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         navigationControllerFavorite.tabBarItem.title = "Избранное"
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
         
-        //Передаю модели на MapVC
+        //Передаю модели на VC
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             MapVC.setModels(modelsForSet: models)
             MainVC.models = models

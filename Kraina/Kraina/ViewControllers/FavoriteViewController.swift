@@ -15,9 +15,23 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
     private var favoritesNames: [String] = []
     
     //MARK: - Cоздание элементов UI
-    private lazy var favoriteTableView: UITableView = {
-        let tableView = UITableView()
-        return tableView
+    lazy var favoriteCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+  
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
+        //layout.itemSize = CGSize(width: 130, height: 130)
+        
+        //        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        // collectionView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
+        collectionView.backgroundColor = .clear
+        
+        return collectionView
+        
     }()
     
     override func viewDidLoad() {
@@ -26,9 +40,9 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         view.backgroundColor = .white
         tabBarController?.delegate = self
         
-        favoriteTableView.delegate = self
-        favoriteTableView.dataSource = self
-        favoriteTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.key)
+        favoriteCollectionView.delegate = self
+        favoriteCollectionView.dataSource = self
+        favoriteCollectionView.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteCollectionViewCell.key)
         
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
@@ -40,9 +54,8 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         navigationItem.compactAppearance = appearance
         
         updateFavoriteArray()
-        
-        
-        view.addSubview(favoriteTableView)
+
+        view.addSubview(favoriteCollectionView)
         print(favoriteModels)
     }
     
@@ -61,7 +74,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
     override func updateViewConstraints() {
         
         //для view для googleMaps
-        favoriteTableView.snp.makeConstraints {
+        favoriteCollectionView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.top.equalToSuperview()
@@ -74,7 +87,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
         let tabBarIndex = tabBarController.selectedIndex
         if tabBarIndex == 2 {
             updateFavoriteArray()
-            self.favoriteTableView.reloadData()
+            self.favoriteCollectionView.reloadData()
         }
     }
     
@@ -85,23 +98,37 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
             favoriteModels = models.filter { model in
                 favoritesNames.contains(model.documentID)
             }
-            favoriteTableView.reloadData()
+            favoriteCollectionView.reloadData()
         })
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = view.frame.size.width
+        return CGSize(width: width * 0.4, height: width * 0.4)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        }
 }
 
-extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         favoriteModels.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let searchTableViewCell = favoriteTableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.key, for: indexPath) as? FavoriteTableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let collectionCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.key, for: indexPath) as? FavoriteCollectionViewCell {
             
-            return searchTableViewCell
+            collectionCell.backgroundColor = .white
+            collectionCell.layer.cornerRadius = 5
+            collectionCell.layer.borderWidth = 1
+            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+            return collectionCell
         }
-        return UITableViewCell()
-        
+        return UICollectionViewCell()
     }
     
     
