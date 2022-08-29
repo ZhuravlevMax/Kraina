@@ -32,14 +32,23 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    lazy var nameModelLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.numberOfLines = 0
+        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        nameLabel.textColor = .white
+        return nameLabel
+    }()
 
-    
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        //MARK: - Добавление элементов на экран
         contentView.addSubview(mainView)
         mainView.addSubview(mainImageView)
         mainView.addSubview(infoView)
+        infoView.addSubview(nameModelLabel)
         
         backgroundColor = .clear
         mainView.layer.masksToBounds = false
@@ -51,12 +60,9 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         mainImageView.layer.cornerRadius = 6
         mainImageView.layer.masksToBounds = true
         
-        
         infoView.layer.cornerRadius = 6
         infoView.layer.masksToBounds = true
         infoView.backgroundColor = .gray.withAlphaComponent(0.3)
-
-
 
         updateViewConstraints()
         }
@@ -85,8 +91,14 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         mainImageView.snp.makeConstraints {
             $0.left.top.right.bottom.equalToSuperview()
         }
+        
         infoView.snp.makeConstraints {
             $0.left.top.right.bottom.equalToSuperview()
+        }
+        
+        nameModelLabel.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(10)
+            $0.top.equalToSuperview().inset(20)
         }
     }
     

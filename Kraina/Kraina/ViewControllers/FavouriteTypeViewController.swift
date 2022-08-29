@@ -89,8 +89,9 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key, for: indexPath) as? FavouriteTypeTableViewCell {
+            cell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row])
             cell.setImage(model: favouriteModels[indexPath.row])
-            //cell.infoView.addGradientBackground(firstColor: .black, secondColor: .white)
+            
             return cell
         }
         return UITableViewCell()

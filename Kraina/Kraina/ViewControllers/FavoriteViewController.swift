@@ -169,8 +169,12 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let model = favouriteTypeArray[indexPath.row].first else {return}
         let favouriteTypeVC = FavouriteTypeViewController()
         favouriteTypeVC.setVar(setFavouriteModels: favouriteTypeArray[indexPath.row])
+        favouriteTypeVC.title = FireBaseManager.shared.getModelRusType(model: model)
+
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.pushViewController(favouriteTypeVC, animated: true)
         
     }
