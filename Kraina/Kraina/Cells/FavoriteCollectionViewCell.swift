@@ -46,8 +46,6 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        //contentView.translatesAutoresizingMaskIntoConstraints = false
-
         contentView.addSubview(typeNameLabel)
         contentView.addSubview(countLabel)
         

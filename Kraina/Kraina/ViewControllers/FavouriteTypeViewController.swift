@@ -13,7 +13,6 @@ class FavouriteTypeViewController: UIViewController {
     //MARK: - Создание переменных
     private var favouriteModels = [QueryDocumentSnapshot]()
     
-    
     //MARK: - Создание элементов UI
     private lazy var favoutiteTypeTableView: UITableView = {
         let tableView = UITableView()
@@ -23,25 +22,33 @@ class FavouriteTypeViewController: UIViewController {
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
         button.tintColor = UIColor.white
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-
+        
         favoutiteTypeTableView.delegate = self
         favoutiteTypeTableView.dataSource = self
-        favoutiteTypeTableView.register(FavouriteTypeTableViewCell.self, forCellReuseIdentifier: FavouriteTypeTableViewCell.key)
+        favoutiteTypeTableView.register(FavouriteTypeTableViewCell.self,
+                                        forCellReuseIdentifier: FavouriteTypeTableViewCell.key)
         favoutiteTypeTableView.separatorStyle = .none
         
         view.addSubview(favoutiteTypeTableView)
@@ -61,14 +68,16 @@ class FavouriteTypeViewController: UIViewController {
     }
     
     private func initialize() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(),
+                                                                    for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-    
+        
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
+    //MARK: - Работа с констрейнтами
     override func updateViewConstraints() {
         favoutiteTypeTableView.snp.makeConstraints {
             $0.left.equalToSuperview()
@@ -78,19 +87,20 @@ class FavouriteTypeViewController: UIViewController {
         }
         super.updateViewConstraints()
     }
-
-
 }
 
+//MARK: - Работа с tableView
 extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         favouriteModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key, for: indexPath) as? FavouriteTypeTableViewCell {
+        if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
+                                                                 for: indexPath) as? FavouriteTypeTableViewCell {
             cell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row])
             cell.setImage(model: favouriteModels[indexPath.row])
+            cell.selectionStyle = .none
             
             return cell
         }
@@ -102,6 +112,9 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let modelViewController = ModelViewController()
+        modelViewController.setModel(modelToSet: favouriteModels[indexPath.row])
+        self.navigationController?.pushViewController(modelViewController, animated: true)
     }
     
     //MARK: - метод для кнопки назад в нав баре
@@ -121,7 +134,4 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
     }
-    
-    
-    
 }

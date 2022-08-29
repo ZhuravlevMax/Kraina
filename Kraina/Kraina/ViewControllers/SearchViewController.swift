@@ -26,12 +26,19 @@ class SearchViewController: UIViewController {
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
         button.tintColor = UIColor.white
         return button
     }()
@@ -48,7 +55,8 @@ class SearchViewController: UIViewController {
         
         searchTableView.delegate = self
         searchTableView.dataSource = self
-        searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.key)
+        searchTableView.register(SearchTableViewCell.self,
+                                 forCellReuseIdentifier: SearchTableViewCell.key)
         
         //MARK: - Работа с searchController
         searchController.searchResultsUpdater = self
@@ -68,8 +76,8 @@ class SearchViewController: UIViewController {
         
         //MARK: - Добавление элементов на экран
         view.addSubview(searchTableView)
-    
-        backToRoot()
+        
+        backToVC()
         
     }
     
@@ -82,7 +90,9 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UISearchResultsUpdating {
-    func backToRoot() {
+    
+    //MARK: - Метод для возврата назад свайпом
+    func backToVC() {
         let swipeDownGesture = UISwipeGestureRecognizer(target: self,
                                                         action: #selector(back))
         swipeDownGesture.direction = .right
@@ -94,15 +104,17 @@ extension SearchViewController: UISearchResultsUpdating {
         navigationControllerUnwrapped.popViewController(animated: true)
     }
     
+    //MARK: - Методы для работы с searchController
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {return}
         filterModelsForSearch(searchText: text)
         print(text)
     }
     
+    //MARK: - Метод для сравения введенного текста с массивом объектов по именам
     func filterModelsForSearch(searchText: String) {
         guard let models = models,
-        let text = searchController.searchBar.text else {return}
+              let text = searchController.searchBar.text else {return}
         filteredModels = models.filter({
             FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
         })
@@ -124,13 +136,16 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
+//MARK: - Работа с tableView
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         filteredModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let searchTableViewCell = searchTableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.key, for: indexPath) as? SearchTableViewCell {
+        if let searchTableViewCell = searchTableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.key,
+                                                                         for: indexPath) as? SearchTableViewCell {
             searchTableViewCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row])
             searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
             searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
@@ -150,6 +165,5 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         modelViewController.setModel(modelToSet: filteredModels[indexPath.row])
         self.navigationController?.pushViewController(modelViewController, animated: true)
     }
-    
     
 }

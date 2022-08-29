@@ -27,31 +27,38 @@ class ModelViewController: UIViewController {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20,
+                                       weight: .bold)
         label.numberOfLines = 0
         return label
     }()
     
     private lazy var adressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 13,
+                                       weight: .light)
         label.numberOfLines = 0
         return label
     }()
     
     private lazy var coordinatesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        label.font = UIFont.systemFont(ofSize: 12,
+                                       weight: .ultraLight)
         return label
     }()
     
     private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.setTitle("Посмотреть на карте", for: .normal)
+        button.setTitle("Посмотреть на карте",
+                        for: .normal)
         button.layer.cornerRadius = 10
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showDescriptionButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(showDescriptionButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -59,7 +66,8 @@ class ModelViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 14,
+                                       weight: .light)
         return label
     }()
     
@@ -75,7 +83,8 @@ class ModelViewController: UIViewController {
     }()
     
     private var contentSize: CGSize {
-        CGSize(width: view.frame.width, height: view.frame.height)
+        CGSize(width: view.frame.width,
+               height: view.frame.height)
     }
     
     private lazy var contentView: UIView = {
@@ -88,25 +97,39 @@ class ModelViewController: UIViewController {
     private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "bookmark"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         button.tintColor = UIColor.white
-        button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(addToFavoriteButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
         button.tintColor = UIColor.white
         return button
     }()
@@ -117,9 +140,7 @@ class ModelViewController: UIViewController {
         
         view.backgroundColor = .white
         view.layoutSubviews()
-        
-        
-        
+
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View

@@ -14,7 +14,6 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     static let key = "favouriteTypeTableViewCell"
     
     //MARK: - Создание элементов UI
-    
     private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -40,9 +39,9 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         nameLabel.textColor = .white
         return nameLabel
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         //MARK: - Добавление элементов на экран
         contentView.addSubview(mainView)
@@ -63,22 +62,22 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         infoView.layer.cornerRadius = 6
         infoView.layer.masksToBounds = true
         infoView.backgroundColor = .gray.withAlphaComponent(0.3)
-
+        
         updateViewConstraints()
-        }
-
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -108,7 +107,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         
         
     }
-
     
-
+    
+    
 }
