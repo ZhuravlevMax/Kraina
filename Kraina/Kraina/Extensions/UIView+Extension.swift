@@ -20,14 +20,25 @@ extension UIView{
     }
 
     func dropShadow(scale: Bool = true, width: Int, height: Int) {
-            layer.masksToBounds = false
-            layer.shadowColor = UIColor.gray.cgColor
-            layer.shadowOpacity = 0.3
-            layer.shadowOffset = CGSize(width: width, height: height)
-            layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-            layer.shadowRadius = 3
-            layer.shouldRasterize = true
-            layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOffset = CGSize(width: width, height: height)
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shadowRadius = 3
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+        }
+    
+    func addGradientBackground(firstColor: UIColor, secondColor: UIColor){
+            clipsToBounds = true
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [firstColor.cgColor, secondColor.cgColor]
+            gradientLayer.frame = self.bounds
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+            print(gradientLayer.frame)
+            self.layer.insertSublayer(gradientLayer, at: 0)
         }
     
     func hideView() {

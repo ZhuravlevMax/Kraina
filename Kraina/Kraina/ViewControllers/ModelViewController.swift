@@ -16,36 +16,36 @@ class ModelViewController: UIViewController {
     //MARK: - Создание переменных
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
-    private var favoriteState = false
+    private lazy var favoriteState = false
     
     //MARK: - Создание элементов UI
-    private var mainImageView: UIImageView = {
+    private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    private var nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.numberOfLines = 0
         return label
     }()
     
-    private var adressLabel: UILabel = {
+    private lazy var adressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         label.numberOfLines = 0
         return label
     }()
     
-    private var coordinatesLabel: UILabel = {
+    private lazy var coordinatesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
         return label
     }()
     
-    private var showDescriptionButton: UIButton = {
+    private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = AppColorsEnum.mainAppUIColor
         button.setTitle("Посмотреть на карте", for: .normal)
@@ -55,7 +55,7 @@ class ModelViewController: UIViewController {
         return button
     }()
     
-    private var modelDescription: UILabel = {
+    private lazy var modelDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
@@ -141,11 +141,6 @@ class ModelViewController: UIViewController {
             self.favoriteState = $0.contains(model.documentID)
             self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
         }
-        
-        let yourBackImage = UIImage(named: "back_button_image")
-        self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
-        //self.navigationController?.navigationBar.backItem?.title = "Custom"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
