@@ -17,6 +17,8 @@ class ModelViewController: UIViewController {
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
     private lazy var favoriteState = false
+    var favouriteTypeVC: CheckFavouriteDelegate?
+    var favouriteModels: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var mainImageView: UIImageView = {
@@ -171,6 +173,8 @@ class ModelViewController: UIViewController {
         setImage(model: model)
         initialize()
         updateViewConstraints()
+        
+
     }
     
     private func initialize() {
@@ -275,6 +279,14 @@ class ModelViewController: UIViewController {
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             }
+            
+            guard var favouriteModelsUnwrapped = favouriteModels,
+                  let favouriteTypeVCUnwrapped = favouriteTypeVC else {return}
+            favouriteModelsUnwrapped = favouriteModelsUnwrapped.filter {
+                FireBaseManager.shared.getModelName(model: $0) != FireBaseManager.shared.getModelName(model: model)
+            }
+            
+            favouriteTypeVCUnwrapped.setFavouriteArray(favouriteArray: favouriteModelsUnwrapped)
         }
     }
     

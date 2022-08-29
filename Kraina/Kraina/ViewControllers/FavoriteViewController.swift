@@ -124,6 +124,10 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
             favoriteCollectionView.reloadData()
         })
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
 }
 
 //MARK: - Работа с collectionView

@@ -8,8 +8,8 @@
 import UIKit
 import Firebase
 
-class FavouriteTypeViewController: UIViewController {
-    
+class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
+
     //MARK: - Создание переменных
     private var favouriteModels = [QueryDocumentSnapshot]()
     
@@ -114,6 +114,8 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let modelViewController = ModelViewController()
         modelViewController.setModel(modelToSet: favouriteModels[indexPath.row])
+        modelViewController.favouriteModels = favouriteModels
+        modelViewController.favouriteTypeVC = self
         self.navigationController?.pushViewController(modelViewController, animated: true)
     }
     
@@ -133,5 +135,10 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+    }
+    
+    func setFavouriteArray(favouriteArray: [QueryDocumentSnapshot]) {
+        favouriteModels = favouriteArray
+        favoutiteTypeTableView.reloadData()
     }
 }
