@@ -88,5 +88,9 @@ class ModelCollectionViewCell: UICollectionViewCell {
         
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
+        
+        //вибрация по нажатию
+        let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
     }
 }

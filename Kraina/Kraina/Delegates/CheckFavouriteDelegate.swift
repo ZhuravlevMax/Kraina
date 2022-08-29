@@ -9,5 +9,5 @@ import Foundation
 import Firebase
 
 protocol CheckFavouriteDelegate {
-    func setFavouriteArray(favouriteArray: [QueryDocumentSnapshot])
+    func setFavouriteArray(modelsArray: [QueryDocumentSnapshot])
 }

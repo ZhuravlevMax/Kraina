@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class FavoriteViewController: UIViewController, UITabBarControllerDelegate {
+class FavoriteViewController: UIViewController, UITabBarControllerDelegate, CheckFavouriteDelegate {
     
     //MARK: - Cоздание переменных
     private var models: [QueryDocumentSnapshot]?
@@ -181,10 +181,18 @@ extension FavoriteViewController: UICollectionViewDelegate,
         guard let model = favouriteTypeArray[indexPath.row].first else {return}
         let favouriteTypeVC = FavouriteTypeViewController()
         favouriteTypeVC.setVar(setFavouriteModels: favouriteTypeArray[indexPath.row])
+        favouriteTypeVC.favouriteVC = self
+        favouriteTypeVC.favouriteArray = favoriteModels
         favouriteTypeVC.title = FireBaseManager.shared.getModelRusType(model: model)
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.pushViewController(favouriteTypeVC, animated: true)
         
+    }
+    
+    func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {
+        models = modelsArray
+        updateFavoriteArray()
+        favoriteCollectionView.reloadData()
     }
     
     

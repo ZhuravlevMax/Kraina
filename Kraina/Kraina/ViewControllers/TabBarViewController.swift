@@ -43,13 +43,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             MapVC.setModels(modelsForSet: models)
             MainVC.models = models
             FavoriteVC.setModels(modelsForSet: models)
-            
-            //                favoritesModels = models.filter { model in
-            //                    favoritesNames.contains(FireBaseManager.shared.getModelName(model: model))
-            //                }
         }
-        
-        
+
         tabBar.tintColor = AppColorsEnum.mainAppUIColor
         
     }

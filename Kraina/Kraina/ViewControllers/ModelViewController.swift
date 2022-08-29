@@ -286,8 +286,11 @@ class ModelViewController: UIViewController {
                 FireBaseManager.shared.getModelName(model: $0) != FireBaseManager.shared.getModelName(model: model)
             }
             
-            favouriteTypeVCUnwrapped.setFavouriteArray(favouriteArray: favouriteModelsUnwrapped)
+            favouriteTypeVCUnwrapped.setFavouriteArray(modelsArray: favouriteModelsUnwrapped)
         }
+        //вибрация по нажатию на иконку
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
     }
     
     //MARK: - метод для кнопки назад в нав баре

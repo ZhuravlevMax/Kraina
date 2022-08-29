@@ -12,6 +12,8 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
 
     //MARK: - Создание переменных
     private var favouriteModels = [QueryDocumentSnapshot]()
+    var favouriteVC: CheckFavouriteDelegate?
+    var favouriteArray: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var favoutiteTypeTableView: UITableView = {
@@ -123,6 +125,12 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        guard let favouriteVCUnwrapped = favouriteVC else {return}
+
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
+            favouriteVCUnwrapped.setFavouriteArray(modelsArray: models)
+        }
+        
     }
     
     func backToRoot() {
@@ -135,10 +143,15 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        guard let favouriteVCUnwrapped = favouriteVC else {return}
+
+        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
+            favouriteVCUnwrapped.setFavouriteArray(modelsArray: models)
+        }
     }
     
-    func setFavouriteArray(favouriteArray: [QueryDocumentSnapshot]) {
-        favouriteModels = favouriteArray
+    func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {
+        favouriteModels = modelsArray
         favoutiteTypeTableView.reloadData()
     }
 }
