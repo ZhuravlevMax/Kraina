@@ -56,8 +56,11 @@ class ModelCollectionViewCell: UICollectionViewCell {
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         iconImageView.snp.makeConstraints {
-            $0.left.top.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(10)
+//            $0.left.top.equalToSuperview().inset(10)
+//            $0.bottom.equalToSuperview().inset(10)
+            $0.left.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+            $0.height.width.equalTo(20)
         }
         
         modelName.snp.makeConstraints {
@@ -82,9 +85,16 @@ class ModelCollectionViewCell: UICollectionViewCell {
 
         self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
         guard let models = models else {return}
-        let modelsToMapArray = models.filter({
-            self.modelType == FireBaseManager.shared.getModelType(model: $0)
-        })
+        var modelsToMapArray: [QueryDocumentSnapshot] = []
+        if modelType == "\(FireBaseTypeEnum.all)" {
+           modelsToMapArray = models
+        } else {
+            modelsToMapArray = models.filter({
+                self.modelType == FireBaseManager.shared.getModelType(model: $0)
+            })
+        }
+        
+        
         
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)

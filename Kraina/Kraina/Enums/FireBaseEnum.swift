@@ -12,9 +12,11 @@ enum FireBaseCollectionsEnum {
 }
 
 enum FireBaseTypeEnum: Int, CaseIterable{
-    case architecture = 0
+    case all = 0
+    case architecture
     case religion
     case museum
+    
 }
 
 

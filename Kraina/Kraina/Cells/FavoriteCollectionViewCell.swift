@@ -86,6 +86,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
 
         self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
         guard let models = models else {return}
+        
+        
         let modelsToMapArray = models.filter({
             self.modelType == FireBaseManager.shared.getModelType(model: $0)
         })
