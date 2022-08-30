@@ -13,6 +13,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Создание переменных
     var models: [QueryDocumentSnapshot] = [] {
         didSet {
+            letTypeModels()
             mainTableView.reloadData()
         }
     }
@@ -106,36 +107,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
-        
-        //guard let models = models else {return}
-
-        DispatchQueue.main.async { [self] in
-            architectureTypeArray = models.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
-            }
-            
-            religionTypeArray = models.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
-            }
-            
-            museumTypeArray = models.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
-            }
-            
-            protectedAreasTypeArray = models.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
-            }
-            
-            allTypeArray = [architectureTypeArray,
-                            religionTypeArray,
-                            museumTypeArray,
-                            protectedAreasTypeArray]
             
             updateViewConstraints()
             mainTableView.reloadData()
         }
         
-    }
     
     //MARK: - Работа с констрейнтами
     override func updateViewConstraints() {
@@ -171,6 +147,29 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
         print("search")
     }
+    
+    func letTypeModels() {
+        architectureTypeArray = models.filter {
+            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+        }
+        
+        religionTypeArray = models.filter {
+            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+        }
+        
+        museumTypeArray = models.filter {
+            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+        }
+        
+        protectedAreasTypeArray = models.filter {
+            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
+        }
+        
+        allTypeArray = [architectureTypeArray,
+                        religionTypeArray,
+                        museumTypeArray,
+                        protectedAreasTypeArray]
+    }
 }
 
 //MARK: - Работа с tableView
@@ -185,6 +184,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let cell = mainTableView.dequeueReusableCell(withIdentifier: MainTableViewCell.key,
                                                         for: indexPath) as? MainTableViewCell {
+           // switch indexPath
             return cell
         }
         
