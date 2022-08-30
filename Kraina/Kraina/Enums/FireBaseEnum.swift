@@ -16,6 +16,7 @@ enum FireBaseTypeEnum: Int, CaseIterable{
     case architecture
     case religion
     case museum
+    case protectedAreas
     
 }
 

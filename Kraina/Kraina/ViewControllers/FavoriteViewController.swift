@@ -17,6 +17,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     private var architectureTypeArray = [QueryDocumentSnapshot]()
     private var religionTypeArray = [QueryDocumentSnapshot]()
     private var museumTypeArray = [QueryDocumentSnapshot]()
+    private var protectedAreasTypeArray = [QueryDocumentSnapshot]()
     private var favoritesNames: [String] = []
     
     //MARK: - Cоздание элементов UI
@@ -115,9 +116,14 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
                 FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
             }
             
+            protectedAreasTypeArray = favoriteModels.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
+            }
+            
             architectureTypeArray.isEmpty ? () : (favouriteTypeArray.append(architectureTypeArray))
             religionTypeArray.isEmpty ? () : (favouriteTypeArray.append(religionTypeArray))
             museumTypeArray.isEmpty ? () : (favouriteTypeArray.append(museumTypeArray))
+            protectedAreasTypeArray.isEmpty ? () : (favouriteTypeArray.append(protectedAreasTypeArray))
             //favouriteTypeArray = [architectureTypeArray, religionTypeArray, museumTypeArray]
             
             print(favouriteTypeArray)

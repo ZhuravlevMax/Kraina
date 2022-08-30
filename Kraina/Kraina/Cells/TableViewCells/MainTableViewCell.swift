@@ -116,9 +116,9 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             
             collectionCell.backgroundColor = .gray
             collectionCell.layer.cornerRadius = 5
-            collectionCell.layer.borderWidth = 1
+            //collectionCell.layer.borderWidth = 1
             collectionCell.dropShadow(width: 3, height: 3)
-            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+            //collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
             return collectionCell
         }
         return UICollectionViewCell()
