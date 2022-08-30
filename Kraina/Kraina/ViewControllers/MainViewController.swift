@@ -98,6 +98,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(mainView)
         mainView.addSubview(mainTableView)
         
+        mainTableView.separatorStyle = .none
+        
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -208,11 +210,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 if let model = protectedAreasTypeArray.first {
                     cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
                 }
-                
+            
             default:
                 ""
             }
             
+            cell.selectionStyle = .none
             return cell
         }
         
@@ -221,7 +224,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        200
+        250
     }
     
     func tableView(_ tableView: UITableView,

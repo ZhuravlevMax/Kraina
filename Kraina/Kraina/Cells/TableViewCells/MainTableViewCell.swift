@@ -12,7 +12,11 @@ class MainTableViewCell: UITableViewCell {
     
     //MARK: - Создание переменных
     static let key = "MainTableViewCell"
-    var models: [QueryDocumentSnapshot]?
+    var models: [QueryDocumentSnapshot] = [] {
+        didSet {
+            typeCollectionView.reloadData()
+        }
+    }
     
     //MARK: - Создание элементов UI
      lazy var typeNameLabel: UILabel = {
@@ -46,7 +50,7 @@ class MainTableViewCell: UITableViewCell {
                                               collectionViewLayout: layout)
         
         // layout.itemSize = CGSize(width: 130, height: 40)
-        //collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         return collectionView
     }()
@@ -62,7 +66,7 @@ class MainTableViewCell: UITableViewCell {
         typeCollectionView.dataSource = self
         typeCollectionView.register(TypeCollectionViewCell.self,
                                     forCellWithReuseIdentifier: TypeCollectionViewCell.key)
-        
+        typeCollectionView.isPagingEnabled = true
         updateViewConstraints()
     }
     
@@ -84,18 +88,18 @@ class MainTableViewCell: UITableViewCell {
     func updateViewConstraints() {
         typeNameLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
-            $0.top.equalToSuperview().inset(10)
+            $0.top.equalToSuperview().inset(15)
         }
         
         showAllButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(10)
-            $0.top.equalToSuperview().inset(10)
+            $0.top.equalToSuperview().inset(15)
         }
         
         typeCollectionView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(10)
+            $0.left.right.equalToSuperview()
             $0.top.equalTo(typeNameLabel.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         
@@ -110,23 +114,16 @@ class MainTableViewCell: UITableViewCell {
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        models.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let collectionCell = typeCollectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.key,
                                                                        for: indexPath) as? TypeCollectionViewCell {
-            
-            
-//            switch indexPath.row {
-//            case FireBaseTypeEnum.architecture.rawValue:
-//                collectionCell.nameModelLabel.text = ""
-//            }
-            
-            collectionCell.layer.cornerRadius = 6
-            collectionCell.dropShadow(width: 3,
-                                      height: 3)
+            collectionCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: models[indexPath.row])
+            collectionCell.setImage(model: models[indexPath.row])
+            collectionCell.contentView.layer.cornerRadius = 6
             
             return collectionCell
         }
@@ -136,9 +133,9 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20,
+        return UIEdgeInsets(top: 10,
                             left: 20,
-                            bottom: 20,
+                            bottom: 10,
                             right: 20)
     }
     
@@ -147,7 +144,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = contentView.frame.size.width
-        return CGSize(width: width * 0.8, height: width * 0.3)
+        return CGSize(width: width * 0.85, height: width * 0.4)
         
     }
     

@@ -14,16 +14,31 @@ class TypeCollectionViewCell: UICollectionViewCell {
     static let key = "MainCollectionViewCell"
     
     //MARK: - Создание элементов UI
+    private lazy var mainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.layer.masksToBounds = false
+        view.layer.shadowOpacity = 0.3
+        view.layer.cornerRadius = 6
+        view.layer.shadowOffset = CGSize(width: 2, height: 3)
+        view.layer.shadowColor = UIColor.black.cgColor
+        return view
+    }()
     
-    private lazy var mainImageView: UIImageView = {
+    lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .clear
+        imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     lazy var shadowView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray.withAlphaComponent(0.3)
+        view.layer.cornerRadius = 6
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -39,23 +54,14 @@ class TypeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
  
-        contentView.addSubview(mainImageView)
-        contentView.addSubview(shadowView)
+        contentView.addSubview(mainView)
+        mainView.addSubview(mainImageView)
+        mainView.addSubview(shadowView)
         shadowView.addSubview(nameModelLabel)
         
-       backgroundColor = .white
-//        mainView.layer.masksToBounds = false
-//        mainView.layer.shadowOpacity = 0.3
-//        mainView.layer.cornerRadius = 6
-//        mainView.layer.shadowOffset = CGSize(width: 2, height: 3)
-//        mainView.layer.shadowColor = UIColor.black.cgColor
-//        
-//        mainImageView.layer.cornerRadius = 6
-//        mainImageView.layer.masksToBounds = true
-//        
-        shadowView.layer.cornerRadius = 6
-        shadowView.layer.masksToBounds = true
-        shadowView.backgroundColor = .gray.withAlphaComponent(0.3)
+        contentView.layer.cornerRadius = 6
+        contentView.clipsToBounds = false
+        contentView.backgroundColor = .clear
         
         updateViewConstraints()
         
@@ -68,6 +74,9 @@ class TypeCollectionViewCell: UICollectionViewCell {
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         
+        mainView.snp.makeConstraints {
+            $0.left.top.right.bottom.equalToSuperview()
+        }
         mainImageView.snp.makeConstraints {
             $0.left.top.right.bottom.equalToSuperview()
         }
