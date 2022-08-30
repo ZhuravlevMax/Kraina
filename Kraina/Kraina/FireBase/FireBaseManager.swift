@@ -30,7 +30,7 @@ class FireBaseManager {
     
     //MARK: - метод для получения всей коллекции
     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
-        // [START get_multiple_all]
+
         db.collection(collection).getDocuments() { (querySnapshot, err) in
             guard let querySnapshot = querySnapshot else {return}
             let modelsArray = querySnapshot.documents
