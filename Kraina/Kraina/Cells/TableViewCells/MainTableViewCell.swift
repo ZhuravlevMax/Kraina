@@ -43,8 +43,8 @@ class MainTableViewCell: UITableViewCell {
     lazy var typeCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 20
-        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 15
+        layout.minimumLineSpacing = 15
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
@@ -87,7 +87,7 @@ class MainTableViewCell: UITableViewCell {
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         typeNameLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalToSuperview().offset(20)
             $0.top.equalToSuperview().inset(15)
         }
         
@@ -144,7 +144,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = contentView.frame.size.width
-        return CGSize(width: width * 0.85, height: width * 0.4)
+        return CGSize(width: width * 0.88, height: width * 0.45)
         
     }
     
