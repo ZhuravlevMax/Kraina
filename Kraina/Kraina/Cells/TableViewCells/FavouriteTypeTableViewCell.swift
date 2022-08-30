@@ -17,18 +17,25 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.layer.cornerRadius = 6
+        view.dropShadow()
         return view
     }()
     
     lazy var infoView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.layer.cornerRadius = 6
+        view.layer.masksToBounds = true
+        view.backgroundColor = .gray.withAlphaComponent(0.3)
         return view
     }()
     
     private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -50,19 +57,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         infoView.addSubview(nameModelLabel)
         
         backgroundColor = .clear
-        mainView.layer.masksToBounds = false
-        mainView.layer.shadowOpacity = 0.3
-        mainView.layer.cornerRadius = 6
-        mainView.layer.shadowOffset = CGSize(width: 2, height: 3)
-        mainView.layer.shadowColor = UIColor.black.cgColor
-        
-        mainImageView.layer.cornerRadius = 6
-        mainImageView.layer.masksToBounds = true
-        
-        infoView.layer.cornerRadius = 6
-        infoView.layer.masksToBounds = true
-        infoView.backgroundColor = .gray.withAlphaComponent(0.3)
-        
+
         updateViewConstraints()
     }
     

@@ -60,8 +60,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                              for: .normal)
         button.setTitleColor(.green,
                              for: .highlighted)
-        button.dropShadow(width: 2,
-                          height: 2)
         button.addTarget(self,
                          action: #selector(self.logOutButtonPressed),
                          for: .touchUpInside)

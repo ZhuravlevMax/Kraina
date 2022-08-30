@@ -58,17 +58,12 @@ class TypeCollectionViewCell: UICollectionViewCell {
         mainView.addSubview(mainImageView)
         mainView.addSubview(shadowView)
         shadowView.addSubview(nameModelLabel)
-        
-        mainView.layer.masksToBounds = false
-        mainView.layer.shadowOpacity = 0.4
+
+        mainView.dropShadow()
         mainView.layer.cornerRadius = 6
-        mainView.layer.shadowOffset = CGSize(width: 2, height: 3)
-        mainView.layer.shadowColor = UIColor.black.cgColor
         shadowView.frame.size = CGSize(width: contentView.frame.width,
                                        height: contentView.frame.height)
-        
-       // mainView.dropShadow(width: 3, height: 3)
-       // mainView.dropShadow(scale: true, width: 2, height: 2)
+
         shadowView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
         contentView.clipsToBounds = false

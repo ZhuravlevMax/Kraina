@@ -157,7 +157,7 @@ extension FavoriteViewController: UICollectionViewDelegate,
             collectionCell.backgroundColor = .white
             collectionCell.layer.cornerRadius = 5
             collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
-            collectionCell.dropShadow(width: 2, height: 3)
+            collectionCell.dropShadow()
             
             return collectionCell
         }
