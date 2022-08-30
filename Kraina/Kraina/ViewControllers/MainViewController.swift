@@ -148,6 +148,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if let cell = mainTableView.dequeueReusableCell(withIdentifier: MainTableViewCell.key,
+                                                        for: indexPath) as? MainTableViewCell {
+            return cell
+        }
+        
         return UITableViewCell()
     }
     
