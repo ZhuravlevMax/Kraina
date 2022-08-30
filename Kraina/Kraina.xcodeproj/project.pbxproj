@@ -23,6 +23,7 @@
 		949EC2DD28BC07830055EF48 /* CollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EC2DC28BC07830055EF48 /* CollectionView+Extension.swift */; };
 		949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EC2DE28BCE7A20055EF48 /* CheckFavouriteDelegate.swift */; };
 		949EC2E128BDEB8F0055EF48 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EC2E028BDEB8F0055EF48 /* MainTableViewCell.swift */; };
+		949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */; };
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
@@ -83,6 +84,7 @@
 		949EC2DC28BC07830055EF48 /* CollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Extension.swift"; sourceTree = "<group>"; };
 		949EC2DE28BCE7A20055EF48 /* CheckFavouriteDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckFavouriteDelegate.swift; sourceTree = "<group>"; };
 		949EC2E028BDEB8F0055EF48 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
@@ -151,11 +153,8 @@
 		944A14B728B8F1D60024987D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				949EC2E028BDEB8F0055EF48 /* MainTableViewCell.swift */,
-				9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */,
-				944A14B528B8B37F0024987D /* SearchTableViewCell.swift */,
-				944A14BA28BB84AD0024987D /* FavoriteCollectionViewCell.swift */,
-				949EC2DA28BBEDBA0055EF48 /* FavouriteTypeTableViewCell.swift */,
+				949EC2E428BDF4EE0055EF48 /* TableViewCells */,
+				949EC2E528BDF4FE0055EF48 /* CollectionViewCells */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -175,6 +174,26 @@
 				9469CA5D28B3F4BF0025CD0F /* KrainaUITestsLaunchTests.swift */,
 			);
 			path = KrainaUITests;
+			sourceTree = "<group>";
+		};
+		949EC2E428BDF4EE0055EF48 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				949EC2E028BDEB8F0055EF48 /* MainTableViewCell.swift */,
+				944A14B528B8B37F0024987D /* SearchTableViewCell.swift */,
+				949EC2DA28BBEDBA0055EF48 /* FavouriteTypeTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		949EC2E528BDF4FE0055EF48 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */,
+				949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */,
+				944A14BA28BB84AD0024987D /* FavoriteCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		94C23CC128B55244005965D5 /* Delegates */ = {
@@ -500,6 +519,7 @@
 				949EC2D928BBED1F0055EF48 /* FavouriteTypeViewController.swift in Sources */,
 				949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */,
 				94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */,
+				949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */,
 				9469CA4728B3A5450025CD0F /* ColorsEnum.swift in Sources */,
 				94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */,
 				949EC2DD28BC07830055EF48 /* CollectionView+Extension.swift in Sources */,
