@@ -17,11 +17,11 @@ class TypeCollectionViewCell: UICollectionViewCell {
     private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-        view.layer.masksToBounds = false
-        view.layer.shadowOpacity = 0.3
-        view.layer.cornerRadius = 6
-        view.layer.shadowOffset = CGSize(width: 2, height: 3)
-        view.layer.shadowColor = UIColor.black.cgColor
+       // view.layer.masksToBounds = false
+       // view.layer.shadowOpacity = 0.3
+        //view.layer.cornerRadius = 6
+//        view.layer.shadowOffset = CGSize(width: 2, height: 3)
+//        view.layer.shadowColor = UIColor.black.cgColor
         return view
     }()
     
@@ -36,7 +36,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
     
     lazy var shadowView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        //view.backgroundColor = .gray.withAlphaComponent(0.3)
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
         return view
@@ -59,10 +59,23 @@ class TypeCollectionViewCell: UICollectionViewCell {
         mainView.addSubview(shadowView)
         shadowView.addSubview(nameModelLabel)
         
+        mainView.layer.masksToBounds = false
+        mainView.layer.shadowOpacity = 0.4
+        mainView.layer.cornerRadius = 6
+        mainView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        mainView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.frame.size = CGSize(width: contentView.frame.width,
+                                       height: contentView.frame.height)
+        
+       // mainView.dropShadow(width: 3, height: 3)
+       // mainView.dropShadow(scale: true, width: 2, height: 2)
+        shadowView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
         contentView.clipsToBounds = false
         contentView.backgroundColor = .clear
         
+        shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.5),
+                                         secondColor: .clear)
         updateViewConstraints()
         
     }

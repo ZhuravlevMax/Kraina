@@ -48,8 +48,6 @@ class MainTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
-        
-        // layout.itemSize = CGSize(width: 130, height: 40)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         return collectionView
@@ -123,6 +121,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
                                                                        for: indexPath) as? TypeCollectionViewCell {
             collectionCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: models[indexPath.row])
             collectionCell.setImage(model: models[indexPath.row])
+            
             collectionCell.contentView.layer.cornerRadius = 6
             
             return collectionCell
@@ -144,7 +143,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = contentView.frame.size.width
-        return CGSize(width: width * 0.88, height: width * 0.45)
+        return CGSize(width: width * 0.88, height: width * 0.42)
         
     }
     
