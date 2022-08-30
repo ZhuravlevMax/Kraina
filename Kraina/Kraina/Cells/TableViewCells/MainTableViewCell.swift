@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTableViewCell: UITableViewCell {
     
     //MARK: - Создание переменных
     static let key = "MainTableViewCell"
+    var models: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var typeNameLabel: UILabel = {
@@ -43,14 +45,14 @@ class MainTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         
-       // layout.itemSize = CGSize(width: 130, height: 40)
+        // layout.itemSize = CGSize(width: 130, height: 40)
         //collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         return collectionView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(typeNameLabel)
         contentView.addSubview(showAllButton)
@@ -59,23 +61,23 @@ class MainTableViewCell: UITableViewCell {
         typeCollectionView.delegate = self
         typeCollectionView.dataSource = self
         typeCollectionView.register(TypeCollectionViewCell.self,
-                                        forCellWithReuseIdentifier: TypeCollectionViewCell.key)
+                                    forCellWithReuseIdentifier: TypeCollectionViewCell.key)
         
         updateViewConstraints()
-        }
-
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
     //MARK: - Работа с констрейнтами
@@ -95,15 +97,15 @@ class MainTableViewCell: UITableViewCell {
             $0.top.equalTo(typeNameLabel.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().inset(20)
         }
-
-
+        
+        
     }
     
     //MARK: - Действие кнопки searchButton
     @objc private func showAllButtonPressed() {
         print("showAll")
     }
-
+    
 }
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -112,13 +114,20 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let collectionCell = typeCollectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.key, for: indexPath) as? TypeCollectionViewCell {
+        
+        if let collectionCell = typeCollectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.key,
+                                                                       for: indexPath) as? TypeCollectionViewCell {
             
-            collectionCell.backgroundColor = .gray
-            collectionCell.layer.cornerRadius = 5
-            //collectionCell.layer.borderWidth = 1
-            collectionCell.dropShadow(width: 3, height: 3)
-            //collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+            
+//            switch indexPath.row {
+//            case FireBaseTypeEnum.architecture.rawValue:
+//                collectionCell.nameModelLabel.text = ""
+//            }
+            
+            collectionCell.layer.cornerRadius = 6
+            collectionCell.dropShadow(width: 3,
+                                      height: 3)
+            
             return collectionCell
         }
         return UICollectionViewCell()

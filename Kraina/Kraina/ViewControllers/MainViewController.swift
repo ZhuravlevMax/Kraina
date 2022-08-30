@@ -11,7 +11,16 @@ import Firebase
 class MainViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Создание переменных
-    var models: [QueryDocumentSnapshot]?
+    var models: [QueryDocumentSnapshot] = [] {
+        didSet {
+            mainTableView.reloadData()
+        }
+    }
+    private var allTypeArray = [[QueryDocumentSnapshot]]()
+    private var architectureTypeArray = [QueryDocumentSnapshot]()
+    private var religionTypeArray = [QueryDocumentSnapshot]()
+    private var museumTypeArray = [QueryDocumentSnapshot]()
+    private var protectedAreasTypeArray = [QueryDocumentSnapshot]()
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
@@ -98,8 +107,34 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         navigationItem.compactAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
         
+        //guard let models = models else {return}
+
+        DispatchQueue.main.async { [self] in
+            architectureTypeArray = models.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+            }
+            
+            religionTypeArray = models.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+            }
+            
+            museumTypeArray = models.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+            }
+            
+            protectedAreasTypeArray = models.filter {
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
+            }
+            
+            allTypeArray = [architectureTypeArray,
+                            religionTypeArray,
+                            museumTypeArray,
+                            protectedAreasTypeArray]
+            
+            updateViewConstraints()
+            mainTableView.reloadData()
+        }
         
-        updateViewConstraints()
     }
     
     //MARK: - Работа с констрейнтами
@@ -142,7 +177,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        5
+        allTypeArray.count
     }
     
     func tableView(_ tableView: UITableView,
