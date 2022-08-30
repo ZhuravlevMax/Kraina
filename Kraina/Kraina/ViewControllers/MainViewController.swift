@@ -85,12 +85,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.register(MainTableViewCell.self,
-                                 forCellReuseIdentifier: MainTableViewCell.key)
+                               forCellReuseIdentifier: MainTableViewCell.key)
         
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") {
             print ($0.first?.documentID)
         }
-
+        
         let leftBarButtonItem = UIBarButtonItem(customView: logOutButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
@@ -107,11 +107,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
-            
-            updateViewConstraints()
-            mainTableView.reloadData()
-        }
         
+        updateViewConstraints()
+        mainTableView.reloadData()
+    }
+    
     
     //MARK: - Работа с констрейнтами
     override func updateViewConstraints() {
@@ -123,7 +123,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         mainTableView.snp.makeConstraints {
             $0.trailing.leading.top.bottom.equalToSuperview()
         }
-
+        
         hideKeyboardWhenTappedAround()
         super.updateViewConstraints()
     }
@@ -144,7 +144,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationController?.pushViewController(searchVC,
                                                       animated: true)
-
+        
         print("search")
     }
     
@@ -184,7 +184,35 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let cell = mainTableView.dequeueReusableCell(withIdentifier: MainTableViewCell.key,
                                                         for: indexPath) as? MainTableViewCell {
-           // switch indexPath
+            switch indexPath.row {
+            case FireBaseTypeEnum.architecture.rawValue:
+                cell.models = architectureTypeArray
+                if let model = architectureTypeArray.first {
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                }
+                
+            case FireBaseTypeEnum.religion.rawValue:
+                cell.models = religionTypeArray
+                if let model = religionTypeArray.first {
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                }
+                
+            case FireBaseTypeEnum.museum.rawValue:
+                cell.models = museumTypeArray
+                if let model = museumTypeArray.first {
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                }
+                
+            case FireBaseTypeEnum.protectedAreas.rawValue:
+                cell.models = protectedAreasTypeArray
+                if let model = protectedAreasTypeArray.first {
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                }
+                
+            default:
+                ""
+            }
+            
             return cell
         }
         

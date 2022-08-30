@@ -15,7 +15,7 @@ class MainTableViewCell: UITableViewCell {
     var models: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
-    private lazy var typeNameLabel: UILabel = {
+     lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.text = "Example"
