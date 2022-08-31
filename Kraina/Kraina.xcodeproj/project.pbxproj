@@ -27,6 +27,7 @@
 		949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */; };
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
+		94B67B8028BF868200C1E5B8 /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */; };
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
@@ -89,6 +90,7 @@
 		949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				9469CA6428B4B26C0025CD0F /* ModelCollectionViewCell.swift */,
 				949EC2E228BDF4CF0055EF48 /* TypeCollectionViewCell.swift */,
 				944A14BA28BB84AD0024987D /* FavoriteCollectionViewCell.swift */,
+				94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				94D849A028A2A01A00A06B6D /* FavoriteViewController.swift in Sources */,
 				941FD2C328BF4F9300C800DB /* ModelFromCollectionDelegate.swift in Sources */,
 				94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */,
+				94B67B8028BF868200C1E5B8 /* ImagesCollectionViewCell.swift in Sources */,
 				94DE307128A2F2B6003B5DF4 /* FireBaseDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

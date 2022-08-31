@@ -135,10 +135,6 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             favoriteCollectionView.reloadData()
         })
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
 }
 
 //MARK: - Работа с collectionView
@@ -194,7 +190,8 @@ extension FavoriteViewController: UICollectionViewDelegate,
         favouriteTypeVC.setVar(setFavouriteModels: favouriteTypeArray[indexPath.row])
         favouriteTypeVC.favouriteVC = self
         favouriteTypeVC.title = FireBaseManager.shared.getModelRusType(model: model)
-        self.navigationController?.pushViewController(favouriteTypeVC, animated: true)
+        self.navigationController?.pushViewController(favouriteTypeVC,
+                                                      animated: true)
     }
     
     func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {

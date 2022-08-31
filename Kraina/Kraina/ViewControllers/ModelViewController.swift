@@ -19,12 +19,38 @@ class ModelViewController: UIViewController {
     private lazy var favoriteState = false
     var favouriteTypeVC: CheckFavouriteDelegate?
     var favouriteModels: [QueryDocumentSnapshot]?
+    var imagesURLArray: [String] = [] {
+        didSet {
+            
+        }
+    }
     
     //MARK: - Создание элементов UI
     private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         return imageView
+    }()
+    
+    lazy var imagesCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
+        return collectionView
+    }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.pageIndicatorTintColor = AppColorsEnum.mainAppUIColor
+        pageControl.currentPageIndicatorTintColor = .gray
+        return pageControl
     }()
     
     private lazy var nameLabel: UILabel = {
@@ -148,12 +174,18 @@ class ModelViewController: UIViewController {
         //MARK: - добавление элементов UI на View
         view.addSubview(modelScrollView)
         modelScrollView.addSubview(contentView)
-        contentView.addSubview(mainImageView)
+        contentView.addSubview(imagesCollectionView)
+        contentView.addSubview(pageControl)
         contentView.addSubview(nameLabel)
         contentView.addSubview(adressLabel)
         contentView.addSubview(coordinatesLabel)
         contentView.addSubview(showDescriptionButton)
         contentView.addSubview(modelDescription)
+        
+        imagesCollectionView.delegate = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.register(ImagesCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
         
         self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
         self.adressLabel.text = FireBaseManager.shared.getModelAdress(model: model)
@@ -164,17 +196,20 @@ class ModelViewController: UIViewController {
             self.favoriteState = $0.contains(model.documentID)
             self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
         }
+        imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = imagesURLArray.count
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
         backToRoot()
-        setImage(model: model)
+        //setImage(model: model)
+        
         initialize()
         updateViewConstraints()
-        
-
+    
     }
     
     private func initialize() {
@@ -200,7 +235,7 @@ class ModelViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
         
-        mainImageView.snp.makeConstraints {
+        imagesCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
@@ -208,9 +243,14 @@ class ModelViewController: UIViewController {
             $0.height.equalTo(300)
         }
         
+        pageControl.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(imagesCollectionView.snp.bottom).offset(5)
+        }
+        
         nameLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalToSuperview().inset(340)
+            $0.top.equalTo(pageControl.snp.bottom).offset(20)
         }
         
         adressLabel.snp.makeConstraints {
@@ -300,7 +340,34 @@ class ModelViewController: UIViewController {
     }
 }
 
-extension ModelViewController {
+extension ModelViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        imagesURLArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.key, for: indexPath) as? ImagesCollectionViewCell {
+            cell.setImage(image: imagesURLArray[indexPath.row])
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.pageControl.currentPage = indexPath.row
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = contentView.frame.size.width
+        let height = imagesCollectionView.frame.height
+        return CGSize(width: width, height: height)
+        
+    }
+    
+    
     func backToRoot() {
         let swipeDownGesture = UISwipeGestureRecognizer(target: self,
                                                         action: #selector(back))
@@ -312,4 +379,6 @@ extension ModelViewController {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
     }
+    
+    
 }
