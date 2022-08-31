@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class MainViewController: UIViewController, UITextFieldDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate, ModelFromCollectionDelegate {
     
     //MARK: - Создание переменных
     var models: [QueryDocumentSnapshot] = [] {
@@ -123,8 +123,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         mainTableView.snp.makeConstraints {
             $0.trailing.leading.top.bottom.equalToSuperview()
         }
-        
-        hideKeyboardWhenTappedAround()
+
         super.updateViewConstraints()
     }
     
@@ -170,6 +169,13 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                         museumTypeArray,
                         protectedAreasTypeArray]
     }
+    
+    func openModelVC(model: QueryDocumentSnapshot) {
+        let modelViewController = ModelViewController()
+        modelViewController.setModel(modelToSet: model)
+        navigationController?.pushViewController(modelViewController,
+                                                 animated: true)
+    }
 }
 
 //MARK: - Работа с tableView
@@ -214,6 +220,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
+            cell.forVC = self
             return cell
         }
         
@@ -227,8 +234,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        
+        print("TableView")
     }
+
     
 }
 

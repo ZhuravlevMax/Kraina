@@ -19,7 +19,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-jJ-6Xz">
                                 <rect key="frame" x="0.0" y="44" width="414" height="358.5"/>
-                                <color key="backgroundColor" red="0.89880585979129246" green="0.91753031986288625" blue="0.96038510101010099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.3686274886" green="0.75244472789115646" blue="0.2352941036" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="ore-Ae-ezU"/>
                                 </constraints>

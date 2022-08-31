@@ -17,11 +17,6 @@ class TypeCollectionViewCell: UICollectionViewCell {
     private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
-       // view.layer.masksToBounds = false
-       // view.layer.shadowOpacity = 0.3
-        //view.layer.cornerRadius = 6
-//        view.layer.shadowOffset = CGSize(width: 2, height: 3)
-//        view.layer.shadowColor = UIColor.black.cgColor
         return view
     }()
     
@@ -36,7 +31,6 @@ class TypeCollectionViewCell: UICollectionViewCell {
     
     lazy var shadowView: UIView = {
         let view = UIView()
-        //view.backgroundColor = .gray.withAlphaComponent(0.3)
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
         return view
@@ -69,7 +63,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = false
         contentView.backgroundColor = .clear
         
-        shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.5),
+        shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
                                          secondColor: .clear)
         updateViewConstraints()
         
@@ -102,8 +96,13 @@ class TypeCollectionViewCell: UICollectionViewCell {
     func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
         self.mainImageView.load(url: imageURL)
-        
-        
+    }
+    
+    //MARK: - Метод для передачи объекта из другого VC и работы с UI
+    func configure(with model: QueryDocumentSnapshot) {
+        setImage(model: model)
+        nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
+        contentView.layer.cornerRadius = 6
     }
     
 }

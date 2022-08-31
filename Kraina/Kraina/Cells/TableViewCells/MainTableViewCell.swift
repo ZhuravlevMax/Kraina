@@ -17,6 +17,7 @@ class MainTableViewCell: UITableViewCell {
             typeCollectionView.reloadData()
         }
     }
+    var forVC: ModelFromCollectionDelegate?
     
     //MARK: - Создание элементов UI
      lazy var typeNameLabel: UILabel = {
@@ -75,6 +76,7 @@ class MainTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -108,6 +110,10 @@ class MainTableViewCell: UITableViewCell {
         print("showAll")
     }
     
+    func pushModelVC() {
+        
+    }
+    
 }
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -119,11 +125,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
         if let collectionCell = typeCollectionView.dequeueReusableCell(withReuseIdentifier: TypeCollectionViewCell.key,
                                                                        for: indexPath) as? TypeCollectionViewCell {
-            collectionCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: models[indexPath.row])
-            collectionCell.setImage(model: models[indexPath.row])
-            
-            collectionCell.contentView.layer.cornerRadius = 6
-            
+            collectionCell.configure(with: models[indexPath.row])
             return collectionCell
         }
         return UICollectionViewCell()
@@ -147,5 +149,10 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        forVC?.openModelVC(model: models[indexPath.row])
+        print("collection Item")
+    }
+
 }
