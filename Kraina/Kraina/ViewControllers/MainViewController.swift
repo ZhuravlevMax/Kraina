@@ -176,6 +176,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromCollec
         navigationController?.pushViewController(modelViewController,
                                                  animated: true)
     }
+    
+    func openFavoriteVC(models: [QueryDocumentSnapshot]) {
+        let viewController = FavouriteTypeViewController()
+         viewController.setVar(setFavouriteModels: models)
+        guard let model = models.first else {return}
+        viewController.title = FireBaseManager.shared.getModelRusType(model: model)
+        navigationController?.pushViewController(viewController,
+                                                 animated: true)
+    }
 }
 
 //MARK: - Работа с tableView

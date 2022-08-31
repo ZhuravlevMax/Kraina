@@ -11,7 +11,12 @@ import Firebase
 class FavoriteViewController: UIViewController, UITabBarControllerDelegate, CheckFavouriteDelegate {
     
     //MARK: - Cоздание переменных
-    private var models: [QueryDocumentSnapshot]?
+    private var models: [QueryDocumentSnapshot] = [] {
+        didSet {
+            updateFavoriteArray()
+            favoriteCollectionView.reloadData()
+        }
+    }
     private var favoriteModels = [QueryDocumentSnapshot]()
     private var favouriteTypeArray: [[QueryDocumentSnapshot]] = []
     private var architectureTypeArray = [QueryDocumentSnapshot]()
@@ -97,7 +102,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     //MARK: - Метод для обновления массива избранного
     func updateFavoriteArray() {
         FireBaseManager.shared.getUserFavoritesArray(completion: { [self] favorites in
-            guard let models = models else {return}
+           // guard let models = models else {return}
             self.favoritesNames = favorites
             favoriteModels = models.filter { model in
                 favoritesNames.contains(model.documentID)
@@ -188,11 +193,8 @@ extension FavoriteViewController: UICollectionViewDelegate,
         let favouriteTypeVC = FavouriteTypeViewController()
         favouriteTypeVC.setVar(setFavouriteModels: favouriteTypeArray[indexPath.row])
         favouriteTypeVC.favouriteVC = self
-        favouriteTypeVC.favouriteArray = favoriteModels
         favouriteTypeVC.title = FireBaseManager.shared.getModelRusType(model: model)
-        navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.pushViewController(favouriteTypeVC, animated: true)
-        
     }
     
     func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {

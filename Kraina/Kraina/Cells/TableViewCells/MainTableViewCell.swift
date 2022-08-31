@@ -107,11 +107,8 @@ class MainTableViewCell: UITableViewCell {
     
     //MARK: - Действие кнопки searchButton
     @objc private func showAllButtonPressed() {
+        forVC?.openFavoriteVC(models: models)
         print("showAll")
-    }
-    
-    func pushModelVC() {
-        
     }
     
 }

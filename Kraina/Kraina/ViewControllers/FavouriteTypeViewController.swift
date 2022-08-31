@@ -13,7 +13,7 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
     //MARK: - Создание переменных
     private var favouriteModels = [QueryDocumentSnapshot]()
     var favouriteVC: CheckFavouriteDelegate?
-    var favouriteArray: [QueryDocumentSnapshot]?
+    //var favouriteArray: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var favoutiteTypeTableView: UITableView = {
