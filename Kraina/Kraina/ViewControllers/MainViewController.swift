@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class MainViewController: UIViewController, UITextFieldDelegate, ModelFromCollectionDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelegate {
     
     //MARK: - Создание переменных
     var models: [QueryDocumentSnapshot] = [] {
@@ -184,6 +184,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromCollec
         viewController.title = FireBaseManager.shared.getModelRusType(model: model)
         navigationController?.pushViewController(viewController,
                                                  animated: true)
+    }
+    func doNavigationAlert() {
+        print("")
     }
 }
 

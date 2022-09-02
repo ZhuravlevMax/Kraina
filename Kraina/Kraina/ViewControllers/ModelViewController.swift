@@ -194,7 +194,9 @@ class ModelViewController: UIViewController {
         
         FireBaseManager.shared.getUserFavoritesArray {
             self.favoriteState = $0.contains(model.documentID)
-            self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
+                                              for: .normal)
+
         }
         imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
         pageControl.currentPage = 0
@@ -213,7 +215,8 @@ class ModelViewController: UIViewController {
     }
     
     private func initialize() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(),
+                                                                    for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
     }
@@ -289,7 +292,6 @@ class ModelViewController: UIViewController {
         guard let model = model else {return}
         
         forModelMapVC.setModel(modelToSet: model)
-        //forModelMapVC.coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
         self.navigationController?.pushViewController(forModelMapVC, animated: true)
         print("LOL")
     }
@@ -309,12 +311,14 @@ class ModelViewController: UIViewController {
             else {return}
             
             if favoritesArray.contains(model.documentID) {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"),
+                                             for: .normal)
                 if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             } else {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"),
+                                             for: .normal)
                 favoritesArray.append("\(model.documentID)")
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
@@ -340,20 +344,28 @@ class ModelViewController: UIViewController {
     }
 }
 
-extension ModelViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ModelViewController: UICollectionViewDelegate,
+                                UICollectionViewDataSource,
+                                UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         imagesURLArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.key, for: indexPath) as? ImagesCollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.key,
+                                                               for: indexPath) as? ImagesCollectionViewCell {
             cell.setImage(image: imagesURLArray[indexPath.row])
+ 
             return cell
         }
         return UICollectionViewCell()
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         self.pageControl.currentPage = indexPath.row
     }
     
@@ -366,8 +378,7 @@ extension ModelViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return CGSize(width: width, height: height)
         
     }
-    
-    
+
     func backToRoot() {
         let swipeDownGesture = UISwipeGestureRecognizer(target: self,
                                                         action: #selector(back))

@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol ModelMapDelegate {
+    func doNavigationAlert()
+}

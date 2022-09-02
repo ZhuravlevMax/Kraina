@@ -5,6 +5,7 @@
 //  Created by Максим Журавлев on 2.09.22.
 //
 
+//MARK: - Класс для работы с выдвигающимися менюшками
 import Foundation
 import FloatingPanel
 

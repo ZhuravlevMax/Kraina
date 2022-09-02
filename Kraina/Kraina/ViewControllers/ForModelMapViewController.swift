@@ -13,8 +13,14 @@ import FirebaseCore
 import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
+import SPLarkController
+import Firebase
+import FloatingPanel
 
-class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
+class ForModelMapViewController: UIViewController,
+                                    GMSMapViewDelegate,
+                                    ModelMapDelegate,
+                                    FloatingPanelControllerDelegate {
     
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
@@ -55,7 +61,9 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         button.setTitle("Построить маршрут", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(moveToButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(moveToButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -72,6 +80,25 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         return button
     }()
     
+    private lazy var forShadowView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        
+        return view
+    }()
+    
+    private lazy var fpc: FloatingPanelController = {
+        let fpc = FloatingPanelController()
+        fpc.delegate = self
+        return fpc
+    }()
+    
+    private lazy var appearance: SurfaceAppearance = {
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 15
+        return appearance
+    }()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +109,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         //MARK: - Добавление элементов на экран
         view.addSubview(forMapView)
         view.addSubview(popupView)
+        view.addSubview(forShadowView)
         popupView.addSubview(nameModel)
         popupView.addSubview(adressModel)
         popupView.addSubview(moveToButton)
@@ -91,20 +119,48 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         nameModel.text = FireBaseManager.shared.getModelName(model: modelUnwrapped)
         adressModel.text = FireBaseManager.shared.getModelAdress(model: modelUnwrapped)
         
+        
+        
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
-        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue], zoom: 13)
+        let camera = GMSCameraPosition.camera(withLatitude: coordinates[FirebaseCoordinateEnum.latitude.rawValue],
+                                              longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue],
+                                              zoom: 13)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
         self.forMapView.addSubview(self.mapView)
         
         self.mapView.delegate = self
         
-        addMarker(mapView: mapView, latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
+        addMarker(mapView: mapView,
+                  latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue],
+                  lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
         
+        //MARK: - Добавляю кнопку в navigation bar
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
+        //MARK: - Работа с всплывающим попапом
+        fpc.surfaceView.appearance = appearance
+        fpc.layout = MyFloatingPanelLayout()
+        //Создание попапа на popupVC
+        let popupVC = PopupViewController()
+        guard let model = model else {return}
+        popupVC.setModel(setModel: model)
+        popupVC.forModelMapVC = self
+        fpc.set(contentViewController: popupVC)
+        fpc.addPanel(toParent: self)
+        
         updateViewConstraints()
+    }
+    
+    //MARK: - Метод для задания сдвига попапа, когда тянешь
+    func floatingPanelDidMove(_ vc: FloatingPanelController) {
+        if vc.isAttracting == false {
+            let loc = vc.surfaceLocation
+            let minY = vc.surfaceLocation(for: .half).y - 16.0
+            let maxY = vc.surfaceLocation(for: .tip).y + 6.0
+            vc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY), maxY))
+        }
     }
     
     //MARK: - контсрейты для элементов
@@ -118,7 +174,6 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
             $0.width.equalToSuperview()
         }
         
-        //popup view
         popupView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
@@ -149,11 +204,14 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     //MARK: - Метод для добавления маркера на карту
-    private func addMarker(mapView: GMSMapView, latData: Double, lonData: Double) {
+    private func addMarker(mapView: GMSMapView,
+                           latData: Double,
+                           lonData: Double) {
         //MARK: - работа с маркером
         mapView.clear()
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: latData, longitude: lonData)
+        marker.position = CLLocationCoordinate2D(latitude: latData,
+                                                 longitude: lonData)
         marker.map = mapView
         mapView.selectedMarker = marker
     }
@@ -163,17 +221,9 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         // center the map on tapped marker
         mapView.animate(toLocation: marker.position)
         
-        FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
-            //print(FireBaseManager.shared.getImagesPathArray(model: QueryDocumentSnapshot))
-            
-            //достаю попап
-            UIView.animate(withDuration: 0.2) {
-                self.popupView.snp.updateConstraints {
-                    $0.bottom.equalToSuperview()}
-                self.view.layoutIfNeeded()}
-            
+        FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
+                                                    latitude: marker.position.latitude) { QueryDocumentSnapshot in
             NSLog("Did tap a normal marker")
-            
         }
         return false
     }
@@ -205,13 +255,13 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         navigationControllerUnwrapped.popViewController(animated: true)
     }
     
-   // MARK: - Метод для работы с навигацией google maps
+    // MARK: - Метод для работы с навигацией google maps
     func showGoogleApp(coordinates: [Double]) {
         guard let urlApp = URL(string:"comgooglemaps://"),
               let urlDestination = URL(string: "comgooglemaps://?center=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&saddr=&daddr=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&zoom=14&views=traffic"),
               let browserUrl = URL(string: "https://www.google.co.in/maps/dir/"),
               let browserUrlDestination = URL(string: "https://www.google.co.in/maps/dir/?center=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&saddr=&daddr=\(coordinates[FirebaseCoordinateEnum.latitude.rawValue]),\(coordinates[FirebaseCoordinateEnum.longtitude.rawValue])&zoom=14&views=traffic") else {return}
-
+        
         if (UIApplication.shared.canOpenURL(urlApp)) {
             UIApplication.shared.open(urlDestination)
         } else if (UIApplication.shared.canOpenURL(browserUrl)) {
@@ -234,6 +284,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
     
     //MARK: - AlertController для выбора навигатора
     func doNavigationAlert() {
+        dismiss(animated: true)
         let navigationAlert = UIAlertController(title: "В путь!", message: "Выберите навигатор для поездки", preferredStyle: .actionSheet)
         let google = UIAlertAction(title: "Google Maps", style: .default) { [self]_ in
             showGoogleApp(coordinates: coordinates)
@@ -248,6 +299,7 @@ class ForModelMapViewController: UIViewController, GMSMapViewDelegate {
         self.present(navigationAlert, animated: true)
     }
 }
+
 
 
 

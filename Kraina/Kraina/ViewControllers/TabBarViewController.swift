@@ -16,9 +16,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         tabBarController?.delegate = self
         
         tabBar.backgroundColor = UIColor.white
-        //        guard let MainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryboard") as? MainViewController else {return}
-        //        guard let MapVC = UIStoryboard(name: "MapStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MapStoryboard") as? MapViewController else {return}
-        //        guard let FavotiteVC = UIStoryboard(name: "FavoriteStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteStoryboard") as? FavoriteViewController else {return}
         
         let MainVC = MainViewController()
         let MapVC = MapViewController()

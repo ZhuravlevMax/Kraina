@@ -17,7 +17,7 @@ class MainTableViewCell: UITableViewCell {
             typeCollectionView.reloadData()
         }
     }
-    var forVC: ModelFromCollectionDelegate?
+    var forVC: ModelFromDelegate?
     
     //MARK: - Создание элементов UI
      lazy var typeNameLabel: UILabel = {

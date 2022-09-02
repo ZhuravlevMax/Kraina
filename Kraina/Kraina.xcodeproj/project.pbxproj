@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		941FD2C328BF4F9300C800DB /* ModelFromCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941FD2C228BF4F9300C800DB /* ModelFromCollectionDelegate.swift */; };
+		941FD2C328BF4F9300C800DB /* ModelFromDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */; };
 		942EFE2328AF713A00B52F1E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942EFE2228AF713A00B52F1E /* LogInViewController.swift */; };
 		944A14B428B7AD120024987D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944A14B328B7AD120024987D /* SearchViewController.swift */; };
 		944A14B628B8B37F0024987D /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944A14B528B8B37F0024987D /* SearchTableViewCell.swift */; };
@@ -28,6 +28,9 @@
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
 		94B67B8028BF868200C1E5B8 /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */; };
+		94B67B8228C0881000C1E5B8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8128C0881000C1E5B8 /* PopupViewController.swift */; };
+		94B67B8428C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */; };
+		94B67B8628C287C700C1E5B8 /* ModelMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */; };
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
@@ -68,7 +71,7 @@
 		2904552F156C4587AD370719 /* Pods_Kraina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kraina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.release.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.release.xcconfig"; sourceTree = "<group>"; };
 		8BA416F01C6E783477ADC038 /* Pods-Kraina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.debug.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.debug.xcconfig"; sourceTree = "<group>"; };
-		941FD2C228BF4F9300C800DB /* ModelFromCollectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFromCollectionDelegate.swift; sourceTree = "<group>"; };
+		941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFromDelegate.swift; sourceTree = "<group>"; };
 		942EFE2228AF713A00B52F1E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		944A14B328B7AD120024987D /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		944A14B528B8B37F0024987D /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -91,6 +94,9 @@
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		94B67B8128C0881000C1E5B8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFloatingPanelLayoutClass.swift; sourceTree = "<group>"; };
+		94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMapDelegate.swift; sourceTree = "<group>"; };
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -208,7 +214,8 @@
 				94D8498528A29D9C00A06B6D /* SceneDelegate.swift */,
 				94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */,
 				949EC2DE28BCE7A20055EF48 /* CheckFavouriteDelegate.swift */,
-				941FD2C228BF4F9300C800DB /* ModelFromCollectionDelegate.swift */,
+				941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */,
+				94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -247,6 +254,7 @@
 		94D8498228A29D9C00A06B6D /* Kraina */ = {
 			isa = PBXGroup;
 			children = (
+				94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */,
 				94C23CC128B55244005965D5 /* Delegates */,
 				94C23CC228B55268005965D5 /* Enums */,
 				94DE307428A5158E003B5DF4 /* FireBase */,
@@ -270,6 +278,7 @@
 				94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */,
 				94D8498728A29D9C00A06B6D /* MainViewController.swift */,
 				94D8499B28A29FB400A06B6D /* MapViewController.swift */,
+				94B67B8128C0881000C1E5B8 /* PopupViewController.swift */,
 				944A14B328B7AD120024987D /* SearchViewController.swift */,
 				945F75F628A8E9B90013122D /* ModelViewController.swift */,
 				94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */,
@@ -533,18 +542,21 @@
 				944A14B628B8B37F0024987D /* SearchTableViewCell.swift in Sources */,
 				94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */,
 				944A14BB28BB84AD0024987D /* FavoriteCollectionViewCell.swift in Sources */,
+				94B67B8228C0881000C1E5B8 /* PopupViewController.swift in Sources */,
 				94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */,
 				94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */,
+				94B67B8428C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift in Sources */,
 				94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */,
 				944A14B428B7AD120024987D /* SearchViewController.swift in Sources */,
 				945F75FB28A96FFE0013122D /* Image+Extension.swift in Sources */,
 				94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */,
 				94D8499C28A29FB400A06B6D /* MapViewController.swift in Sources */,
+				94B67B8628C287C700C1E5B8 /* ModelMapDelegate.swift in Sources */,
 				945F75F728A8E9BA0013122D /* ModelViewController.swift in Sources */,
 				942EFE2328AF713A00B52F1E /* LogInViewController.swift in Sources */,
 				9469CA6528B4B26D0025CD0F /* ModelCollectionViewCell.swift in Sources */,
 				94D849A028A2A01A00A06B6D /* FavoriteViewController.swift in Sources */,
-				941FD2C328BF4F9300C800DB /* ModelFromCollectionDelegate.swift in Sources */,
+				941FD2C328BF4F9300C800DB /* ModelFromDelegate.swift in Sources */,
 				94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */,
 				94B67B8028BF868200C1E5B8 /* ImagesCollectionViewCell.swift in Sources */,
 				94DE307128A2F2B6003B5DF4 /* FireBaseDocument.swift in Sources */,
