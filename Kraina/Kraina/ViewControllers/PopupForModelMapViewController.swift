@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import SPStorkController
 
-class PopupViewController: UIViewController {
+class PopupForModelMapViewController: UIViewController {
     
     //MARK: - Создание переменных
     private var model: QueryDocumentSnapshot?

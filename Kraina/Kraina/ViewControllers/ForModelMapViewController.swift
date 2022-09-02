@@ -143,7 +143,7 @@ class ForModelMapViewController: UIViewController,
         fpc.surfaceView.appearance = appearance
         fpc.layout = MyFloatingPanelLayout()
         //Создание попапа на popupVC
-        let popupVC = PopupViewController()
+        let popupVC = PopupForModelMapViewController()
         guard let model = model else {return}
         popupVC.setModel(setModel: model)
         popupVC.forModelMapVC = self

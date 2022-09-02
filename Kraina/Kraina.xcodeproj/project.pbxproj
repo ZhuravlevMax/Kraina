@@ -28,9 +28,11 @@
 		94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */; };
 		94A8AE5428AE5ACA00DEF47D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */; };
 		94B67B8028BF868200C1E5B8 /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */; };
-		94B67B8228C0881000C1E5B8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8128C0881000C1E5B8 /* PopupViewController.swift */; };
+		94B67B8228C0881000C1E5B8 /* PopupForModelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8128C0881000C1E5B8 /* PopupForModelMapViewController.swift */; };
 		94B67B8428C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */; };
 		94B67B8628C287C700C1E5B8 /* ModelMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */; };
+		94B67B8828C2ADF500C1E5B8 /* PopupMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */; };
+		94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */; };
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
@@ -94,9 +96,11 @@
 		94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForModelMapViewController.swift; sourceTree = "<group>"; };
 		94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		94B67B7F28BF868200C1E5B8 /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
-		94B67B8128C0881000C1E5B8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		94B67B8128C0881000C1E5B8 /* PopupForModelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupForModelMapViewController.swift; sourceTree = "<group>"; };
 		94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFloatingPanelLayoutClass.swift; sourceTree = "<group>"; };
 		94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMapDelegate.swift; sourceTree = "<group>"; };
+		94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMapViewController.swift; sourceTree = "<group>"; };
+		94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				949EC2DE28BCE7A20055EF48 /* CheckFavouriteDelegate.swift */,
 				941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */,
 				94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */,
+				94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -278,7 +283,8 @@
 				94A8AE5328AE5ACA00DEF47D /* RegistrationViewController.swift */,
 				94D8498728A29D9C00A06B6D /* MainViewController.swift */,
 				94D8499B28A29FB400A06B6D /* MapViewController.swift */,
-				94B67B8128C0881000C1E5B8 /* PopupViewController.swift */,
+				94B67B8128C0881000C1E5B8 /* PopupForModelMapViewController.swift */,
+				94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */,
 				944A14B328B7AD120024987D /* SearchViewController.swift */,
 				945F75F628A8E9B90013122D /* ModelViewController.swift */,
 				94A8AE4F28ABD57000DEF47D /* ForModelMapViewController.swift */,
@@ -533,6 +539,7 @@
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,
 				949EC2D928BBED1F0055EF48 /* FavouriteTypeViewController.swift in Sources */,
 				949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */,
+				94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */,
 				94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */,
 				949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */,
 				9469CA4728B3A5450025CD0F /* ColorsEnum.swift in Sources */,
@@ -542,7 +549,8 @@
 				944A14B628B8B37F0024987D /* SearchTableViewCell.swift in Sources */,
 				94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */,
 				944A14BB28BB84AD0024987D /* FavoriteCollectionViewCell.swift in Sources */,
-				94B67B8228C0881000C1E5B8 /* PopupViewController.swift in Sources */,
+				94B67B8228C0881000C1E5B8 /* PopupForModelMapViewController.swift in Sources */,
+				94B67B8828C2ADF500C1E5B8 /* PopupMapViewController.swift in Sources */,
 				94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */,
 				94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */,
 				94B67B8428C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift in Sources */,
