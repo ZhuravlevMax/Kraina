@@ -303,29 +303,29 @@ class ModelViewController: UIViewController {
     
     //MARK: - метод для кнопки добавить в избранное в нав баре
     @objc private func addToFavoriteButtonPressed() {
-        FireBaseManager.shared.getUserFavoritesArray { [self] favorites in
+        FireBaseManager.shared.getUserFavoritesArray { [weak self] favorites in
             print(favorites)
             var favoritesArray = favorites
-            guard let model = model,
+            guard let self = self, let model = self.model,
                   let userId = Auth.auth().currentUser?.uid
             else {return}
             
             if favoritesArray.contains(model.documentID) {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"),
+                self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"),
                                              for: .normal)
                 if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             } else {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"),
+                self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"),
                                              for: .normal)
                 favoritesArray.append("\(model.documentID)")
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             }
             
-            guard var favouriteModelsUnwrapped = favouriteModels,
-                  let favouriteTypeVCUnwrapped = favouriteTypeVC else {return}
+            guard var favouriteModelsUnwrapped = self.favouriteModels,
+                  let favouriteTypeVCUnwrapped = self.favouriteTypeVC else {return}
             favouriteModelsUnwrapped = favouriteModelsUnwrapped.filter {
                 FireBaseManager.shared.getModelName(model: $0) != FireBaseManager.shared.getModelName(model: model)
             }

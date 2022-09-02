@@ -101,38 +101,39 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     
     //MARK: - Метод для обновления массива избранного
     func updateFavoriteArray() {
-        FireBaseManager.shared.getUserFavoritesArray(completion: { [self] favorites in
+        FireBaseManager.shared.getUserFavoritesArray(completion: { [weak self] favorites in
            // guard let models = models else {return}
+            guard let self = self else {return}
             self.favoritesNames = favorites
-            favoriteModels = models.filter { model in
-                favoritesNames.contains(model.documentID)
+            self.favoriteModels = self.models.filter { model in
+                self.favoritesNames.contains(model.documentID)
             }
-            favouriteTypeArray.removeAll()
+            self.favouriteTypeArray.removeAll()
             
-            architectureTypeArray = favoriteModels.filter {
+            self.architectureTypeArray = self.favoriteModels.filter {
                 FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
             }
             
-            religionTypeArray = favoriteModels.filter {
+            self.religionTypeArray = self.favoriteModels.filter {
                 FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
             }
             
-            museumTypeArray = favoriteModels.filter {
+            self.museumTypeArray = self.favoriteModels.filter {
                 FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
             }
             
-            protectedAreasTypeArray = favoriteModels.filter {
+            self.protectedAreasTypeArray = self.favoriteModels.filter {
                 FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
             }
             
-            architectureTypeArray.isEmpty ? () : (favouriteTypeArray.append(architectureTypeArray))
-            religionTypeArray.isEmpty ? () : (favouriteTypeArray.append(religionTypeArray))
-            museumTypeArray.isEmpty ? () : (favouriteTypeArray.append(museumTypeArray))
-            protectedAreasTypeArray.isEmpty ? () : (favouriteTypeArray.append(protectedAreasTypeArray))
+            self.architectureTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.architectureTypeArray))
+            self.religionTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.religionTypeArray))
+            self.museumTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.museumTypeArray))
+            self.protectedAreasTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.protectedAreasTypeArray))
             //favouriteTypeArray = [architectureTypeArray, religionTypeArray, museumTypeArray]
             
-            print(favouriteTypeArray)
-            favoriteCollectionView.reloadData()
+            print(self.favouriteTypeArray)
+            self.favoriteCollectionView.reloadData()
         })
     }
 }

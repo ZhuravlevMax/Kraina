@@ -289,11 +289,13 @@ class ForModelMapViewController: UIViewController,
     func doNavigationAlert() {
         dismiss(animated: true)
         let navigationAlert = UIAlertController(title: "В путь!", message: "Выберите навигатор для поездки", preferredStyle: .actionSheet)
-        let google = UIAlertAction(title: "Google Maps", style: .default) { [self]_ in
-            showGoogleApp(coordinates: coordinates)
+        let google = UIAlertAction(title: "Google Maps", style: .default) { [weak self]_ in
+            guard let self = self else {return}
+            self.showGoogleApp(coordinates: self.coordinates)
         }
-        let yandex = UIAlertAction(title: "Yandex Navi", style: .default) { [self] _ in
-            showYandexApp(coordinates: coordinates)
+        let yandex = UIAlertAction(title: "Yandex Navi", style: .default) { [weak self] _ in
+            guard let self = self else {return}
+            self.showYandexApp(coordinates: self.coordinates)
         }
         let cancel = UIAlertAction(title: "Отмена", style: .cancel)
         navigationAlert.addAction(google)
