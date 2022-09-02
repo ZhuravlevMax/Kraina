@@ -149,6 +149,7 @@ class ForModelMapViewController: UIViewController,
         popupVC.forModelMapVC = self
         fpc.set(contentViewController: popupVC)
         fpc.addPanel(toParent: self)
+        fpc.move(to: .half, animated: true)
         
         updateViewConstraints()
     }
@@ -224,6 +225,8 @@ class ForModelMapViewController: UIViewController,
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
                                                     latitude: marker.position.latitude) { QueryDocumentSnapshot in
             NSLog("Did tap a normal marker")
+            
+            self.fpc.move(to: .half, animated: true)
         }
         return false
     }

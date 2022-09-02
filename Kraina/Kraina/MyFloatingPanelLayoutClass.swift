@@ -11,7 +11,7 @@ import FloatingPanel
 
 class MyFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .half
+    let initialState: FloatingPanelState = .hidden
     
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
