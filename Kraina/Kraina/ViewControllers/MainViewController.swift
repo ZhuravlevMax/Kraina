@@ -107,7 +107,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
-        
+
         updateViewConstraints()
         mainTableView.reloadData()
     }

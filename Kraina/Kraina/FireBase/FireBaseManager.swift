@@ -117,10 +117,11 @@ class FireBaseManager {
     
     //MARK: - метод для получения достопримечательности по кооринатам
     func getModelByCoordinate(collection: String, latitude: Double, completion: @escaping (QueryDocumentSnapshot) -> Void) {
-        db.collection(collection).getDocuments() { (querySnapshot, err) in
+        db.collection(collection).getDocuments() { [weak self] (querySnapshot, err) in
             guard let querySnapshot = querySnapshot else {return}
             var model: QueryDocumentSnapshot?
             querySnapshot.documents.forEach({
+                guard let self = self else {return}
                 let coordinates = self.getCoordinatesArray(model: $0)
                 if coordinates.contains(latitude) {
                     model = $0

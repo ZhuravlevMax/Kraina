@@ -139,15 +139,16 @@ class ForModelMapViewController: UIViewController,
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
+        //MARK: - МЕСТО С УТЕЧКОЙ ПАМЯТИ!!!!!!!!
         //MARK: - Работа с всплывающим попапом
         fpc.surfaceView.appearance = appearance
         fpc.layout = MyFloatingPanelLayout()
         //Создание попапа на popupVC
-        let popupVC = PopupForModelMapViewController()
-        guard let model = model else {return}
-        popupVC.setModel(setModel: model)
-        popupVC.forModelMapVC = self
-        fpc.set(contentViewController: popupVC)
+//        let popupVC = PopupForModelMapViewController()
+//        guard let model = model else {return}
+//        popupVC.setModel(setModel: model)
+//        popupVC.forModelMapVC = self
+//        fpc.set(contentViewController: popupVC)
         fpc.addPanel(toParent: self)
         fpc.move(to: .half, animated: true)
         
@@ -223,10 +224,11 @@ class ForModelMapViewController: UIViewController,
         mapView.animate(toLocation: marker.position)
         
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
-                                                    latitude: marker.position.latitude) { QueryDocumentSnapshot in
+                                                    latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
             NSLog("Did tap a normal marker")
             
-            self.fpc.move(to: .half, animated: true)
+//            guard let self = self else {return}
+//            self.fpc.move(to: .half, animated: true)
         }
         return false
     }
@@ -234,11 +236,11 @@ class ForModelMapViewController: UIViewController,
     //MARK: - Метод при нажатии на карту
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
-        //скрываю попап
-        UIView.animate(withDuration: 0.2) {
-            self.popupView.snp.updateConstraints {
-                $0.bottom.equalToSuperview().offset(250)}
-            self.view.layoutIfNeeded()}
+//        //скрываю попап
+//        UIView.animate(withDuration: 0.2) {
+//            self.popupView.snp.updateConstraints {
+//                $0.bottom.equalToSuperview().offset(250)}
+//            self.view.layoutIfNeeded()}
     }
     
     //MARK: - действие при нажатии на кнопку moveToButton

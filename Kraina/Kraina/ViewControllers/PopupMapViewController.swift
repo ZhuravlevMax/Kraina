@@ -37,6 +37,7 @@ class PopupMapViewController: UIViewController {
         moveButton.setTitle("Узнать больше", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
+        moveButton.dropShadow()
         moveButton.addTarget(self, action: #selector(self.showModelButtonPressed), for: .touchUpInside)
         return moveButton
     }()
@@ -80,7 +81,7 @@ class PopupMapViewController: UIViewController {
         super.updateViewConstraints()
     }
     
-    //MARK: - Действие кнопки moveToButton
+    //MARK: - Действие кнопки showModel
     @objc private func showModelButtonPressed() {
         guard let modelUnwrapped = model else {
             return

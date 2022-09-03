@@ -87,6 +87,7 @@ class ModelViewController: UIViewController {
         button.addTarget(self,
                          action: #selector(showDescriptionButtonPressed),
                          for: .touchUpInside)
+        button.dropShadow()
         return button
     }()
     
@@ -165,7 +166,7 @@ class ModelViewController: UIViewController {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //setupClearNavBar()
         view.backgroundColor = .white
         view.layoutSubviews()
 
@@ -192,7 +193,8 @@ class ModelViewController: UIViewController {
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
         
-        FireBaseManager.shared.getUserFavoritesArray {
+        FireBaseManager.shared.getUserFavoritesArray { [weak self] in
+            guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)
             self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
                                               for: .normal)
@@ -208,8 +210,7 @@ class ModelViewController: UIViewController {
         
         backToRoot()
         //setImage(model: model)
-        
-        initialize()
+        //initialize()
         updateViewConstraints()
     
     }

@@ -95,7 +95,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
         let tabBarIndex = tabBarController.selectedIndex
         if tabBarIndex == 2 {
             updateFavoriteArray()
-            self.favoriteCollectionView.reloadData()
+            favoriteCollectionView.reloadData()
         }
     }
     

@@ -32,7 +32,7 @@ class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Введите email"
-        textField.keyboardType = UIKeyboardType.default
+        textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
@@ -79,6 +79,8 @@ class RegistrationViewController: UIViewController {
         moveButton.setTitle("Подтвердить", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
+        moveButton.dropShadow()
+        //moveButton.addGradientBackground(firstColor: .blue, secondColor: .white)
         moveButton.addTarget(self, action: #selector(self.registerButtonPressed), for: .touchUpInside)
         return moveButton
     }()

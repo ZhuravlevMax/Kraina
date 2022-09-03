@@ -37,7 +37,10 @@ class PopupForModelMapViewController: UIViewController {
         moveButton.setTitle("Построить маршрут", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
-        moveButton.addTarget(self, action: #selector(self.moveToButtonPressed), for: .touchUpInside)
+        moveButton.dropShadow()
+        moveButton.addTarget(self,
+                             action: #selector(self.moveToButtonPressed),
+                             for: .touchUpInside)
         return moveButton
     }()
 
@@ -82,7 +85,7 @@ class PopupForModelMapViewController: UIViewController {
     
     //MARK: - Действие кнопки moveToButton
     @objc private func moveToButtonPressed() {
-        forModelMapVC?.doNavigationAlert()
+        self.forModelMapVC?.doNavigationAlert()
         print("LOL")
     }
     

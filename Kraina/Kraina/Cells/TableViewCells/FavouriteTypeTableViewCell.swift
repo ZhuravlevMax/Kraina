@@ -99,8 +99,6 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
         self.mainImageView.load(url: imageURL)
-        
-        
     }
     
     
