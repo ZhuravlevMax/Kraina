@@ -241,7 +241,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        250
+        240
     }
     
     func tableView(_ tableView: UITableView,

@@ -96,7 +96,7 @@ class MainTableViewCell: UITableViewCell {
         
         forWrapView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalToSuperview().inset(5)
+            $0.top.equalToSuperview().inset(10)
             $0.height.equalTo(20)
         }
         
