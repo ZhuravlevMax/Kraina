@@ -84,7 +84,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
 
-        self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
+        //self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
         guard let models = models else {return}
         
         

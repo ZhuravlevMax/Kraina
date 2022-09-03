@@ -20,11 +20,15 @@ class MainTableViewCell: UITableViewCell {
     var forVC: ModelFromDelegate?
     
     //MARK: - Создание элементов UI
+    private lazy var forWrapView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
      lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.text = "Example"
-        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         return nameLabel
     }()
     
@@ -33,6 +37,7 @@ class MainTableViewCell: UITableViewCell {
         moveButton.backgroundColor = .clear
         moveButton.setTitle("ВCE",
                             for: .normal)
+        moveButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor( AppColorsEnum.mainAppUIColor,
                                   for: .normal)
@@ -57,8 +62,9 @@ class MainTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(typeNameLabel)
-        contentView.addSubview(showAllButton)
+        contentView.addSubview(forWrapView)
+        forWrapView.addSubview(typeNameLabel)
+        forWrapView.addSubview(showAllButton)
         contentView.addSubview(typeCollectionView)
         
         typeCollectionView.delegate = self
@@ -85,20 +91,30 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - Работа с констрейнтами
+    
     func updateViewConstraints() {
+        
+        forWrapView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalToSuperview().inset(5)
+            $0.height.equalTo(20)
+        }
+        
         typeNameLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(20)
-            $0.top.equalToSuperview().inset(15)
+            //$0.top.equalToSuperview().inset(15)
+            $0.centerY.equalToSuperview()
         }
         
         showAllButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(10)
-            $0.top.equalToSuperview().inset(15)
+            $0.right.equalToSuperview().inset(20)
+            //$0.top.equalToSuperview().inset(15)
+            $0.centerY.equalToSuperview()
         }
         
         typeCollectionView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalTo(typeNameLabel.snp.bottom).offset(10)
+            $0.top.equalTo(forWrapView.snp.bottom)
             $0.bottom.equalToSuperview().inset(10)
         }
         

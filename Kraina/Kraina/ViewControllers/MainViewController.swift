@@ -206,25 +206,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case FireBaseTypeEnum.architecture.rawValue:
                 cell.models = architectureTypeArray
                 if let model = architectureTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
                 }
                 
             case FireBaseTypeEnum.religion.rawValue:
                 cell.models = religionTypeArray
                 if let model = religionTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
                 }
                 
             case FireBaseTypeEnum.museum.rawValue:
                 cell.models = museumTypeArray
                 if let model = museumTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
                 }
                 
             case FireBaseTypeEnum.protectedAreas.rawValue:
                 cell.models = protectedAreasTypeArray
                 if let model = protectedAreasTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model)
+                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
                 }
             
             default:
