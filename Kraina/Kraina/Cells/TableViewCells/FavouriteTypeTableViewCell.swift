@@ -27,7 +27,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         view.backgroundColor = .white
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
-        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -47,6 +47,18 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         return nameLabel
     }()
     
+    override func layoutIfNeeded() {
+            super.layoutIfNeeded()
+        self.contentView.frame = self.bounds
+        
+        infoView.frame = contentView.frame
+
+        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.3),
+                                       secondColor: .clear)
+
+            //gradientLayer.frame = bounds
+        }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -65,6 +77,8 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -79,7 +93,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         mainView.snp.makeConstraints {
-            $0.left.top.right.bottom.equalToSuperview().inset(20)
+            $0.left.top.right.bottom.equalToSuperview().inset(10)
         }
         
         mainImageView.snp.makeConstraints {
