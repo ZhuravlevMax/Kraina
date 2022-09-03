@@ -13,7 +13,7 @@ class PopupForModelMapViewController: UIViewController {
     
     //MARK: - Создание переменных
     private var model: QueryDocumentSnapshot?
-    var forModelMapVC: ModelMapDelegate?
+    weak var forModelMapVC: ModelMapDelegate?
     
     //MARK: - Cоздание элементов UI
     

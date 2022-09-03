@@ -17,7 +17,7 @@ class MainTableViewCell: UITableViewCell {
             typeCollectionView.reloadData()
         }
     }
-    var forVC: ModelFromDelegate?
+    weak var forVC: ModelFromDelegate?
     
     //MARK: - Создание элементов UI
     private lazy var forWrapView: UIView = {

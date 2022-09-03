@@ -144,11 +144,11 @@ class ForModelMapViewController: UIViewController,
         fpc.surfaceView.appearance = appearance
         fpc.layout = MyFloatingPanelLayout()
         //Создание попапа на popupVC
-//        let popupVC = PopupForModelMapViewController()
-//        guard let model = model else {return}
-//        popupVC.setModel(setModel: model)
-//        popupVC.forModelMapVC = self
-//        fpc.set(contentViewController: popupVC)
+        let popupVC = PopupForModelMapViewController()
+        guard let model = model else {return}
+        popupVC.setModel(setModel: model)
+        popupVC.forModelMapVC = self
+        fpc.set(contentViewController: popupVC)
         fpc.addPanel(toParent: self)
         fpc.move(to: .half, animated: true)
         
@@ -227,8 +227,8 @@ class ForModelMapViewController: UIViewController,
                                                     latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
             NSLog("Did tap a normal marker")
             
-//            guard let self = self else {return}
-//            self.fpc.move(to: .half, animated: true)
+            guard let self = self else {return}
+            self.fpc.move(to: .half, animated: true)
         }
         return false
     }

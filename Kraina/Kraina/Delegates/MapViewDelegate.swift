@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-protocol MapViewDelegate {
+protocol MapViewDelegate: AnyObject {
     func showModel(model: QueryDocumentSnapshot)
     func moveTo(latData: Double,lonData: Double )
 }

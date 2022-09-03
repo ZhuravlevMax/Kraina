@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-protocol ModelFromDelegate {
+protocol ModelFromDelegate: AnyObject {
     func openModelVC(model: QueryDocumentSnapshot)
     func openFavoriteVC(models: [QueryDocumentSnapshot])
 }

@@ -14,7 +14,7 @@ class SearchOnMapViewController: UIViewController {
     //MARK: - Создание переменных
     private var filteredModels: [QueryDocumentSnapshot] = []
     var models: [QueryDocumentSnapshot]?
-    var mapVC: MapViewDelegate?
+    weak var mapVC: MapViewDelegate?
     
     //MARK: - Cоздание элементов UI
     private lazy var searchController: UISearchController = {
@@ -84,8 +84,9 @@ class SearchOnMapViewController: UIViewController {
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
-        guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popViewController(animated: true)
+//        guard let navigationControllerUnwrapped = navigationController else {return}
+//        navigationControllerUnwrapped.popViewController(animated: true)
+        dismiss(animated: true)
     }
     
     //MARK: - Работа с констрейнтами

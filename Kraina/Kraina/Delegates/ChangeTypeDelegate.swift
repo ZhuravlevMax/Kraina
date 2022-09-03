@@ -8,6 +8,6 @@
 import Foundation
 import Firebase
 
-protocol ChangeTypeDelegate {
+protocol ChangeTypeDelegate: AnyObject {
     func changeMarkerType(modelsSet: [QueryDocumentSnapshot])
 }

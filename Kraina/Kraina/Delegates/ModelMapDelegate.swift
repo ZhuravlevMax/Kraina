@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ModelMapDelegate {
+protocol ModelMapDelegate: AnyObject {
     func doNavigationAlert()
 }

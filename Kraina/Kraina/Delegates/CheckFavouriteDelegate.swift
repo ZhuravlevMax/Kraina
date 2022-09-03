@@ -8,6 +8,6 @@
 import Foundation
 import Firebase
 
-protocol CheckFavouriteDelegate {
+protocol CheckFavouriteDelegate: AnyObject {
     func setFavouriteArray(modelsArray: [QueryDocumentSnapshot])
 }

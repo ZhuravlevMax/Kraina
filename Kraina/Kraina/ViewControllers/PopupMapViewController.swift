@@ -13,7 +13,7 @@ class PopupMapViewController: UIViewController {
     
     //MARK: - Создание переменных
     private var model: QueryDocumentSnapshot?
-    var mapView: MapViewDelegate?
+    weak var mapView: MapViewDelegate?
     
     //MARK: - Cоздание элементов UI
     

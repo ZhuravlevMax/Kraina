@@ -17,7 +17,7 @@ class ModelViewController: UIViewController {
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
     private lazy var favoriteState = false
-    var favouriteTypeVC: CheckFavouriteDelegate?
+    weak var favouriteTypeVC: CheckFavouriteDelegate?
     var favouriteModels: [QueryDocumentSnapshot]?
     var imagesURLArray: [String] = [] {
         didSet {

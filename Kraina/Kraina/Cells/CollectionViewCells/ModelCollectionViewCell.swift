@@ -14,7 +14,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     static let key = "modelCell"
     private var modelType: String?
     private var models: [QueryDocumentSnapshot]?
-    var changeTypeDelegate: ChangeTypeDelegate?
+    weak var changeTypeDelegate: ChangeTypeDelegate?
     override var isSelected: Bool {
         didSet {
             setSelectedAttribute(isSelected: isSelected)

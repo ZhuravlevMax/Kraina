@@ -14,7 +14,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     static let key = "favoriteCollectionViewCell"
     private var modelType: String?
     private var models: [QueryDocumentSnapshot]?
-    var changeTypeDelegate: ChangeTypeDelegate?
+    weak var changeTypeDelegate: ChangeTypeDelegate?
     override var isSelected: Bool {
         didSet {
             setSelectedAttribute(isSelected: isSelected)
