@@ -10,4 +10,5 @@ import Firebase
 
 protocol MapViewDelegate {
     func showModel(model: QueryDocumentSnapshot)
+    func moveTo(latData: Double,lonData: Double )
 }

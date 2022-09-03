@@ -14,10 +14,14 @@ import FirebaseStorage
 import FirebaseDatabase
 import FirebaseFirestore
 import CoreLocation
+import FloatingPanel
 
-class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControllerDelegate, ChangeTypeDelegate {
-    
-    
+class MapViewController: UIViewController,
+                         GMSMapViewDelegate,
+                         UITabBarControllerDelegate,
+                         ChangeTypeDelegate,
+                         FloatingPanelControllerDelegate,
+                         MapViewDelegate {
     
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
@@ -54,13 +58,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         return adressLabel
     }()
     
-    private lazy var moveToButton: UIButton = {
+    private lazy var showModel: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
         moveButton.setTitle("Узнать больше", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
-        moveButton.addTarget(self, action: #selector(self.moveToButtonPressed), for: .touchUpInside)
+        moveButton.addTarget(self, action: #selector(self.showModelPressed), for: .touchUpInside)
         return moveButton
     }()
     
@@ -69,18 +73,41 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
         layout.itemSize = CGSize(width: 130, height: 40)
         
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        //        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        // collectionView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
         collectionView.backgroundColor = .clear
         
         return collectionView
         
+    }()
+    
+    private lazy var searchButton: UIButton = {
+        let moveButton = UIButton()
+        moveButton.backgroundColor = .white
+        moveButton.layer.cornerRadius = 10
+        moveButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        moveButton.layer.borderColor = AppColorsEnum.borderCGColor
+        moveButton.layer.borderWidth = 1
+        moveButton.tintColor = AppColorsEnum.mainAppUIColor
+        moveButton.addTarget(self, action: #selector(self.searchButtonPressed), for: .touchUpInside)
+        return moveButton
+    }()
+    
+    private lazy var fpc: FloatingPanelController = {
+        let fpc = FloatingPanelController()
+        fpc.delegate = self
+        return fpc
+    }()
+    
+    private lazy var appearance: SurfaceAppearance = {
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 15
+        return appearance
     }()
     
     
@@ -102,10 +129,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         view.addSubview(forMapView)
         view.addSubview(modelCollectionView)
         view.addSubview(popupView)
+        view.addSubview(searchButton)
         popupView.addSubview(nameModelLabel)
         popupView.addSubview(adressModelLabel)
-        popupView.addSubview(moveToButton)
-
+        popupView.addSubview(showModel)
         
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
@@ -113,10 +140,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
                 coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
             })
         } else {
-            FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { [self] models in
+            FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { [weak self] models in
                 models.forEach({
+                    guard let self = self else {return}
                     self.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
                 })
+                guard let self = self else {return}
                 self.doClusters()
             }
         }
@@ -124,7 +153,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
-        let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5.5)
+        let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
         self.forMapView.addSubview(self.mapView)
         
@@ -139,6 +168,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         
         doClusters()
         
+        //MARK: - Работа с всплывающим попапом
+        fpc.surfaceView.appearance = self.appearance
+        fpc.layout = MyFloatingPanelLayout()
+        fpc.addPanel(toParent: self)
+        
         updateViewConstraints()
     }
     
@@ -150,35 +184,60 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         //Нажатие на кластер
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
-            mapView.animate(toZoom: mapView.camera.zoom + 1)
+            mapView.animate(toZoom: mapView.camera.zoom + 2)
             NSLog("Did tap cluster")
             return true
         }
         
-        FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)", latitude: marker.position.latitude) { QueryDocumentSnapshot in
+        FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
+                                                    latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
             
-            //MARK: - Текст для лейблов
-            self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
-            self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
-            self.model = QueryDocumentSnapshot
+            guard let self = self else {return}
+            //fpc.removePanelFromParent(animated: true)
+            let popupVC = PopupMapViewController()
+            popupVC.setModel(setModel: QueryDocumentSnapshot)
+            popupVC.mapView = self
+            self.fpc.set(contentViewController: popupVC)
+            self.fpc.addPanel(toParent: self)
+            self.fpc.move(to: .half, animated: true)
             
-            //достаю попап
-            UIView.animate(withDuration: 0.3) {
-                self.popupView.snp.updateConstraints {
-                    $0.bottom.equalToSuperview()}
-                self.view.layoutIfNeeded()}
+            
+            //            //MARK: - Текст для лейблов
+            //            self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
+            //            self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
+            //            self.model = QueryDocumentSnapshot
+            //
+            //            //достаю попап
+            //            UIView.animate(withDuration: 0.3) {
+            //                self.popupView.snp.updateConstraints {
+            //                    $0.bottom.equalToSuperview()}
+            //                self.view.layoutIfNeeded()}
         }
+        
+        //Вибрация при тапе на иконку
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         NSLog("Did tap a normal marker")
         return false
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        
-        //скрываю попап
-        UIView.animate(withDuration: 0.3) {
-            self.popupView.snp.updateConstraints {
-                $0.bottom.equalToSuperview().offset(250)}
-            self.view.layoutIfNeeded()}
+        //
+        //        //скрываю попап
+        //        UIView.animate(withDuration: 0.3) {
+        //            self.popupView.snp.updateConstraints {
+        //                $0.bottom.equalToSuperview().offset(250)}
+        //            self.view.layoutIfNeeded()}
+    }
+    
+    //MARK: - Метод для задания сдвига попапа, когда тянешь
+    func floatingPanelDidMove(_ vc: FloatingPanelController) {
+        if vc.isAttracting == false {
+            let loc = vc.surfaceLocation
+            let minY = vc.surfaceLocation(for: .half).y - 16.0
+            let maxY = vc.surfaceLocation(for: .tip).y + 6.0
+            vc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY), maxY))
+        }
     }
     
     //MARK: - Работа с констрейнтами
@@ -213,32 +272,50 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
             $0.top.equalTo(nameModelLabel).inset(50)
         }
         
-        moveToButton.snp.makeConstraints {
+        showModel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(adressModelLabel).inset(50)
             $0.height.equalTo(50)
         }
         
         modelCollectionView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview()
             $0.height.equalTo(40)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
+        }
+        
+        searchButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-180)
+            $0.height.width.equalTo(50)
         }
         super.updateViewConstraints()
     }
     
-    //MARK: - Действие кнопки moveToButton
-    @objc private func moveToButtonPressed() {
-        let modelViewController = ModelViewController()
-        guard let modelUnwrapped = model else {return}
-        modelViewController.setModel(modelToSet: modelUnwrapped)
-        self.navigationController?.pushViewController(modelViewController, animated: true)
-        print("LOL")
+    //MARK: - Действие кнопки showModel
+    @objc private func showModelPressed() {
+        //showModel()
+    }
+    
+    //MARK: - Действие кнопки searchButton
+    @objc private func searchButtonPressed() {
+        let searchVC = SearchOnMapViewController()
+        let navigationControllerMain = UINavigationController(rootViewController: searchVC)
+        searchVC.models = models
+        searchVC.mapVC = self
+        present(navigationControllerMain, animated: true)
+        
+        print("search")
     }
     
     //MARK: - Метод для передачи моделей из других VC
     func setModels(modelsForSet: [QueryDocumentSnapshot]) {
         models = modelsForSet
+    }
+    
+    //MARK: - Метод для перехода на локацию маркера из поиска
+    func moveTo(latData: Double,lonData: Double ) {
+        mapView.animate(to: GMSCameraPosition.camera(withLatitude: latData, longitude: lonData, zoom: 8))
     }
     
     //MARK: - Метод для выбора категорий по нажатию на ячейку через делегат
@@ -278,6 +355,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate, UITabBarControlle
         self.clusterManager.cluster()
     }
     
+    func showModel(model: QueryDocumentSnapshot) {
+        let modelViewController = ModelViewController()
+        modelViewController.setModel(modelToSet: model)
+        self.navigationController?.pushViewController(modelViewController,
+                                                      animated: true)
+    }
+    
 }
 
 //MARK: - Работа с СollectionView
@@ -288,21 +372,48 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell,
+           let imageAll = UIImage(named: "\(FireBaseTypeEnum.all)"),
            let imageArchitecture = UIImage(named: "\(FireBaseTypeEnum.architecture)"),
-                 let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)"),
-           let imageMuseum = UIImage(named: "\(FireBaseTypeEnum.museum)") {
+           let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)"),
+           let imageMuseum = UIImage(named: "\(FireBaseTypeEnum.museum)"),
+           let imageProtectedAreas = UIImage(named: "\(FireBaseTypeEnum.protectedAreas)") {
             if let modelsUnwrapped = models {
-            switch indexPath.row {
-            case FireBaseTypeEnum.architecture.rawValue:
-                collectionCell.setVar(setText: "Архитектура", setType: "\(FireBaseTypeEnum.architecture)", image: imageArchitecture, modelsSet: modelsUnwrapped)
-            case FireBaseTypeEnum.religion.rawValue:
-                collectionCell.setVar(setText: "Религия", setType: "\(FireBaseTypeEnum.religion)", image: imageReligion, modelsSet: modelsUnwrapped)
-            case FireBaseTypeEnum.museum.rawValue:
-                                collectionCell.setVar(setText: "Музеи", setType: "\(FireBaseTypeEnum.museum)", image: imageMuseum, modelsSet: modelsUnwrapped)
-            default:
-                ""
+                switch indexPath.row {
+                case FireBaseTypeEnum.all.rawValue:
+                    collectionCell.setVar(setText: "Все",
+                                          setType: "\(FireBaseTypeEnum.all)",
+                                          image: imageAll,
+                                          modelsSet: modelsUnwrapped)
+                    
+                case FireBaseTypeEnum.architecture.rawValue:
+                    collectionCell.setVar(setText: "Архитектура",
+                                          setType: "\(FireBaseTypeEnum.architecture)",
+                                          image: imageArchitecture,
+                                          modelsSet: modelsUnwrapped)
+                    
+                case FireBaseTypeEnum.religion.rawValue:
+                    collectionCell.setVar(setText: "Религия",
+                                          setType: "\(FireBaseTypeEnum.religion)",
+                                          image: imageReligion,
+                                          modelsSet: modelsUnwrapped)
+                    
+                case FireBaseTypeEnum.museum.rawValue:
+                    collectionCell.setVar(setText: "Музеи",
+                                          setType: "\(FireBaseTypeEnum.museum)",
+                                          image: imageMuseum,
+                                          modelsSet: modelsUnwrapped)
+                    
+                case FireBaseTypeEnum.protectedAreas.rawValue:
+                    collectionCell.setVar(setText: "Заповедные территории",
+                                          setType: "\(FireBaseTypeEnum.protectedAreas)",
+                                          image: imageProtectedAreas,
+                                          modelsSet: modelsUnwrapped)
+                    
+                default:
+                    ""
+                }
             }
-            }
+            
             collectionCell.changeTypeDelegate = self
             collectionCell.backgroundColor = .white
             collectionCell.layer.cornerRadius = 5
@@ -313,6 +424,14 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         return UICollectionViewCell()
     }
     
-
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20,
+                            left: 20,
+                            bottom: 20,
+                            right: 20)
+    }
+    
 }
 

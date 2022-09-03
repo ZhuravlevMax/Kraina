@@ -61,7 +61,7 @@ class ForModelMapViewController: UIViewController,
         button.setTitle("Построить маршрут", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self,
+        button.addTarget(ForModelMapViewController.self,
                          action: #selector(moveToButtonPressed),
                          for: .touchUpInside)
         return button
