@@ -131,6 +131,7 @@ class FireBaseManager {
             completion(model)
         }
     }
+    
     //MARK: - метод для получения названия достопримечательности
     func getModelName(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()

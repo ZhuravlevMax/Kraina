@@ -180,7 +180,6 @@ class MapViewController: UIViewController,
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         mapView.animate(toLocation: marker.position)
-        
         //Нажатие на кластер
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
@@ -218,6 +217,38 @@ class MapViewController: UIViewController,
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
         NSLog("Did tap a normal marker")
+        
+        //MARK: - Изменение иконки по тапу
+        var newMarkerArray: [GMSMarker] = []
+        mapView.clear()
+        clusterManager.clearItems()
+        
+        markerArray.forEach {
+            
+            let position = $0.position
+            
+            let markerNew = GMSMarker(position: position)
+            if markerNew.position.latitude == marker.position.latitude {
+                switch $0.icon {
+                case UIImage(named: "\(FireBaseIconTypeEnum.architecture)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.architectureTint)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.religion)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.religionTint)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.museum)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.museumTint)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreasTint)")
+                default: ""
+                }
+                
+            } else {
+                markerNew.icon = $0.icon
+            }
+            
+            newMarkerArray.append(markerNew)
+        }
+        
+        //Добавляю точки в менеджер кластеров
+        self.clusterManager.add(newMarkerArray)
+        
+        self.clusterManager.cluster()
+        
         return false
     }
     
@@ -343,7 +374,8 @@ class MapViewController: UIViewController,
         
         models.forEach {
             let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
-            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue],
+                                                  longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
             marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
             self.markerArray.append(marker)
@@ -365,47 +397,51 @@ class MapViewController: UIViewController,
 }
 
 //MARK: - Работа с СollectionView
-extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension MapViewController: UICollectionViewDelegate,
+                             UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         FireBaseTypeEnum.allCases.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key, for: indexPath) as? ModelCollectionViewCell,
-           let imageAll = UIImage(named: "\(FireBaseTypeEnum.all)"),
-           let imageArchitecture = UIImage(named: "\(FireBaseTypeEnum.architecture)"),
-           let imageReligion = UIImage(named: "\(FireBaseTypeEnum.religion)"),
-           let imageMuseum = UIImage(named: "\(FireBaseTypeEnum.museum)"),
-           let imageProtectedAreas = UIImage(named: "\(FireBaseTypeEnum.protectedAreas)") {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key,
+                                                                        for: indexPath) as? ModelCollectionViewCell,
+           let imageAll = UIImage(named: "\(FireBaseIconTypeEnum.all)"),
+           let imageArchitecture = UIImage(named: "\(FireBaseIconTypeEnum.architecture)"),
+           let imageReligion = UIImage(named: "\(FireBaseIconTypeEnum.religion)"),
+           let imageMuseum = UIImage(named: "\(FireBaseIconTypeEnum.museum)"),
+           let imageProtectedAreas = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)") {
             if let modelsUnwrapped = models {
                 switch indexPath.row {
-                case FireBaseTypeEnum.all.rawValue:
+                case FireBaseIconTypeEnum.all.rawValue:
                     collectionCell.setVar(setText: "Все",
-                                          setType: "\(FireBaseTypeEnum.all)",
+                                          setType: "\(FireBaseIconTypeEnum.all)",
                                           image: imageAll,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseTypeEnum.architecture.rawValue:
+                case FireBaseIconTypeEnum.architecture.rawValue:
                     collectionCell.setVar(setText: "Архитектура",
-                                          setType: "\(FireBaseTypeEnum.architecture)",
+                                          setType: "\(FireBaseIconTypeEnum.architecture)",
                                           image: imageArchitecture,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseTypeEnum.religion.rawValue:
+                case FireBaseIconTypeEnum.religion.rawValue:
                     collectionCell.setVar(setText: "Религия",
-                                          setType: "\(FireBaseTypeEnum.religion)",
+                                          setType: "\(FireBaseIconTypeEnum.religion)",
                                           image: imageReligion,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseTypeEnum.museum.rawValue:
+                case FireBaseIconTypeEnum.museum.rawValue:
                     collectionCell.setVar(setText: "Музеи",
-                                          setType: "\(FireBaseTypeEnum.museum)",
+                                          setType: "\(FireBaseIconTypeEnum.museum)",
                                           image: imageMuseum,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseTypeEnum.protectedAreas.rawValue:
+                case FireBaseIconTypeEnum.protectedAreas.rawValue:
                     collectionCell.setVar(setText: "Заповедные территории",
-                                          setType: "\(FireBaseTypeEnum.protectedAreas)",
+                                          setType: "\(FireBaseIconTypeEnum.protectedAreas)",
                                           image: imageProtectedAreas,
                                           modelsSet: modelsUnwrapped)
                     

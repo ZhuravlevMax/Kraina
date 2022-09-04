@@ -38,7 +38,6 @@ class RegistrationViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
-        textField.keyboardType = .emailAddress
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         return textField
     }()
@@ -80,8 +79,9 @@ class RegistrationViewController: UIViewController {
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
         moveButton.dropShadow()
-        //moveButton.addGradientBackground(firstColor: .blue, secondColor: .white)
-        moveButton.addTarget(self, action: #selector(self.registerButtonPressed), for: .touchUpInside)
+        moveButton.addTarget(self,
+                             action: #selector(self.registerButtonPressed),
+                             for: .touchUpInside)
         return moveButton
     }()
     

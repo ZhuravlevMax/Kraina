@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "Resized_svg.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "moonphase.new.moon.inverse@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
