@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SnapKit
 
 class LogInViewController: UIViewController {
     
@@ -102,6 +103,9 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         view.layoutSubviews()
         
         view.backgroundColor = .white
@@ -173,6 +177,21 @@ class LogInViewController: UIViewController {
         super.updateViewConstraints()
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= 120
+            }
+            
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     //MARK: - Действие кнопки logIn
     @objc private func logInButtonPressed() {
         
@@ -189,11 +208,7 @@ class LogInViewController: UIViewController {
                     self.handleError(error)
                     return
                 } else {
-                    if let resultUnwrapped = result {
-                        print(resultUnwrapped.user.uid)
-                        let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
-                        ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email,
-                                                                               "\(UsersFieldsEnum.favorites)" : [""]])
+                    Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
                     }
                     
                     print("register")

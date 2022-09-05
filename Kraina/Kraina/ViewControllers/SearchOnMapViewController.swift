@@ -135,6 +135,7 @@ extension SearchOnMapViewController: UITableViewDelegate,
         let coordinates = FireBaseManager.shared.getCoordinatesArray(model: filteredModels[indexPath.row])
         guard let mapVCUnwrapped = mapVC else {return}
         mapVCUnwrapped.moveTo(latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
+        
  
     }
     
