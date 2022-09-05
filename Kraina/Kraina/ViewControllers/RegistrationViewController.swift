@@ -149,14 +149,15 @@ class RegistrationViewController: UIViewController {
            let passwordText = passwordTextField.text,
            let confirmPasswordText = confirmPasswordTextField.text {
             if passwordText == confirmPasswordText {
-                Auth.auth().createUser(withEmail: email, password: passwordText) {[weak self] result, error in
+                Auth.auth().createUser(withEmail: email,
+                                       password: passwordText) {[weak self] result, error in
                     if error != nil {
-                        print(error!._code)
-                        guard let self = self else {return}
-                        self.handleError(error!)      // use the handleError method
+                        guard let self = self,
+                              let error = error else {return}
+                        print(error._code)
+                        self.handleError(error)
                         return
                     } else {
-                        
                         if let resultUnwrapped = result {
                             print(resultUnwrapped.user.uid)
                             let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
@@ -164,7 +165,6 @@ class RegistrationViewController: UIViewController {
                                                                                    "\(UsersFieldsEnum.favorites)" : [""]])
                             
                         }
-                        
                         print("register")
                     }
                 }

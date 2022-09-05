@@ -177,13 +177,27 @@ class LogInViewController: UIViewController {
     @objc private func logInButtonPressed() {
         
         if let email = emailTextField.text,
-           let passwordText = passwordTextField.text,
-           //isValidEmail(testStr: email),
-           passwordText.count > 5 {
-            Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
-            }
-        } else {
-            doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+           let passwordText = passwordTextField.text {
+                Auth.auth().signIn(withEmail: email,
+                                   password: passwordText) {[weak self] result, error in
+                    if error != nil {
+                        guard let self = self,
+                              let error = error else {return}
+                        print(error._code)
+                        self.handleError(error)
+                        return
+                    } else {
+                        if let resultUnwrapped = result {
+                            print(resultUnwrapped.user.uid)
+                            let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                            ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email,
+                                                                                   "\(UsersFieldsEnum.favorites)" : [""]])
+                        }
+                        
+                        print("register")
+                    }
+                }
+
         }
     }
     

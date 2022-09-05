@@ -11,6 +11,8 @@ import FirebaseAuth
 extension AuthErrorCode.Code {
     var errorMessage: String {
         switch self {
+        case .wrongPassword:
+            return "Your password is incorrect."
         case .emailAlreadyInUse:
             return "The email is already in use with another account"
         case .userNotFound:
@@ -23,10 +25,9 @@ extension AuthErrorCode.Code {
             return "Network error. Please try again."
         case .weakPassword:
             return "Your password is too weak. The password must be 6 characters long or more."
-        case .wrongPassword:
-            return "Your password is incorrect. Please try again or use 'Forgot password' to reset your password"
         default:
             return "Unknown error occurred"
         }
     }
+    
 }
