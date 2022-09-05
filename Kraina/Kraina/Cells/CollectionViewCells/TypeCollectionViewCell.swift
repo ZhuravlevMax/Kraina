@@ -73,6 +73,11 @@ class TypeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        mainImageView.image = nil
+    }
+    
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         

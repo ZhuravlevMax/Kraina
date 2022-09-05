@@ -183,7 +183,7 @@ class MapViewController: UIViewController,
         //Нажатие на кластер
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
-            mapView.animate(toZoom: mapView.camera.zoom + 2)
+            mapView.animate(toZoom: mapView.camera.zoom + 1)
             NSLog("Did tap cluster")
             return true
         }

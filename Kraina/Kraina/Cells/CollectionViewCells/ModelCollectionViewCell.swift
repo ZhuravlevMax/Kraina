@@ -53,6 +53,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         iconImageView.snp.makeConstraints {
