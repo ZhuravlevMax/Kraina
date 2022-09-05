@@ -148,24 +148,29 @@ class RegistrationViewController: UIViewController {
         if let email = emailTextField.text,
            let passwordText = passwordTextField.text,
            let confirmPasswordText = confirmPasswordTextField.text {
-            if isValidEmail(testStr: email), passwordText.count > 5, passwordText == confirmPasswordText {
+            if passwordText == confirmPasswordText {
                 Auth.auth().createUser(withEmail: email, password: passwordText) {[weak self] result, error in
-                    print(error)
-                    if let resultUnwrapped = result {
-                        print(resultUnwrapped.user.uid)
-                        let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
-                        ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email,
-                                                                               "\(UsersFieldsEnum.favorites)" : [""]])
-                        
-                    } else {
+                    if error != nil {
+                        print(error!._code)
                         guard let self = self else {return}
-                        self.doErrorAlert(title: "Ошибка", message: "Возможно данный email уже зарегистрирован")
+                        self.handleError(error!)      // use the handleError method
+                        return
+                    } else {
+                        
+                        if let resultUnwrapped = result {
+                            print(resultUnwrapped.user.uid)
+                            let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                            ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email,
+                                                                                   "\(UsersFieldsEnum.favorites)" : [""]])
+                            
+                        }
+                        
+                        print("register")
                     }
                 }
             } else {
-                doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+                doErrorAlert(title: "Error", message: "Passwords do not match!")
             }
-            print("register")
         }
     }
 }

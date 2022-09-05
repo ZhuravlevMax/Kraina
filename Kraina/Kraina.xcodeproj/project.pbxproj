@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940B0FD528C6213B002BE48F /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B0FD428C6213B002BE48F /* AuthErrorCode+Extension.swift */; };
 		94111F2D28C3CD4600396692 /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94111F2C28C3CD4600396692 /* SearchOnMapViewController.swift */; };
 		94111F2F28C3EF5000396692 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94111F2E28C3EF4F00396692 /* MapViewController.swift */; };
 		941FD2C328BF4F9300C800DB /* ModelFromDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */; };
@@ -74,6 +75,7 @@
 		2904552F156C4587AD370719 /* Pods_Kraina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kraina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.release.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.release.xcconfig"; sourceTree = "<group>"; };
 		8BA416F01C6E783477ADC038 /* Pods-Kraina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.debug.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.debug.xcconfig"; sourceTree = "<group>"; };
+		940B0FD428C6213B002BE48F /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		94111F2C28C3CD4600396692 /* SearchOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewController.swift; sourceTree = "<group>"; };
 		94111F2E28C3EF4F00396692 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFromDelegate.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				94D849AB28A2E5D200A06B6D /* UIView+Extension.swift */,
+				940B0FD428C6213B002BE48F /* AuthErrorCode+Extension.swift */,
 				945F75FA28A96FFE0013122D /* Image+Extension.swift */,
 				949EC2DC28BC07830055EF48 /* CollectionView+Extension.swift */,
 				94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */,
@@ -537,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94D849AE28A2E87A00A06B6D /* UIViewController+Extension.swift in Sources */,
+				940B0FD528C6213B002BE48F /* AuthErrorCode+Extension.swift in Sources */,
 				94D8499828A29E7000A06B6D /* TabBarViewController.swift in Sources */,
 				949EC2DB28BBEDBA0055EF48 /* FavouriteTypeTableViewCell.swift in Sources */,
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,

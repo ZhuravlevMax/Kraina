@@ -178,7 +178,7 @@ class LogInViewController: UIViewController {
         
         if let email = emailTextField.text,
            let passwordText = passwordTextField.text,
-           isValidEmail(testStr: email),
+           //isValidEmail(testStr: email),
            passwordText.count > 5 {
             Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
             }
