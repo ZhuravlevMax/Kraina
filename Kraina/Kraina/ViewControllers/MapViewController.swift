@@ -183,8 +183,6 @@ class MapViewController: UIViewController,
     //MARK: - Функция по нажатию на кластер или маркер
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        mapView.animate(toLocation: marker.position)
-        //Нажатие на кластер
         if marker.userData is GMUCluster {
             // zoom in on tapped cluster
             mapView.animate(toZoom: mapView.camera.zoom + 1)
@@ -192,9 +190,17 @@ class MapViewController: UIViewController,
             return true
         }
         
+        didTapOnIcon(marker: marker)
+        
+        return false
+    }
+    
+    //MARK: - действие при нажатии на иконку на карте
+    func didTapOnIcon(marker: GMSMarker ) {
+        mapView.animate(toLocation: marker.position)
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
                                                     latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
-            
+            //Выезжает VC попап
             guard let self = self else {return}
             //fpc.removePanelFromParent(animated: true)
             let popupVC = PopupMapViewController()
@@ -203,18 +209,6 @@ class MapViewController: UIViewController,
             self.fpc.set(contentViewController: popupVC)
             self.fpc.addPanel(toParent: self)
             self.fpc.move(to: .half, animated: true)
-            
-            
-            //            //MARK: - Текст для лейблов
-            //            self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: QueryDocumentSnapshot)
-            //            self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: QueryDocumentSnapshot)
-            //            self.model = QueryDocumentSnapshot
-            //
-            //            //достаю попап
-            //            UIView.animate(withDuration: 0.3) {
-            //                self.popupView.snp.updateConstraints {
-            //                    $0.bottom.equalToSuperview()}
-            //                self.view.layoutIfNeeded()}
         }
         
         //Вибрация при тапе на иконку
@@ -252,17 +246,26 @@ class MapViewController: UIViewController,
         self.clusterManager.add(newMarkerArray)
         
         self.clusterManager.cluster()
+    }
+
+    //MARK: - действие по нажатию на иконку из других VC
+    func didTapIconFromSearchMapVC(model: QueryDocumentSnapshot) {
+        let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
+        let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue],
+                                              longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
+        let marker = GMSMarker(position: position)
         
-        return false
+        if marker.userData is GMUCluster {
+            // zoom in on tapped cluster
+            mapView.animate(toZoom: mapView.camera.zoom + 1)
+            NSLog("Did tap cluster")
+        }
+        didTapOnIcon(marker: marker)
+
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        //
-        //        //скрываю попап
-        //        UIView.animate(withDuration: 0.3) {
-        //            self.popupView.snp.updateConstraints {
-        //                $0.bottom.equalToSuperview().offset(250)}
-        //            self.view.layoutIfNeeded()}
+ 
     }
     
     //MARK: - Метод для задания сдвига попапа, когда тянешь

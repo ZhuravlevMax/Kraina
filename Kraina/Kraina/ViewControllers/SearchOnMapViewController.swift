@@ -137,6 +137,7 @@ extension SearchOnMapViewController: UITableViewDelegate,
         guard let mapVCUnwrapped = mapVC,
               let modelsUnwrapped = models else {return}
         mapVCUnwrapped.doClustersFromSearch(models: modelsUnwrapped)
+        mapVCUnwrapped.didTapIconFromSearchMapVC(model: filteredModels[indexPath.row] )
         mapVCUnwrapped.moveTo(latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
 
     }
