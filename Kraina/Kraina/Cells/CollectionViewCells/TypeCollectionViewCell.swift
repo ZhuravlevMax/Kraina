@@ -93,8 +93,9 @@ class TypeCollectionViewCell: UICollectionViewCell {
         }
         
         nameModelLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview().inset(20)
             $0.top.equalToSuperview().inset(20)
+            
         }
     }
     

@@ -53,7 +53,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         
         infoView.frame = contentView.frame
 
-        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.3),
+        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
                                        secondColor: .clear)
 
             //gradientLayer.frame = bounds

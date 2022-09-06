@@ -324,7 +324,7 @@ class MapViewController: UIViewController,
         
         searchButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-180)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-220)
             $0.height.width.equalTo(50)
         }
         super.updateViewConstraints()
