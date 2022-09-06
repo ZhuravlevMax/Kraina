@@ -23,6 +23,9 @@ class MapViewController: UIViewController,
                          FloatingPanelControllerDelegate,
                          MapViewDelegate {
     
+    
+    
+    
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
@@ -146,7 +149,7 @@ class MapViewController: UIViewController,
                     self.coordinatesArray.append(FireBaseManager.shared.getCoordinatesArray(model: $0))
                 })
                 guard let self = self else {return}
-                self.doClusters()
+                self.doClusters(models: models)
             }
         }
         
@@ -166,7 +169,8 @@ class MapViewController: UIViewController,
         self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algoritm, renderer: renderer)
         self.clusterManager.setMapDelegate(self)
         
-        doClusters()
+        guard let models = models else {return}
+        doClusters(models: models)
         
         //MARK: - Работа с всплывающим попапом
         fpc.surfaceView.appearance = self.appearance
@@ -354,23 +358,18 @@ class MapViewController: UIViewController,
         markerArray.removeAll()
         mapView.clear()
         clusterManager.clearItems()
-        modelsSet.forEach {
-            let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
-            let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue], longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
-            let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
-            self.markerArray.append(marker)
-        }
-        
-        //Добавляю точки в менеджер кластеров
-        self.clusterManager.add(self.markerArray)
-        
-        self.clusterManager.cluster()
+        doClusters(models: modelsSet)
+    }
+    
+    func doClustersFromSearch(models: [QueryDocumentSnapshot]) {
+        markerArray.removeAll()
+        mapView.clear()
+        clusterManager.clearItems()
+        doClusters(models: models)
     }
     
     //MARK: - Метод добавления кластеров на карту
-    func doClusters() {
-        guard let models = models else {return}
+    func doClusters(models: [QueryDocumentSnapshot]) {
         
         models.forEach {
             let coordinate = FireBaseManager.shared.getCoordinatesArray(model: $0)
@@ -394,7 +393,10 @@ class MapViewController: UIViewController,
                                                       animated: true)
     }
     
+    
 }
+
+
 
 //MARK: - Работа с СollectionView
 extension MapViewController: UICollectionViewDelegate,

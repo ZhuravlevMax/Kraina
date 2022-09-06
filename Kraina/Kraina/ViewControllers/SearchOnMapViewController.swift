@@ -49,10 +49,10 @@ class SearchOnMapViewController: UIViewController {
         let tableView = UITableView()
         return tableView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         
         searchTableView.delegate = self
@@ -84,8 +84,8 @@ class SearchOnMapViewController: UIViewController {
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
-//        guard let navigationControllerUnwrapped = navigationController else {return}
-//        navigationControllerUnwrapped.popViewController(animated: true)
+        //        guard let navigationControllerUnwrapped = navigationController else {return}
+        //        navigationControllerUnwrapped.popViewController(animated: true)
         dismiss(animated: true)
     }
     
@@ -105,7 +105,7 @@ class SearchOnMapViewController: UIViewController {
 }
 
 extension SearchOnMapViewController: UITableViewDelegate,
-                                        UITableViewDataSource {
+                                     UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         filteredModels.count
@@ -132,11 +132,13 @@ extension SearchOnMapViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismiss(animated: true)
         dismiss(animated: true)
-        let coordinates = FireBaseManager.shared.getCoordinatesArray(model: filteredModels[indexPath.row])
-        guard let mapVCUnwrapped = mapVC else {return}
-        mapVCUnwrapped.moveTo(latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
         
- 
+        let coordinates = FireBaseManager.shared.getCoordinatesArray(model: filteredModels[indexPath.row])
+        guard let mapVCUnwrapped = mapVC,
+              let modelsUnwrapped = models else {return}
+        mapVCUnwrapped.doClustersFromSearch(models: modelsUnwrapped)
+        mapVCUnwrapped.moveTo(latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
+
     }
     
 }
@@ -154,26 +156,26 @@ extension SearchOnMapViewController: UISearchResultsUpdating {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
     }
-        
-        //MARK: - Методы для работы с searchController
-        func updateSearchResults(for searchController: UISearchController) {
-            guard let text = searchController.searchBar.text else {return}
-            filterModelsForSearch(searchText: text)
-            print(text)
-        }
-        
-        //MARK: - Метод для сравения введенного текста с массивом объектов по именам
-        func filterModelsForSearch(searchText: String) {
-            guard let models = models,
-                  let text = searchController.searchBar.text else {return}
-            filteredModels = models.filter({
-                FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
-            })
-            searchTableView.reloadData()
-            print(filteredModels)
-        }
+    
+    //MARK: - Методы для работы с searchController
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {return}
+        filterModelsForSearch(searchText: text)
+        print(text)
     }
     
-    
+    //MARK: - Метод для сравения введенного текста с массивом объектов по именам
+    func filterModelsForSearch(searchText: String) {
+        guard let models = models,
+              let text = searchController.searchBar.text else {return}
+        filteredModels = models.filter({
+            FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
+        })
+        searchTableView.reloadData()
+        print(filteredModels)
+    }
+}
+
+
 
 

@@ -94,9 +94,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
                 self.modelType == FireBaseManager.shared.getModelType(model: $0)
             })
         }
-        
-        
-        
+
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
         
