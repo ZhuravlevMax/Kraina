@@ -22,6 +22,16 @@ class ModelCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Создание элементов UI
+    
+    private lazy var mainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 5
+        view.layer.borderWidth = 1
+        view.layer.borderColor = AppColorsEnum.borderCGColor
+        return view
+    }()
+    
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -41,9 +51,9 @@ class ModelCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         //contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(modelName)
+        contentView.addSubview(mainView)
+        mainView.addSubview(iconImageView)
+        mainView.addSubview(modelName)
         
         updateViewConstraints()
         
@@ -56,9 +66,14 @@ class ModelCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
+        mainView.snp.makeConstraints {
+
+            $0.right.equalToSuperview().inset(5)
+            $0.left.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+        }
+        
         iconImageView.snp.makeConstraints {
-//            $0.left.top.equalToSuperview().inset(10)
-//            $0.bottom.equalToSuperview().inset(10)
             $0.left.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
             $0.height.width.equalTo(20)
@@ -68,7 +83,6 @@ class ModelCollectionViewCell: UICollectionViewCell {
             $0.left.equalTo(iconImageView.snp.right).offset(10)
             $0.top.right.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(10)
-            //$0.centerY.equalToSuperview()
         }
     }
     
@@ -84,7 +98,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
 
-        self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
+        mainView.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
         guard let models = models else {return}
         var modelsToMapArray: [QueryDocumentSnapshot] = []
         if modelType == "\(FireBaseTypeEnum.all)" {

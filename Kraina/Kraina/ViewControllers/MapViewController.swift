@@ -76,11 +76,9 @@ class MapViewController: UIViewController,
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 20
-        layout.minimumLineSpacing = 20
-        layout.itemSize = CGSize(width: 130, height: 40)
-        
-        //        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(width: 150, height: 50)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -445,21 +443,20 @@ extension MapViewController: UICollectionViewDelegate,
                                           modelsSet: modelsUnwrapped)
                     
                 case FireBaseIconTypeEnum.protectedAreas.rawValue:
-                    collectionCell.setVar(setText: "Заповедные территории",
+                    collectionCell.setVar(setText: "Заповедники",
                                           setType: "\(FireBaseIconTypeEnum.protectedAreas)",
                                           image: imageProtectedAreas,
                                           modelsSet: modelsUnwrapped)
-                    
                 default:
                     ""
                 }
             }
             
             collectionCell.changeTypeDelegate = self
-            collectionCell.backgroundColor = .white
-            collectionCell.layer.cornerRadius = 5
-            collectionCell.layer.borderWidth = 1
-            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+//            collectionCell.backgroundColor = .white
+//            collectionCell.layer.cornerRadius = 5
+//            collectionCell.layer.borderWidth = 1
+//            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
             return collectionCell
         }
         return UICollectionViewCell()
@@ -469,9 +466,9 @@ extension MapViewController: UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20,
-                            left: 20,
+                            left: 10,
                             bottom: 20,
-                            right: 20)
+                            right: 5)
     }
     
 }
