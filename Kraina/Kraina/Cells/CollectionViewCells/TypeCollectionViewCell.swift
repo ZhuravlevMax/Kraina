@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 
+
 class TypeCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Создание переменных
@@ -60,7 +61,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
 
         shadowView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
-        contentView.clipsToBounds = false
+        contentView.clipsToBounds = false 
         contentView.backgroundColor = .clear
         
         shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
@@ -82,14 +83,15 @@ class TypeCollectionViewCell: UICollectionViewCell {
     func updateViewConstraints() {
         
         mainView.snp.makeConstraints {
-            $0.left.top.right.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
         }
         mainImageView.snp.makeConstraints {
-            $0.left.top.right.bottom.equalToSuperview()
+            $0.left.top.right.bottom.equalToSuperview().inset(10)
         }
         
         shadowView.snp.makeConstraints {
-            $0.left.top.right.bottom.equalToSuperview()
+            $0.left.top.right.bottom.equalToSuperview().inset(10)
         }
         
         nameModelLabel.snp.makeConstraints {
@@ -110,5 +112,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
         nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
         contentView.layer.cornerRadius = 6
     }
+    
+    
     
 }

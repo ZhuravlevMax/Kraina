@@ -25,6 +25,8 @@ pod 'UltraDrawerView'
 pod 'SPStorkController'
 pod 'SPLarkController'
 pod 'FloatingPanel'
+pod "AlignedCollectionViewFlowLayout"
+pod 'FAPaginationLayout'
 
 
 end
