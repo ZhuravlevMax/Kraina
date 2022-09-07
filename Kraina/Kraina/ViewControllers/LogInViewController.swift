@@ -80,7 +80,9 @@ class LogInViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
         button.dropShadow()
-        button.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(self.logInButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -99,7 +101,9 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
-        button.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(self.сreateAccButtonPressed),
+                         for: .touchUpInside)
         button.dropShadow()
         return button
     }()
@@ -109,8 +113,14 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
         
         view.layoutSubviews()
         
@@ -188,7 +198,6 @@ class LogInViewController: UIViewController {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= 120
             }
-            
         }
     }
     
@@ -216,7 +225,6 @@ class LogInViewController: UIViewController {
                 } else {
                     Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
                     }
-                    
                     print("register")
                 }
             }

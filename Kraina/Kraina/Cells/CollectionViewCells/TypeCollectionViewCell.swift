@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 import Kingfisher
-    
+
 class TypeCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Создание переменных
@@ -48,20 +48,20 @@ class TypeCollectionViewCell: UICollectionViewCell {
     //MARK: - Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
- 
+        
         contentView.addSubview(mainView)
         mainView.addSubview(mainImageView)
         mainView.addSubview(shadowView)
         shadowView.addSubview(nameModelLabel)
-
+        
         mainView.dropShadow()
         mainView.layer.cornerRadius = 6
         shadowView.frame.size = CGSize(width: contentView.frame.width,
                                        height: contentView.frame.height)
-
+        
         shadowView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
-        contentView.clipsToBounds = false 
+        contentView.clipsToBounds = false
         contentView.backgroundColor = .clear
         
         shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
@@ -114,7 +114,5 @@ class TypeCollectionViewCell: UICollectionViewCell {
         nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
         contentView.layer.cornerRadius = 6
     }
-    
-    
     
 }

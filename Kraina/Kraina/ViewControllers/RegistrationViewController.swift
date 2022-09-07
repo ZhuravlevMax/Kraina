@@ -34,7 +34,6 @@ class RegistrationViewController: UIViewController {
         textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
         textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
-        textField.attributedPlaceholder
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -55,7 +54,6 @@ class RegistrationViewController: UIViewController {
         textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
-        
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -110,7 +108,6 @@ class RegistrationViewController: UIViewController {
         registerView.addSubview(registerButton)
         
         updateViewConstraints()
-        
     }
     
     //MARK: - Работа с констрейнтами
@@ -149,8 +146,6 @@ class RegistrationViewController: UIViewController {
             $0.top.equalTo(confirmPasswordTextField).inset(50)
             $0.height.equalTo(50)
         }
-        
-        
         super.updateViewConstraints()
     }
     

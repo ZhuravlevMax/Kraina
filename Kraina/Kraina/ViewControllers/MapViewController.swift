@@ -23,9 +23,6 @@ class MapViewController: UIViewController,
                          FloatingPanelControllerDelegate,
                          MapViewDelegate {
     
-    
-    
-    
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
     private var clusterManager: GMUClusterManager!
@@ -50,24 +47,30 @@ class MapViewController: UIViewController,
     private lazy var nameModelLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        nameLabel.font = UIFont.systemFont(ofSize: 20,
+                                           weight: .bold)
         return nameLabel
     }()
     
     private lazy var adressModelLabel: UILabel = {
         let adressLabel = UILabel()
         adressLabel.numberOfLines = 0
-        adressLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        adressLabel.font = UIFont.systemFont(ofSize: 12,
+                                             weight: .light)
         return adressLabel
     }()
     
     private lazy var showModel: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
-        moveButton.setTitle("Узнать больше", for: .normal)
+        moveButton.setTitle("Узнать больше",
+                            for: .normal)
         moveButton.layer.cornerRadius = 10
-        moveButton.setTitleColor(.white, for: .normal)
-        moveButton.addTarget(self, action: #selector(self.showModelPressed), for: .touchUpInside)
+        moveButton.setTitleColor(.white,
+                                 for: .normal)
+        moveButton.addTarget(self,
+                             action: #selector(self.showModelPressed),
+                             for: .touchUpInside)
         return moveButton
     }()
     
@@ -79,10 +82,10 @@ class MapViewController: UIViewController,
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 0
         layout.itemSize = CGSize(width: 150, height: 50)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        
         return collectionView
         
     }()
@@ -91,11 +94,13 @@ class MapViewController: UIViewController,
         let moveButton = UIButton()
         moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         moveButton.layer.cornerRadius = 10
-        moveButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        moveButton.setImage(UIImage(systemName: "magnifyingglass"),
+                            for: .normal)
         moveButton.layer.borderColor = AppColorsEnum.borderCGColor
         moveButton.layer.borderWidth = 1
         moveButton.tintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
-        moveButton.addTarget(self, action: #selector(self.searchButtonPressed), for: .touchUpInside)
+        moveButton.addTarget(self, action: #selector(self.searchButtonPressed),
+                             for: .touchUpInside)
         return moveButton
     }()
     
@@ -120,7 +125,8 @@ class MapViewController: UIViewController,
         
         modelCollectionView.delegate = self
         modelCollectionView.dataSource = self
-        modelCollectionView.register(ModelCollectionViewCell.self, forCellWithReuseIdentifier: ModelCollectionViewCell.key)
+        modelCollectionView.register(ModelCollectionViewCell.self,
+                                     forCellWithReuseIdentifier: ModelCollectionViewCell.key)
         
         forMapView.frame = view.frame
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
@@ -150,7 +156,6 @@ class MapViewController: UIViewController,
                 self.doClusters(models: models)
             }
         }
-        
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
@@ -245,7 +250,7 @@ class MapViewController: UIViewController,
         
         self.clusterManager.cluster()
     }
-
+    
     //MARK: - действие по нажатию на иконку из других VC
     func didTapIconFromSearchMapVC(model: QueryDocumentSnapshot) {
         let coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
@@ -259,11 +264,11 @@ class MapViewController: UIViewController,
             NSLog("Did tap cluster")
         }
         didTapOnIcon(marker: marker)
-
+        
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
- 
+        
     }
     
     //MARK: - Метод для задания сдвига попапа, когда тянешь
@@ -272,7 +277,8 @@ class MapViewController: UIViewController,
             let loc = vc.surfaceLocation
             let minY = vc.surfaceLocation(for: .half).y - 16.0
             let maxY = vc.surfaceLocation(for: .tip).y + 6.0
-            vc.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY), maxY))
+            vc.surfaceLocation = CGPoint(x: loc.x,
+                                         y: min(max(loc.y, minY), maxY))
         }
     }
     
@@ -394,10 +400,7 @@ class MapViewController: UIViewController,
                                                       animated: true)
     }
     
-    
 }
-
-
 
 //MARK: - Работа с СollectionView
 extension MapViewController: UICollectionViewDelegate,
@@ -453,10 +456,6 @@ extension MapViewController: UICollectionViewDelegate,
             }
             
             collectionCell.changeTypeDelegate = self
-//            collectionCell.backgroundColor = .white
-//            collectionCell.layer.cornerRadius = 5
-//            collectionCell.layer.borderWidth = 1
-//            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
             return collectionCell
         }
         return UICollectionViewCell()
@@ -470,6 +469,5 @@ extension MapViewController: UICollectionViewDelegate,
                             bottom: 20,
                             right: 5)
     }
-    
 }
 

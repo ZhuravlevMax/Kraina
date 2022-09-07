@@ -48,16 +48,14 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     }()
     
     override func layoutIfNeeded() {
-            super.layoutIfNeeded()
+        super.layoutIfNeeded()
         self.contentView.frame = self.bounds
         
         infoView.frame = contentView.frame
-
+        
         infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
                                        secondColor: .clear)
-
-            //gradientLayer.frame = bounds
-        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,15 +67,13 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         infoView.addSubview(nameModelLabel)
         
         backgroundColor = .clear
-
+        
         updateViewConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,7 +83,6 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
     }
     
     //MARK: - Работа с констрейнтами
@@ -105,7 +100,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         }
         
         nameModelLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(10)
+            $0.left.right.equalToSuperview().inset(10)
             $0.top.equalToSuperview().inset(20)
         }
     }
@@ -114,7 +109,10 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
         //self.mainImageView.load(url: imageURL)
         mainImageView.kf.indicatorType = .activity
-        mainImageView.kf.setImage(with: (URL(string: imageURL)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
+        mainImageView.kf.setImage(with: (URL(string: imageURL)),
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0.7))],
+                                  progressBlock: nil)
     }
     
     

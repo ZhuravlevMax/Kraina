@@ -84,8 +84,6 @@ class SearchOnMapViewController: UIViewController {
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
-        //        guard let navigationControllerUnwrapped = navigationController else {return}
-        //        navigationControllerUnwrapped.popViewController(animated: true)
         dismiss(animated: true)
     }
     
@@ -101,7 +99,6 @@ class SearchOnMapViewController: UIViewController {
         }
         super.updateViewConstraints()
     }
-    
 }
 
 extension SearchOnMapViewController: UITableViewDelegate,
@@ -139,7 +136,6 @@ extension SearchOnMapViewController: UITableViewDelegate,
         mapVCUnwrapped.doClustersFromSearch(models: modelsUnwrapped)
         mapVCUnwrapped.didTapIconFromSearchMapVC(model: filteredModels[indexPath.row] )
         mapVCUnwrapped.moveTo(latData: coordinates[FirebaseCoordinateEnum.latitude.rawValue], lonData: coordinates[FirebaseCoordinateEnum.longtitude.rawValue])
-
     }
     
 }

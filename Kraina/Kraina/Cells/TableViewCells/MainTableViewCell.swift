@@ -26,7 +26,7 @@ class MainTableViewCell: UITableViewCell {
         return view
     }()
     
-     lazy var typeNameLabel: UILabel = {
+    lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
@@ -49,15 +49,18 @@ class MainTableViewCell: UITableViewCell {
     
     lazy var typeCollectionView: UICollectionView = {
         
-//        let layout = UICollectionViewFlowLayout()
-//        layout.minimumInteritemSpacing = 0
-//        layout.minimumLineSpacing = 10
-//        layout.scrollDirection = .horizontal
+        //        let layout = UICollectionViewFlowLayout()
+        //        layout.minimumInteritemSpacing = 0
+        //        layout.minimumLineSpacing = 10
+        //        layout.scrollDirection = .horizontal
         let fapagination = FAPaginationLayout()
         fapagination.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: fapagination)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 30)
+        collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                   left: 20,
+                                                   bottom: 0,
+                                                   right: 30)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         return collectionView
@@ -78,7 +81,7 @@ class MainTableViewCell: UITableViewCell {
         typeCollectionView.isPagingEnabled = false
         
         print(typeCollectionView.bounds)
-    
+        
         updateViewConstraints()
     }
     
@@ -89,9 +92,7 @@ class MainTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -99,7 +100,6 @@ class MainTableViewCell: UITableViewCell {
     }
     
     //MARK: - Работа с констрейнтами
-    
     func updateViewConstraints() {
         
         forWrapView.snp.makeConstraints {
@@ -125,8 +125,6 @@ class MainTableViewCell: UITableViewCell {
             $0.top.equalTo(forWrapView.snp.bottom)
             $0.bottom.equalToSuperview().inset(10)
         }
-        
-        
     }
     
     //MARK: - Действие кнопки searchButton
@@ -134,7 +132,6 @@ class MainTableViewCell: UITableViewCell {
         forVC?.openFavoriteVC(models: models)
         print("showAll")
     }
-    
 }
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -152,33 +149,14 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         return UICollectionViewCell()
     }
     
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 10,
-//                            left: 20,
-//                            bottom: 10,
-//                            right: 20)
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let width = contentView.frame.size.width
-//        return CGSize(width: width * 0.9, height: width * 0.42)
-//
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         var cellSize: CGSize = collectionView.bounds.size
         cellSize.width -= collectionView.contentInset.left
         cellSize.width -= collectionView.contentInset.right
-
+        
         return cellSize
     }
-    
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {

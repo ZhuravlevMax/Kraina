@@ -18,9 +18,9 @@ import Firebase
 import FloatingPanel
 
 class ForModelMapViewController: UIViewController,
-                                    GMSMapViewDelegate,
-                                    ModelMapDelegate,
-                                    FloatingPanelControllerDelegate {
+                                 GMSMapViewDelegate,
+                                 ModelMapDelegate,
+                                 FloatingPanelControllerDelegate {
     
     //MARK: - Создание переменных
     private var mapView: GMSMapView!
@@ -118,8 +118,6 @@ class ForModelMapViewController: UIViewController,
         coordinates = FireBaseManager.shared.getCoordinatesArray(model: modelUnwrapped)
         nameModel.text = FireBaseManager.shared.getModelName(model: modelUnwrapped)
         adressModel.text = FireBaseManager.shared.getModelAdress(model: modelUnwrapped)
-        
-        
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
@@ -236,11 +234,6 @@ class ForModelMapViewController: UIViewController,
     //MARK: - Метод при нажатии на карту
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
-//        //скрываю попап
-//        UIView.animate(withDuration: 0.2) {
-//            self.popupView.snp.updateConstraints {
-//                $0.bottom.equalToSuperview().offset(250)}
-//            self.view.layoutIfNeeded()}
     }
     
     //MARK: - действие при нажатии на кнопку moveToButton

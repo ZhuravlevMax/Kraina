@@ -108,7 +108,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
-
+        
         updateViewConstraints()
         mainTableView.reloadData()
     }
@@ -124,7 +124,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         mainTableView.snp.makeConstraints {
             $0.trailing.leading.top.bottom.equalToSuperview()
         }
-
+        
         super.updateViewConstraints()
     }
     
@@ -180,7 +180,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     func openFavoriteVC(models: [QueryDocumentSnapshot]) {
         let viewController = FavouriteTypeViewController()
-         viewController.setVar(setFavouriteModels: models)
+        viewController.setVar(setFavouriteModels: models)
         guard let model = models.first else {return}
         viewController.title = FireBaseManager.shared.getModelRusType(model: model)
         navigationController?.pushViewController(viewController,
@@ -227,7 +227,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 if let model = protectedAreasTypeArray.first {
                     cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
                 }
-            
+                
             default:
                 ""
             }
@@ -249,7 +249,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                    didSelectRowAt indexPath: IndexPath) {
         print("TableView")
     }
-
+    
     
 }
 

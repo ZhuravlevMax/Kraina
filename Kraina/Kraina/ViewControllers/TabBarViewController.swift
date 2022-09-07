@@ -19,6 +19,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         tabBar.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         tabBar.barTintColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         tabBar.unselectedItemTintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
+        tabBar.tintColor = AppColorsEnum.mainAppUIColor
         
         let MainVC = MainViewController()
         let MapVC = MapViewController()
@@ -44,9 +45,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             MainVC.models = models
             FavoriteVC.setModels(modelsForSet: models)
         }
-
-        tabBar.tintColor = AppColorsEnum.mainAppUIColor
-        
     }
     
     

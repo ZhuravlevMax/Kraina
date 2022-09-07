@@ -50,13 +50,11 @@ class ModelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        //contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(mainView)
         mainView.addSubview(iconImageView)
         mainView.addSubview(modelName)
         
         updateViewConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -67,7 +65,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
         mainView.snp.makeConstraints {
-
+            
             $0.right.equalToSuperview().inset(5)
             $0.left.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
@@ -97,23 +95,23 @@ class ModelCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
-
+        
         mainView.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         guard let models = models else {return}
         var modelsToMapArray: [QueryDocumentSnapshot] = []
         if modelType == "\(FireBaseTypeEnum.all)" {
-           modelsToMapArray = models
+            modelsToMapArray = models
         } else {
             modelsToMapArray = models.filter({
                 self.modelType == FireBaseManager.shared.getModelType(model: $0)
             })
         }
-
+        
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}
         changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
         
         //вибрация по нажатию
         let generator = UIImpactFeedbackGenerator(style: .light)
-                    generator.impactOccurred()
+        generator.impactOccurred()
     }
 }

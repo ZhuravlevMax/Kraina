@@ -166,10 +166,10 @@ class ModelViewController: UIViewController {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupClearNavBar()
+        
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layoutSubviews()
-
+        
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View
@@ -186,7 +186,7 @@ class ModelViewController: UIViewController {
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(ImagesCollectionViewCell.self,
-                                        forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
+                                      forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
         
         self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
         self.adressLabel.text = FireBaseManager.shared.getModelAdress(model: model)
@@ -198,7 +198,7 @@ class ModelViewController: UIViewController {
             self.favoriteState = $0.contains(model.documentID)
             self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
                                               for: .normal)
-
+            
         }
         imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
         pageControl.currentPage = 0
@@ -209,10 +209,8 @@ class ModelViewController: UIViewController {
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
         backToRoot()
-        //setImage(model: model)
-        //initialize()
         updateViewConstraints()
-    
+        
     }
     
     private func initialize() {
@@ -285,7 +283,10 @@ class ModelViewController: UIViewController {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
         //self.mainImageView.load(url: imageURL)
         mainImageView.kf.indicatorType = .activity
-        mainImageView.kf.setImage(with: (URL(string: imageURL)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
+        mainImageView.kf.setImage(with: (URL(string: imageURL)),
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0.7))],
+                                  progressBlock: nil)
     }
     
     //MARK: - Действие при нажатии кнопки showOnMapButton
@@ -315,13 +316,13 @@ class ModelViewController: UIViewController {
             
             if favoritesArray.contains(model.documentID) {
                 self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"),
-                                             for: .normal)
+                                                  for: .normal)
                 if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             } else {
                 self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"),
-                                             for: .normal)
+                                                  for: .normal)
                 favoritesArray.append("\(model.documentID)")
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
@@ -337,7 +338,7 @@ class ModelViewController: UIViewController {
         }
         //вибрация по нажатию на иконку
         let generator = UIImpactFeedbackGenerator(style: .medium)
-                    generator.impactOccurred()
+        generator.impactOccurred()
     }
     
     //MARK: - метод для кнопки назад в нав баре
@@ -348,8 +349,8 @@ class ModelViewController: UIViewController {
 }
 
 extension ModelViewController: UICollectionViewDelegate,
-                                UICollectionViewDataSource,
-                                UICollectionViewDelegateFlowLayout {
+                               UICollectionViewDataSource,
+                               UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         imagesURLArray.count
@@ -360,7 +361,7 @@ extension ModelViewController: UICollectionViewDelegate,
         if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.key,
                                                                for: indexPath) as? ImagesCollectionViewCell {
             cell.setImage(image: imagesURLArray[indexPath.row])
- 
+            
             return cell
         }
         return UICollectionViewCell()
@@ -381,7 +382,7 @@ extension ModelViewController: UICollectionViewDelegate,
         return CGSize(width: width, height: height)
         
     }
-
+    
     func backToRoot() {
         let swipeDownGesture = UISwipeGestureRecognizer(target: self,
                                                         action: #selector(back))
@@ -393,6 +394,4 @@ extension ModelViewController: UICollectionViewDelegate,
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
     }
-    
-    
 }

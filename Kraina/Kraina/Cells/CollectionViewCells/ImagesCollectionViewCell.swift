@@ -33,7 +33,7 @@ class ImagesCollectionViewCell: UICollectionViewCell {
     //MARK: - Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
- 
+        
         contentView.addSubview(mainView)
         mainView.addSubview(mainImageView)
         
@@ -66,6 +66,9 @@ class ImagesCollectionViewCell: UICollectionViewCell {
     func setImage(image: String) {
         //self.mainImageView.load(url: image)
         mainImageView.kf.indicatorType = .activity
-        mainImageView.kf.setImage(with: (URL(string: image)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
+        mainImageView.kf.setImage(with: (URL(string: image)),
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0.7))],
+                                  progressBlock: nil)
     }
 }

@@ -22,7 +22,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Создание элементов UI
-
+    
     private lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
@@ -59,20 +59,15 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Работа с констрейнтами
     func updateViewConstraints() {
-
         
         typeNameLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
             $0.top.right.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(10)
-            //$0.centerY.equalToSuperview()
         }
         
         countLabel.snp.makeConstraints {
-            
             $0.top.right.equalToSuperview().inset(10)
-
-            //$0.centerY.equalToSuperview()
         }
     }
     
@@ -83,10 +78,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
-
-        //self.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
-        guard let models = models else {return}
         
+        guard let models = models else {return}
         
         let modelsToMapArray = models.filter({
             self.modelType == FireBaseManager.shared.getModelType(model: $0)

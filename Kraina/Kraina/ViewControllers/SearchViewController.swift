@@ -82,7 +82,6 @@ class SearchViewController: UIViewController {
         view.addSubview(searchTableView)
         
         backToVC()
-        
     }
     
     //MARK: - метод для кнопки назад в нав баре
@@ -90,7 +89,6 @@ class SearchViewController: UIViewController {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
     }
-    
 }
 
 extension SearchViewController: UISearchResultsUpdating {

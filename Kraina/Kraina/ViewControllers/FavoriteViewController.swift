@@ -102,7 +102,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     //MARK: - Метод для обновления массива избранного
     func updateFavoriteArray() {
         FireBaseManager.shared.getUserFavoritesArray(completion: { [weak self] favorites in
-           // guard let models = models else {return}
+            // guard let models = models else {return}
             guard let self = self else {return}
             self.favoritesNames = favorites
             self.favoriteModels = self.models.filter { model in
@@ -171,7 +171,8 @@ extension FavoriteViewController: UICollectionViewDelegate,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = view.frame.size.width
-        return CGSize(width: width * 0.41, height: width * 0.3)
+        return CGSize(width: width * 0.41,
+                      height: width * 0.3)
         
     }
     
@@ -200,8 +201,4 @@ extension FavoriteViewController: UICollectionViewDelegate,
         updateFavoriteArray()
         favoriteCollectionView.reloadData()
     }
-    
-    
-    
-    
 }
