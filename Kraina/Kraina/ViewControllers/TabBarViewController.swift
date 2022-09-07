@@ -15,7 +15,10 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         tabBarController?.delegate = self
         
-        tabBar.backgroundColor = UIColor.white
+        tabBar.isTranslucent = false
+        tabBar.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        tabBar.barTintColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        tabBar.unselectedItemTintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
         
         let MainVC = MainViewController()
         let MapVC = MapViewController()

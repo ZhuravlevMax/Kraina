@@ -53,7 +53,7 @@ class SearchOnMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         searchTableView.delegate = self
         searchTableView.dataSource = self

@@ -51,7 +51,7 @@ class PopupMapViewController: UIViewController {
         view.addSubview(adressModelLabel)
         view.addSubview(showModelButton)
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         guard let model = model else {return}
 

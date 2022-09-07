@@ -25,7 +25,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1
         view.layer.borderColor = AppColorsEnum.borderCGColor

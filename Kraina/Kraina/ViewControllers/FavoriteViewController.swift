@@ -42,7 +42,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Избранное"
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         tabBarController?.delegate = self
         
         favoriteCollectionView.delegate = self
@@ -53,7 +53,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = AppColorsEnum.mainAppUIColor
+        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.navigationBarColor)")
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance

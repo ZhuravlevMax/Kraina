@@ -102,7 +102,7 @@ class ModelViewController: UIViewController {
     
     private lazy var modelScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         scrollView.frame = view.frame
         scrollView.contentSize = contentSize
         //убираю safe area
@@ -118,7 +118,7 @@ class ModelViewController: UIViewController {
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         contentView.frame.size = contentSize
         return contentView
     }()
@@ -167,7 +167,7 @@ class ModelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setupClearNavBar()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layoutSubviews()
 
         guard let model = model else {return}

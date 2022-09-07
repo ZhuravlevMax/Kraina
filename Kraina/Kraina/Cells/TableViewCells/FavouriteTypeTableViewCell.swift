@@ -17,7 +17,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layer.cornerRadius = 6
         view.dropShadow()
         return view
@@ -25,7 +25,6 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     
     lazy var infoView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
         view.backgroundColor = .clear

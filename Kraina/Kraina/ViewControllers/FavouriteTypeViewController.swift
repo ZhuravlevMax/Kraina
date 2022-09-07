@@ -44,7 +44,7 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         
         favoutiteTypeTableView.delegate = self

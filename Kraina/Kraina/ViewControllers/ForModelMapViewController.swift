@@ -36,7 +36,7 @@ class ForModelMapViewController: UIViewController,
     
     private lazy var popupView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layer.cornerRadius = 20
         return view
     }()
@@ -82,7 +82,7 @@ class ForModelMapViewController: UIViewController,
     
     private lazy var forShadowView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        //view.backgroundColor = .gray
         
         return view
     }()
@@ -103,7 +103,7 @@ class ForModelMapViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layoutSubviews()
         
         //MARK: - Добавление элементов на экран

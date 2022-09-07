@@ -17,13 +17,13 @@ class LogInViewController: UIViewController {
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return view
     }()
     
     private lazy var logInView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.dropShadow()
         view.layer.cornerRadius = 20
         return view
@@ -108,7 +108,7 @@ class LogInViewController: UIViewController {
         
         view.layoutSubviews()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)

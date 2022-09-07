@@ -42,7 +42,7 @@ class MapViewController: UIViewController,
     
     private lazy var popupView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layer.cornerRadius = 20
         return view
     }()
@@ -123,7 +123,7 @@ class MapViewController: UIViewController,
         modelCollectionView.register(ModelCollectionViewCell.self, forCellWithReuseIdentifier: ModelCollectionViewCell.key)
         
         forMapView.frame = view.frame
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         self.tabBarController?.delegate = self
         
         //MARK: - Добавление элементов на экран

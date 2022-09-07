@@ -26,7 +26,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return view
     }()
     
@@ -52,7 +52,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     private lazy var logOutButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.navigationBarColor)")
         button.setTitle("Выйти",
                         for: .normal)
         button.layer.cornerRadius = 10
@@ -68,6 +68,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     private lazy var mainTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -78,7 +79,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         view.layoutSubviews()
         
         title = "Главная"
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         mainTableView.delegate = self
         mainTableView.dataSource = self
@@ -101,7 +102,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         //MARK: - Внешний вид navigationController
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = AppColorsEnum.mainAppUIColor
+        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.navigationBarColor)")
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
@@ -230,7 +231,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 ""
             }
-            
+            cell.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
             cell.selectionStyle = .none
             cell.forVC = self
             return cell
