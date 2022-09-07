@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 class FavouriteTypeTableViewCell: UITableViewCell {
     
@@ -112,7 +113,9 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     
     func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
-        self.mainImageView.load(url: imageURL)
+        //self.mainImageView.load(url: imageURL)
+        mainImageView.kf.indicatorType = .activity
+        mainImageView.kf.setImage(with: (URL(string: imageURL)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
     }
     
     

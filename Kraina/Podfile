@@ -27,6 +27,7 @@ pod 'SPLarkController'
 pod 'FloatingPanel'
 pod "AlignedCollectionViewFlowLayout"
 pod 'FAPaginationLayout'
+pod 'Kingfisher', '~> 7.0'
 
 
 end

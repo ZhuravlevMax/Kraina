@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 class ImagesCollectionViewCell: UICollectionViewCell {
     
@@ -63,6 +64,8 @@ class ImagesCollectionViewCell: UICollectionViewCell {
     }
     
     func setImage(image: String) {
-        self.mainImageView.load(url: image)
+        //self.mainImageView.load(url: image)
+        mainImageView.kf.indicatorType = .activity
+        mainImageView.kf.setImage(with: (URL(string: image)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
     }
 }

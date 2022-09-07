@@ -826,6 +826,7 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.2)
+  - Kingfisher (7.3.2)
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
     - Libuv-gRPC/Implementation (= 0.0.10)
@@ -860,6 +861,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GoogleSignIn
   - GSKStretchyHeaderView
+  - Kingfisher (~> 7.0)
   - SnapKit (~> 5.0.0)
   - SPLarkController
   - SPStorkController
@@ -901,6 +903,7 @@ SPEC REPOS:
     - GSKStretchyHeaderView
     - GTMAppAuth
     - GTMSessionFetcher
+    - Kingfisher
     - leveldb-library
     - Libuv-gRPC
     - nanopb
@@ -945,6 +948,7 @@ SPEC CHECKSUMS:
   GSKStretchyHeaderView: 9743704c12bdc9cf7c7947bad3af8bf24f7061e3
   GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
@@ -954,6 +958,6 @@ SPEC CHECKSUMS:
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   UltraDrawerView: 1c44968534466a6bff965b3a7d7d64caec225d48
 
-PODFILE CHECKSUM: 82a88a3778e0b7edde3cd4fb0be181de5611ec4f
+PODFILE CHECKSUM: 888391a61a00c7cac79f4e289e61ded460ec8dea
 
 COCOAPODS: 1.11.3

@@ -7,8 +7,8 @@
 
 import UIKit
 import Firebase
-
-
+import Kingfisher
+    
 class TypeCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Создание переменных
@@ -103,7 +103,9 @@ class TypeCollectionViewCell: UICollectionViewCell {
     
     func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
-        self.mainImageView.load(url: imageURL)
+        //self.mainImageView.load(url: imageURL)
+        mainImageView.kf.indicatorType = .activity
+        mainImageView.kf.setImage(with: (URL(string: imageURL)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
     }
     
     //MARK: - Метод для передачи объекта из другого VC и работы с UI

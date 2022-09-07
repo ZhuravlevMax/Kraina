@@ -283,7 +283,9 @@ class ModelViewController: UIViewController {
     
     private func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
-        self.mainImageView.load(url: imageURL)
+        //self.mainImageView.load(url: imageURL)
+        mainImageView.kf.indicatorType = .activity
+        mainImageView.kf.setImage(with: (URL(string: imageURL)), placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
     }
     
     //MARK: - Действие при нажатии кнопки showOnMapButton
