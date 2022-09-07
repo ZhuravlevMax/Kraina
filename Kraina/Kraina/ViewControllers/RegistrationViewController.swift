@@ -31,23 +31,31 @@ class RegistrationViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите email"
         textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        textField.attributedPlaceholder
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         return textField
     }()
     
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
+        
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -60,9 +68,12 @@ class RegistrationViewController: UIViewController {
     private lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Подтвердите пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Подтвердите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect

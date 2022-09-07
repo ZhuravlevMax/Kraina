@@ -40,7 +40,10 @@ class LogInViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите Email"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -54,7 +57,10 @@ class LogInViewController: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите Пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
