@@ -19,7 +19,9 @@ class SearchViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.tintColor = AppColorsEnum.mainAppUIColor
         searchController.searchBar.searchBarStyle = .default
-        searchController.searchBar.placeholder = "Введите название достопримечательности"
+        searchController.searchBar.placeholder = "Найти достопримечательность"
+        searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        searchController.searchBar.setValue("Назад", forKey: "cancelButtonText")
         return searchController
     }()
     
@@ -45,6 +47,7 @@ class SearchViewController: UIViewController {
     
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -61,6 +64,7 @@ class SearchViewController: UIViewController {
         //MARK: - Работа с searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        
         
         //MARK: - Работа с navigationController
         navigationItem.searchController = searchController
@@ -150,6 +154,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
             searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
             searchTableViewCell.sizeToFit()
+            searchTableViewCell.backgroundColor = .clear
             
             return searchTableViewCell
         }
