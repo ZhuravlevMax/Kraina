@@ -58,8 +58,6 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
         backToRoot()
         updateViewConstraints()
         favoutiteTypeTableView.reloadData()
-        
-        guard let firstModel = favouriteModels.first else {return}
     }
     
     func setVar(setFavouriteModels: [QueryDocumentSnapshot]) {

@@ -112,8 +112,7 @@ extension SearchViewController: UISearchResultsUpdating {
     
     //MARK: - Метод для сравения введенного текста с массивом объектов по именам
     func filterModelsForSearch(searchText: String) {
-        guard let models = models,
-              let text = searchController.searchBar.text else {return}
+        guard let models = models else {return}
         filteredModels = models.filter({
             FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
         })
