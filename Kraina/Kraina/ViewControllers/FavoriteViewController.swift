@@ -156,7 +156,7 @@ extension FavoriteViewController: UICollectionViewDelegate,
                 collectionCell.setVar(setText: FireBaseManager.shared.getModelRusType(model: model),
                                       count: favouriteTypeArray[indexPath.row].count)
             }
-            collectionCell.backgroundColor = .white
+            collectionCell.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
             collectionCell.layer.cornerRadius = 5
             collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
             collectionCell.dropShadow()

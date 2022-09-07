@@ -98,7 +98,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
 
-        mainView.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : .white
+        mainView.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         guard let models = models else {return}
         var modelsToMapArray: [QueryDocumentSnapshot] = []
         if modelType == "\(FireBaseTypeEnum.all)" {

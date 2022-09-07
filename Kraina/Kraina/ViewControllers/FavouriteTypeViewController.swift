@@ -18,6 +18,7 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
     //MARK: - Создание элементов UI
     private lazy var favoutiteTypeTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     

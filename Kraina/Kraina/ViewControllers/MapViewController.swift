@@ -89,12 +89,12 @@ class MapViewController: UIViewController,
     
     private lazy var searchButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = .white
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         moveButton.layer.cornerRadius = 10
         moveButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         moveButton.layer.borderColor = AppColorsEnum.borderCGColor
         moveButton.layer.borderWidth = 1
-        moveButton.tintColor = AppColorsEnum.mainAppUIColor
+        moveButton.tintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
         moveButton.addTarget(self, action: #selector(self.searchButtonPressed), for: .touchUpInside)
         return moveButton
     }()
