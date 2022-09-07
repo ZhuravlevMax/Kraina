@@ -222,11 +222,7 @@ class LogInViewController: UIViewController {
                     print(error._code)
                     self.handleError(error)
                     return
-                } else {
-                    Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
-                    }
-                    print("register")
-                }
+                } 
             }
             
         } else {
@@ -239,7 +235,6 @@ class LogInViewController: UIViewController {
         let registerVC  = RegistrationViewController()
         
         self.present(registerVC, animated: true)
-        print("create")
     }
     
 }

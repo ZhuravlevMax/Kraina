@@ -21,7 +21,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    lazy var mainImageView: UIImageView = {
+    private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .clear
@@ -30,14 +30,14 @@ class TypeCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var shadowView: UIView = {
+    private lazy var shadowView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
         return view
     }()
     
-    lazy var nameModelLabel: UILabel = {
+    private lazy var nameModelLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)

@@ -21,7 +21,9 @@ class SearchOnMapViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.tintColor = AppColorsEnum.mainAppUIColor
         searchController.searchBar.searchBarStyle = .default
-        searchController.searchBar.placeholder = "Введите название достопримечательности"
+        searchController.searchBar.placeholder = "Найти достопримечательность"
+        searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        searchController.searchBar.setValue("Назад", forKey: "cancelButtonText")
         return searchController
     }()
     
@@ -47,6 +49,7 @@ class SearchOnMapViewController: UIViewController {
     
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -115,6 +118,7 @@ extension SearchOnMapViewController: UITableViewDelegate,
             searchTableViewCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row])
             searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
             searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
+            searchTableViewCell.backgroundColor = .clear
             searchTableViewCell.sizeToFit()
             
             return searchTableViewCell
@@ -158,18 +162,15 @@ extension SearchOnMapViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {return}
         filterModelsForSearch(searchText: text)
-        print(text)
     }
     
     //MARK: - Метод для сравения введенного текста с массивом объектов по именам
     func filterModelsForSearch(searchText: String) {
-        guard let models = models,
-              let text = searchController.searchBar.text else {return}
+        guard let models = models else {return}
         filteredModels = models.filter({
             FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
         })
         searchTableView.reloadData()
-        print(filteredModels)
     }
 }
 

@@ -23,7 +23,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var infoView: UIView = {
+    private lazy var infoView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 6
         view.layer.masksToBounds = true
@@ -39,10 +39,11 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    lazy var nameModelLabel: UILabel = {
+    private lazy var nameModelLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        nameLabel.font = UIFont.systemFont(ofSize: 16,
+                                           weight: .bold)
         nameLabel.textColor = .white
         return nameLabel
     }()
@@ -104,10 +105,12 @@ class FavouriteTypeTableViewCell: UITableViewCell {
             $0.top.equalToSuperview().inset(20)
         }
     }
+    func setVar(nameModel: String) {
+        nameModelLabel.text = nameModel
+    }
     
     func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
-        //self.mainImageView.load(url: imageURL)
         mainImageView.kf.indicatorType = .activity
         mainImageView.kf.setImage(with: (URL(string: imageURL)),
                                   placeholder: nil,

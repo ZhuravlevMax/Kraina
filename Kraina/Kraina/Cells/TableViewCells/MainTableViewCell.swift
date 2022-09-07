@@ -80,8 +80,6 @@ class MainTableViewCell: UITableViewCell {
                                     forCellWithReuseIdentifier: TypeCollectionViewCell.key)
         typeCollectionView.isPagingEnabled = false
         
-        print(typeCollectionView.bounds)
-        
         updateViewConstraints()
     }
     
@@ -130,7 +128,6 @@ class MainTableViewCell: UITableViewCell {
     //MARK: - Действие кнопки searchButton
     @objc private func showAllButtonPressed() {
         forVC?.openFavoriteVC(models: models)
-        print("showAll")
     }
 }
 
@@ -161,7 +158,6 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         forVC?.openModelVC(model: models[indexPath.row])
-        print("collection Item")
     }
     
 }

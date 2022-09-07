@@ -86,10 +86,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         mainTableView.register(MainTableViewCell.self,
                                forCellReuseIdentifier: MainTableViewCell.key)
         
-        FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") {
-            print ($0.first?.documentID)
-        }
-        
         let leftBarButtonItem = UIBarButtonItem(customView: logOutButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
@@ -144,8 +140,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         
         self.navigationController?.pushViewController(searchVC,
                                                       animated: true)
-        
-        print("search")
     }
     
     func letTypeModels() {
@@ -185,9 +179,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         viewController.title = FireBaseManager.shared.getModelRusType(model: model)
         navigationController?.pushViewController(viewController,
                                                  animated: true)
-    }
-    func doNavigationAlert() {
-        print("")
     }
 }
 
@@ -244,12 +235,5 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         240
     }
-    
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
-        print("TableView")
-    }
-    
-    
 }
 

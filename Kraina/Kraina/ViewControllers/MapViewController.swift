@@ -346,8 +346,6 @@ class MapViewController: UIViewController,
         searchVC.models = models
         searchVC.mapVC = self
         present(navigationControllerMain, animated: true)
-        
-        print("search")
     }
     
     //MARK: - Метод для передачи моделей из других VC

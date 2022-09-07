@@ -297,7 +297,6 @@ class ModelViewController: UIViewController {
         
         forModelMapVC.setModel(modelToSet: model)
         self.navigationController?.pushViewController(forModelMapVC, animated: true)
-        print("LOL")
     }
     
     //MARK: - Метод для получения модели из других VC
@@ -308,7 +307,6 @@ class ModelViewController: UIViewController {
     //MARK: - метод для кнопки добавить в избранное в нав баре
     @objc private func addToFavoriteButtonPressed() {
         FireBaseManager.shared.getUserFavoritesArray { [weak self] favorites in
-            print(favorites)
             var favoritesArray = favorites
             guard let self = self, let model = self.model,
                   let userId = Auth.auth().currentUser?.uid

@@ -63,7 +63,6 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
         
         //MARK: - добавление элементов UI на View
         view.addSubview(favoriteCollectionView)
-        print(favoriteModels)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -130,9 +129,6 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             self.religionTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.religionTypeArray))
             self.museumTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.museumTypeArray))
             self.protectedAreasTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.protectedAreasTypeArray))
-            //favouriteTypeArray = [architectureTypeArray, religionTypeArray, museumTypeArray]
-            
-            print(self.favouriteTypeArray)
             self.favoriteCollectionView.reloadData()
         })
     }

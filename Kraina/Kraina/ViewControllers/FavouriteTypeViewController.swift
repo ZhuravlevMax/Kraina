@@ -60,8 +60,6 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
         favoutiteTypeTableView.reloadData()
         
         guard let firstModel = favouriteModels.first else {return}
-        print(FireBaseManager.shared.getModelName(model: firstModel))
-        
     }
     
     func setVar(setFavouriteModels: [QueryDocumentSnapshot]) {
@@ -73,9 +71,7 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
                                                                     for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     }
     
     //MARK: - Работа с констрейнтами
@@ -99,7 +95,7 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
                                                                  for: indexPath) as? FavouriteTypeTableViewCell {
-            cell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row])
+            cell.setVar(nameModel: FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row]))
             cell.setImage(model: favouriteModels[indexPath.row])
             cell.selectionStyle = .none
             

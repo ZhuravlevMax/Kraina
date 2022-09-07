@@ -90,7 +90,6 @@ class PopupForModelMapViewController: UIViewController {
     //MARK: - Действие кнопки moveToButton
     @objc private func moveToButtonPressed() {
         self.forModelMapVC?.doNavigationAlert()
-        print("LOL")
     }
     
     //MARK: - Метод для получения модели из других VC

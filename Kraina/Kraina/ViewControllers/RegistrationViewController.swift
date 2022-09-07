@@ -171,7 +171,6 @@ class RegistrationViewController: UIViewController {
                                                                                    "\(UsersFieldsEnum.favorites)" : [""]])
                             
                         }
-                        print("register")
                     }
                 }
             } else {

@@ -239,7 +239,6 @@ class ForModelMapViewController: UIViewController,
     //MARK: - действие при нажатии на кнопку moveToButton
     @objc private func moveToButtonPressed() {
         doNavigationAlert()
-        print("LOL")
     }
     
     //MARK: - Метод для получения модели из других VC

@@ -47,6 +47,10 @@ class SearchViewController: UIViewController {
     
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        searchTableView.register(SearchTableViewCell.self,
+                                 forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
         return tableView
     }()
@@ -55,12 +59,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
-        
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        searchTableView.register(SearchTableViewCell.self,
-                                 forCellReuseIdentifier: SearchTableViewCell.key)
-        
+
         //MARK: - Работа с searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -74,9 +73,8 @@ class SearchViewController: UIViewController {
         self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
         self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         
         //MARK: - Добавление элементов на экран
         view.addSubview(searchTableView)
@@ -110,7 +108,6 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {return}
         filterModelsForSearch(searchText: text)
-        print(text)
     }
     
     //MARK: - Метод для сравения введенного текста с массивом объектов по именам
@@ -121,7 +118,6 @@ extension SearchViewController: UISearchResultsUpdating {
             FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
         })
         searchTableView.reloadData()
-        print(filteredModels)
     }
     
     //MARK: - Работа с констрейнтами
