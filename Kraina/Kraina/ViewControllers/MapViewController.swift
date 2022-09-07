@@ -226,10 +226,10 @@ class MapViewController: UIViewController,
             let markerNew = GMSMarker(position: position)
             if markerNew.position.latitude == marker.position.latitude {
                 switch $0.icon {
-                case UIImage(named: "\(FireBaseIconTypeEnum.architecture)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.architectureTint)")
-                case UIImage(named: "\(FireBaseIconTypeEnum.religion)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.religionTint)")
-                case UIImage(named: "\(FireBaseIconTypeEnum.museum)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.museumTint)")
-                case UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreasTint)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.architecture)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.architectureGreen)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.religion)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.religionGreen)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.museum)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.museumGreen)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreasGreen)")
                 default: ""
                 }
                 

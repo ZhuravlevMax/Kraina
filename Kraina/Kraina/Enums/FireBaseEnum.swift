@@ -25,10 +25,10 @@ enum FireBaseIconTypeEnum: Int, CaseIterable{
     case museum
     case protectedAreas
     case all
-    case architectureTint
-    case religionTint
-    case museumTint
-    case protectedAreasTint
+    case architectureGreen
+    case religionGreen
+    case museumGreen
+    case protectedAreasGreen
 }
 
 
