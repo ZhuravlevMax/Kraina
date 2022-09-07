@@ -30,7 +30,7 @@ class FireBaseManager {
     
     //MARK: - метод для получения всей коллекции
     func getMultipleAll(collection: String, completion: @escaping ([QueryDocumentSnapshot]) -> Void) {
-        // [START get_multiple_all]
+
         db.collection(collection).getDocuments() { (querySnapshot, err) in
             guard let querySnapshot = querySnapshot else {return}
             let modelsArray = querySnapshot.documents
@@ -117,10 +117,11 @@ class FireBaseManager {
     
     //MARK: - метод для получения достопримечательности по кооринатам
     func getModelByCoordinate(collection: String, latitude: Double, completion: @escaping (QueryDocumentSnapshot) -> Void) {
-        db.collection(collection).getDocuments() { (querySnapshot, err) in
+        db.collection(collection).getDocuments() { [weak self] (querySnapshot, err) in
             guard let querySnapshot = querySnapshot else {return}
             var model: QueryDocumentSnapshot?
             querySnapshot.documents.forEach({
+                guard let self = self else {return}
                 let coordinates = self.getCoordinatesArray(model: $0)
                 if coordinates.contains(latitude) {
                     model = $0
@@ -130,6 +131,7 @@ class FireBaseManager {
             completion(model)
         }
     }
+    
     //MARK: - метод для получения названия достопримечательности
     func getModelName(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
@@ -171,6 +173,18 @@ class FireBaseManager {
         let modelData = model.data()
         let typeDict = modelData.first { key, value in
             return key.contains("\(FireBaseFieldsEnum.type)")
+        }
+        if let typeDictUnwrapped = typeDict, let type = typeDictUnwrapped.value as? String {
+            return type
+        }
+        return ""
+    }
+    
+    //MARK: - метод для получения типа на русском достопримечательности
+    func getModelRusType(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let typeDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.rusType)")
         }
         if let typeDictUnwrapped = typeDict, let type = typeDictUnwrapped.value as? String {
             return type

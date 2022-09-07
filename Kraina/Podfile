@@ -20,6 +20,14 @@ pod 'FirebaseUI/Auth'
 pod 'FirebaseUI/Google'
 pod 'GoogleSignIn'
 pod 'Firebase'
+pod 'GSKStretchyHeaderView'
+pod 'UltraDrawerView'
+pod 'SPStorkController'
+pod 'SPLarkController'
+pod 'FloatingPanel'
+pod "AlignedCollectionViewFlowLayout"
+pod 'FAPaginationLayout'
+pod 'Kingfisher', '~> 7.0'
 
 
 end

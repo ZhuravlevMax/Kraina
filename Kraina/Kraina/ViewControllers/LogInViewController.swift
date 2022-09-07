@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SnapKit
 
 class LogInViewController: UIViewController {
     
@@ -16,13 +17,13 @@ class LogInViewController: UIViewController {
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return view
     }()
     
     private lazy var logInView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.dropShadow()
         view.layer.cornerRadius = 20
         return view
@@ -39,8 +40,11 @@ class LogInViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите Email"
-        textField.keyboardType = UIKeyboardType.default
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
@@ -53,11 +57,15 @@ class LogInViewController: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите Пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
+        textField.isSecureTextEntry = true
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
@@ -72,8 +80,9 @@ class LogInViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
         button.dropShadow()
-        button.addTarget(self, action: #selector(self.logInButtonPressed), for: .touchUpInside)
-        button.dropShadow()
+        button.addTarget(self,
+                         action: #selector(self.logInButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -92,7 +101,9 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
-        button.addTarget(self, action: #selector(self.сreateAccButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(self.сreateAccButtonPressed),
+                         for: .touchUpInside)
         button.dropShadow()
         return button
     }()
@@ -102,9 +113,18 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+        
         view.layoutSubviews()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)
@@ -128,13 +148,13 @@ class LogInViewController: UIViewController {
         
         logInView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
-            $0.height.equalTo(450)
+            $0.height.equalTo(400)
             $0.trailing.leading.equalToSuperview().inset(20)
         }
         
         titleLoginLable.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(50)
+            $0.top.equalToSuperview().inset(30)
         }
         
         emailTextField.snp.makeConstraints {
@@ -173,17 +193,38 @@ class LogInViewController: UIViewController {
         super.updateViewConstraints()
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= 120
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     //MARK: - Действие кнопки logIn
     @objc private func logInButtonPressed() {
         
         if let email = emailTextField.text,
            let passwordText = passwordTextField.text,
-           isValidEmail(testStr: email),
-           passwordText.count > 5 {
-            Auth.auth().signIn(withEmail: email, password: passwordText) { auth, error in
+           emailTextField.text != "",
+           passwordTextField.text != "" {
+            Auth.auth().signIn(withEmail: email,
+                               password: passwordText) {[weak self] result, error in
+                if error != nil {
+                    guard let self = self,
+                          let error = error else {return}
+                    print(error._code)
+                    self.handleError(error)
+                    return
+                } 
             }
+            
         } else {
-            doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+            doErrorAlert(title: "Error", message: "Fill in all the fields")
         }
     }
     
@@ -192,7 +233,6 @@ class LogInViewController: UIViewController {
         let registerVC  = RegistrationViewController()
         
         self.present(registerVC, animated: true)
-        print("create")
     }
     
 }

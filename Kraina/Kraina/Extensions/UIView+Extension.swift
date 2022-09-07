@@ -9,24 +9,22 @@ import Foundation
 import UIKit
 
 extension UIView{
-    func addGradient() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor(red: 203.0/255.0, green: 239.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 151.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0) // Top left corner.
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.frame = self.bounds
-        self.layer.insertSublayer(gradient, at: 0)
-        self.layer.masksToBounds = true
-    }
 
-        func dropShadow(scale: Bool = true) {
-            layer.masksToBounds = false
-            layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOpacity = 0.4
-            layer.shadowOffset = .zero
-            layer.shadowRadius = 4
-            layer.shouldRasterize = true
-            layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+      func dropShadow(scale: Bool = true) {
+          self.layer.masksToBounds = false
+          self.layer.shadowOpacity = 0.4
+          self.layer.shadowOffset = CGSize(width: 2, height: 3)
+          self.layer.shadowColor = UIColor.black.cgColor
+      }
+    
+    func addGradientBackground(firstColor: UIColor, secondColor: UIColor){
+            clipsToBounds = true
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [firstColor.cgColor, secondColor.cgColor]
+            gradientLayer.frame = self.bounds
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+            self.layer.insertSublayer(gradientLayer, at: 0)
         }
     
     func hideView() {

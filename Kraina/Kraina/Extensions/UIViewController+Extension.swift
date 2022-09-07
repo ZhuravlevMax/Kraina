@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 extension UIViewController {
     func setupClearNavBar() {
@@ -30,13 +31,13 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: - Проверка введенного email
-    func isValidEmail(testStr:String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
-    
+    //    //MARK: - Проверка введенного email
+    //    func isValidEmail(testStr:String) -> Bool {
+    //        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    //        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    //        return emailTest.evaluate(with: testStr)
+    //    }
+    //
     //MARK: - AlertController для ошибок
     func doErrorAlert(title: String, message: String) {
         let errorAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -45,5 +46,13 @@ extension UIViewController {
         self.present(errorAlertController, animated: true)
     }
     
-    
+    func handleError(_ error: Error) {
+        if let errorCode = AuthErrorCode.Code(rawValue: error._code) {
+            print(errorCode.errorMessage)
+            let alert = UIAlertController(title: "Error", message: errorCode.errorMessage, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }

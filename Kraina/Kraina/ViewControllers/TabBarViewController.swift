@@ -6,17 +6,20 @@
 //
 
 import UIKit
+import Firebase
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        tabBarController?.delegate = self
         
-        tabBar.backgroundColor = UIColor.white
-//        guard let MainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStoryboard") as? MainViewController else {return}
-//        guard let MapVC = UIStoryboard(name: "MapStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MapStoryboard") as? MapViewController else {return}
-//        guard let FavotiteVC = UIStoryboard(name: "FavoriteStoryboard", bundle: nil).instantiateViewController(withIdentifier: "FavoriteStoryboard") as? FavoriteViewController else {return}
+        tabBar.isTranslucent = false
+        tabBar.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        tabBar.barTintColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        tabBar.unselectedItemTintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
+        tabBar.tintColor = AppColorsEnum.mainAppUIColor
         
         let MainVC = MainViewController()
         let MapVC = MapViewController()
@@ -35,14 +38,13 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         navigationControllerFavorite.tabBarItem.title = "Избранное"
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
-
-        //Передаю модели на MapVC
+        
+        //Передаю модели на VC
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             MapVC.setModels(modelsForSet: models)
+            MainVC.models = models
+            FavoriteVC.setModels(modelsForSet: models)
         }
-        
-        tabBar.tintColor = AppColorsEnum.mainAppUIColor
-        
     }
     
     

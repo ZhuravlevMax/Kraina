@@ -26,11 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         //window?.rootViewController = TabBarViewController()
 
-        Auth.auth().addStateDidChangeListener { [self] auth, user in
+        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+            guard let self = self else {return}
             if user == nil {
-                window?.rootViewController = LogInViewController()
+                self.window?.rootViewController = LogInViewController()
             } else {
-                window?.rootViewController = TabBarViewController()
+                self.window?.rootViewController = TabBarViewController()
             }
         }
     }

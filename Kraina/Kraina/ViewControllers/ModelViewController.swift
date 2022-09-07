@@ -16,56 +16,93 @@ class ModelViewController: UIViewController {
     //MARK: - Создание переменных
     //Сюда передаю нужную модель/достопримечательность
     private var model: QueryDocumentSnapshot?
-    private var favoriteState = false
+    private lazy var favoriteState = false
+    weak var favouriteTypeVC: CheckFavouriteDelegate?
+    var favouriteModels: [QueryDocumentSnapshot]?
+    var imagesURLArray: [String] = [] {
+        didSet {
+            
+        }
+    }
     
     //MARK: - Создание элементов UI
-    private var mainImageView: UIImageView = {
+    private lazy var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    private var nameLabel: UILabel = {
+    lazy var imagesCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
+        return collectionView
+    }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.pageIndicatorTintColor = AppColorsEnum.mainAppUIColor
+        pageControl.currentPageIndicatorTintColor = .gray
+        return pageControl
+    }()
+    
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 20,
+                                       weight: .bold)
         label.numberOfLines = 0
         return label
     }()
     
-    private var adressLabel: UILabel = {
+    private lazy var adressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 13,
+                                       weight: .light)
         label.numberOfLines = 0
         return label
     }()
     
-    private var coordinatesLabel: UILabel = {
+    private lazy var coordinatesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        label.font = UIFont.systemFont(ofSize: 12,
+                                       weight: .ultraLight)
         return label
     }()
     
-    private var showDescriptionButton: UIButton = {
+    private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.setTitle("Посмотреть на карте", for: .normal)
+        button.setTitle("Посмотреть на карте",
+                        for: .normal)
         button.layer.cornerRadius = 10
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showDescriptionButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(showDescriptionButtonPressed),
+                         for: .touchUpInside)
+        button.dropShadow()
         return button
     }()
     
-    private var modelDescription: UILabel = {
+    private lazy var modelDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 14,
+                                       weight: .light)
         return label
     }()
     
     private lazy var modelScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         scrollView.frame = view.frame
         scrollView.contentSize = contentSize
         //убираю safe area
@@ -75,12 +112,13 @@ class ModelViewController: UIViewController {
     }()
     
     private var contentSize: CGSize {
-        CGSize(width: view.frame.width, height: view.frame.height)
+        CGSize(width: view.frame.width,
+               height: view.frame.height)
     }
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         contentView.frame.size = contentSize
         return contentView
     }()
@@ -88,25 +126,39 @@ class ModelViewController: UIViewController {
     private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "bookmark"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         button.tintColor = UIColor.white
-        button.addTarget(self, action: #selector(addToFavoriteButtonPressed), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(addToFavoriteButtonPressed),
+                         for: .touchUpInside)
         return button
     }()
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.backgroundColor = AppColorsEnum.mainAppUIColor
-        button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.frame = CGRect(x: 0,
+                              y: 0,
+                              width: 35,
+                              height: 35)
+        button.setImage(UIImage(systemName: "chevron.backward"),
+                        for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.addTarget(self,
+                         action: #selector(backButtonPressed),
+                         for: .touchUpInside)
         button.tintColor = UIColor.white
         return button
     }()
@@ -115,50 +167,55 @@ class ModelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layoutSubviews()
-        
-        
         
         guard let model = model else {return}
         
         //MARK: - добавление элементов UI на View
         view.addSubview(modelScrollView)
         modelScrollView.addSubview(contentView)
-        contentView.addSubview(mainImageView)
+        contentView.addSubview(imagesCollectionView)
+        contentView.addSubview(pageControl)
         contentView.addSubview(nameLabel)
         contentView.addSubview(adressLabel)
         contentView.addSubview(coordinatesLabel)
         contentView.addSubview(showDescriptionButton)
         contentView.addSubview(modelDescription)
         
+        imagesCollectionView.delegate = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.register(ImagesCollectionViewCell.self,
+                                      forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
+        
         self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
         self.adressLabel.text = FireBaseManager.shared.getModelAdress(model: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
         
-        FireBaseManager.shared.getUserFavoritesArray {
+        FireBaseManager.shared.getUserFavoritesArray { [weak self] in
+            guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)
-            self.favoriteState ? self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal) : self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
+                                              for: .normal)
+            
         }
-        
-        let yourBackImage = UIImage(named: "back_button_image")
-        self.navigationController?.navigationBar.backIndicatorImage = yourBackImage
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
-        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = imagesURLArray.count
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
         backToRoot()
-        setImage(model: model)
-        initialize()
         updateViewConstraints()
+        
     }
     
     private func initialize() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(),
+                                                                    for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
     }
@@ -180,7 +237,7 @@ class ModelViewController: UIViewController {
             $0.bottom.equalToSuperview()
         }
         
-        mainImageView.snp.makeConstraints {
+        imagesCollectionView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
@@ -188,9 +245,14 @@ class ModelViewController: UIViewController {
             $0.height.equalTo(300)
         }
         
+        pageControl.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(imagesCollectionView.snp.bottom).offset(5)
+        }
+        
         nameLabel.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalToSuperview().inset(340)
+            $0.top.equalTo(pageControl.snp.bottom).offset(20)
         }
         
         adressLabel.snp.makeConstraints {
@@ -219,7 +281,12 @@ class ModelViewController: UIViewController {
     
     private func setImage(model: QueryDocumentSnapshot) {
         guard let imageURL = FireBaseManager.shared.getImagesPathArray(model: model).first else {return}
-        self.mainImageView.load(url: imageURL)
+        //self.mainImageView.load(url: imageURL)
+        mainImageView.kf.indicatorType = .activity
+        mainImageView.kf.setImage(with: (URL(string: imageURL)),
+                                  placeholder: nil,
+                                  options: [.transition(.fade(0.7))],
+                                  progressBlock: nil)
     }
     
     //MARK: - Действие при нажатии кнопки showOnMapButton
@@ -229,9 +296,7 @@ class ModelViewController: UIViewController {
         guard let model = model else {return}
         
         forModelMapVC.setModel(modelToSet: model)
-        //forModelMapVC.coordinate = FireBaseManager.shared.getCoordinatesArray(model: model)
         self.navigationController?.pushViewController(forModelMapVC, animated: true)
-        print("LOL")
     }
     
     //MARK: - Метод для получения модели из других VC
@@ -241,35 +306,81 @@ class ModelViewController: UIViewController {
     
     //MARK: - метод для кнопки добавить в избранное в нав баре
     @objc private func addToFavoriteButtonPressed() {
-        FireBaseManager.shared.getUserFavoritesArray { [self] favorites in
-            print(favorites)
+        FireBaseManager.shared.getUserFavoritesArray { [weak self] favorites in
             var favoritesArray = favorites
-            guard let model = model,
+            guard let self = self, let model = self.model,
                   let userId = Auth.auth().currentUser?.uid
             else {return}
             
             if favoritesArray.contains(model.documentID) {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"),
+                                                  for: .normal)
                 if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             } else {
-                addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                self.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"),
+                                                  for: .normal)
                 favoritesArray.append("\(model.documentID)")
                 let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
                 ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
             }
+            
+            guard var favouriteModelsUnwrapped = self.favouriteModels,
+                  let favouriteTypeVCUnwrapped = self.favouriteTypeVC else {return}
+            favouriteModelsUnwrapped = favouriteModelsUnwrapped.filter {
+                FireBaseManager.shared.getModelName(model: $0) != FireBaseManager.shared.getModelName(model: model)
+            }
+            
+            favouriteTypeVCUnwrapped.setFavouriteArray(modelsArray: favouriteModelsUnwrapped)
         }
+        //вибрация по нажатию на иконку
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
     }
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popToRootViewController(animated: true)
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
 }
 
-extension ModelViewController {
+extension ModelViewController: UICollectionViewDelegate,
+                               UICollectionViewDataSource,
+                               UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        imagesURLArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = imagesCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.key,
+                                                               for: indexPath) as? ImagesCollectionViewCell {
+            cell.setImage(image: imagesURLArray[indexPath.row])
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        self.pageControl.currentPage = indexPath.row
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = contentView.frame.size.width
+        let height = imagesCollectionView.frame.height
+        return CGSize(width: width, height: height)
+        
+    }
+    
     func backToRoot() {
         let swipeDownGesture = UISwipeGestureRecognizer(target: self,
                                                         action: #selector(back))
@@ -279,6 +390,6 @@ extension ModelViewController {
     
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
-        navigationControllerUnwrapped.popToRootViewController(animated: true)
+        navigationControllerUnwrapped.popViewController(animated: true)
     }
 }

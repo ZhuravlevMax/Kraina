@@ -16,7 +16,7 @@ class RegistrationViewController: UIViewController {
     //MARK: - Создание элементов UI
     private lazy var registerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return view
     }()
     
@@ -31,22 +31,27 @@ class RegistrationViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите email"
-        textField.keyboardType = UIKeyboardType.default
+        textField.keyboardType = UIKeyboardType.emailAddress
         textField.returnKeyType = UIReturnKeyType.done
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
-        textField.keyboardType = .emailAddress
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите email",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         return textField
     }()
     
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Введите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -61,9 +66,12 @@ class RegistrationViewController: UIViewController {
     private lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Подтвердите пароль"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Подтвердите пароль",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
+        textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.font = UIFont.systemFont(ofSize: 13)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -79,14 +87,17 @@ class RegistrationViewController: UIViewController {
         moveButton.setTitle("Подтвердить", for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white, for: .normal)
-        moveButton.addTarget(self, action: #selector(self.registerButtonPressed), for: .touchUpInside)
+        moveButton.dropShadow()
+        moveButton.addTarget(self,
+                             action: #selector(self.registerButtonPressed),
+                             for: .touchUpInside)
         return moveButton
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         //MARK: - Добавление элементов на экран
         view.addSubview(registerView)
@@ -97,7 +108,6 @@ class RegistrationViewController: UIViewController {
         registerView.addSubview(registerButton)
         
         updateViewConstraints()
-        
     }
     
     //MARK: - Работа с констрейнтами
@@ -136,8 +146,6 @@ class RegistrationViewController: UIViewController {
             $0.top.equalTo(confirmPasswordTextField).inset(50)
             $0.height.equalTo(50)
         }
-        
-        
         super.updateViewConstraints()
     }
     
@@ -146,22 +154,28 @@ class RegistrationViewController: UIViewController {
         if let email = emailTextField.text,
            let passwordText = passwordTextField.text,
            let confirmPasswordText = confirmPasswordTextField.text {
-            if isValidEmail(testStr: email), passwordText.count > 5, passwordText == confirmPasswordText {
-                Auth.auth().createUser(withEmail: email, password: passwordText) {[self] result, error in
-                    print(error)
-                    if let resultUnwrapped = result {
-                        print(resultUnwrapped.user.uid)
-                        let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
-                        ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email, "\(UsersFieldsEnum.favorites)" : [""]])
-                        
+            if passwordText == confirmPasswordText {
+                Auth.auth().createUser(withEmail: email,
+                                       password: passwordText) {[weak self] result, error in
+                    if error != nil {
+                        guard let self = self,
+                              let error = error else {return}
+                        print(error._code)
+                        self.handleError(error)
+                        return
                     } else {
-                        doErrorAlert(title: "Ошибка", message: "Возможно данный email уже зарегистрирован")
+                        if let resultUnwrapped = result {
+                            print(resultUnwrapped.user.uid)
+                            let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                            ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : email,
+                                                                                   "\(UsersFieldsEnum.favorites)" : [""]])
+                            
+                        }
                     }
                 }
             } else {
-                doErrorAlert(title: "Ошибка", message: "Пожалуйста проверьте введенные данные")
+                doErrorAlert(title: "Error", message: "Passwords do not match!")
             }
-            print("register")
         }
     }
 }
