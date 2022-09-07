@@ -9,11 +9,10 @@ import UIKit
 import Firebase
 
 class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
-
+    
     //MARK: - Создание переменных
     private var favouriteModels = [QueryDocumentSnapshot]()
     var favouriteVC: CheckFavouriteDelegate?
-    //var favouriteArray: [QueryDocumentSnapshot]?
     
     //MARK: - Создание элементов UI
     private lazy var favoutiteTypeTableView: UITableView = {
@@ -46,7 +45,6 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
-        
         
         favoutiteTypeTableView.delegate = self
         favoutiteTypeTableView.dataSource = self
@@ -127,11 +125,10 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
         guard let favouriteVCUnwrapped = favouriteVC else {return}
-
+        
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             favouriteVCUnwrapped.setFavouriteArray(modelsArray: models)
         }
-        
     }
     
     func backToRoot() {
@@ -145,7 +142,7 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
         guard let favouriteVCUnwrapped = favouriteVC else {return}
-
+        
         FireBaseManager.shared.getMultipleAll(collection: "\(FireBaseCollectionsEnum.attraction)") { models in
             favouriteVCUnwrapped.setFavouriteArray(modelsArray: models)
         }
