@@ -47,9 +47,9 @@ class SearchViewController: UIViewController {
     
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        searchTableView.register(SearchTableViewCell.self,
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchTableViewCell.self,
                                  forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
         return tableView

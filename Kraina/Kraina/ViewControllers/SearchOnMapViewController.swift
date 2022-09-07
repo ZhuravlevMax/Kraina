@@ -49,6 +49,10 @@ class SearchOnMapViewController: UIViewController {
     
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchTableViewCell.self,
+                                 forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
         return tableView
     }()
