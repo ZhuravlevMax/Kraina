@@ -93,6 +93,7 @@ class PopupMapViewController: UIViewController {
             return
         }
         mapView?.showModel(model: modelUnwrapped)
+        
     }
     
     //MARK: - Метод для получения модели из других VC

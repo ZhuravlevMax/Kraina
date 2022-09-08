@@ -30,6 +30,8 @@ class MapViewController: UIViewController,
     private var model: QueryDocumentSnapshot?
     private var coordinatesArray: [[Double]] = []
     private var markerArray: [GMSMarker] = []
+    private var shownModels: [QueryDocumentSnapshot]?
+    private var didTapIcon: QueryDocumentSnapshot?
     
     //MARK: - Cоздание элементов UI
     private var forMapView: UIView = {
@@ -203,8 +205,10 @@ class MapViewController: UIViewController,
         mapView.animate(toLocation: marker.position)
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
                                                     latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
+            
             //Выезжает VC попап
             guard let self = self else {return}
+            self.didTapIcon = QueryDocumentSnapshot
             //fpc.removePanelFromParent(animated: true)
             let popupVC = PopupMapViewController()
             popupVC.setModel(setModel: QueryDocumentSnapshot)
@@ -360,10 +364,21 @@ class MapViewController: UIViewController,
     
     //MARK: - Метод для выбора категорий по нажатию на ячейку через делегат
     func changeMarkerType(modelsSet: [QueryDocumentSnapshot]) {
+        shownModels = modelsSet
         markerArray.removeAll()
         mapView.clear()
         clusterManager.clearItems()
         doClusters(models: modelsSet)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    
+        if let shownModels = shownModels {
+            doClustersFromSearch(models: shownModels)
+        } else {
+            guard let models = models else {return}
+            doClustersFromSearch(models: models)
+        }
     }
     
     func doClustersFromSearch(models: [QueryDocumentSnapshot]) {
