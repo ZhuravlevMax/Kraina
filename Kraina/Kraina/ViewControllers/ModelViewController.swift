@@ -48,7 +48,7 @@ class ModelViewController: UIViewController {
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.pageIndicatorTintColor = AppColorsEnum.mainAppUIColor
+        pageControl.pageIndicatorTintColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         pageControl.currentPageIndicatorTintColor = .gray
         return pageControl
     }()
@@ -78,7 +78,7 @@ class ModelViewController: UIViewController {
     
     private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.setTitle("Посмотреть на карте",
                         for: .normal)
         button.layer.cornerRadius = 10
@@ -125,7 +125,7 @@ class ModelViewController: UIViewController {
     
     private lazy var addToFavoriteButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.frame = CGRect(x: 0,
                               y: 0,
                               width: 35,
@@ -145,7 +145,7 @@ class ModelViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.frame = CGRect(x: 0,
                               y: 0,
                               width: 35,

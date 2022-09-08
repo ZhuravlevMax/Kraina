@@ -30,6 +30,8 @@ class MapViewController: UIViewController,
     private var model: QueryDocumentSnapshot?
     private var coordinatesArray: [[Double]] = []
     private var markerArray: [GMSMarker] = []
+    private var shownModels: [QueryDocumentSnapshot]?
+    private var didTapIcon: QueryDocumentSnapshot?
     
     //MARK: - Cоздание элементов UI
     private var forMapView: UIView = {
@@ -62,7 +64,7 @@ class MapViewController: UIViewController,
     
     private lazy var showModel: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         moveButton.setTitle("Узнать больше",
                             for: .normal)
         moveButton.layer.cornerRadius = 10
@@ -96,7 +98,7 @@ class MapViewController: UIViewController,
         moveButton.layer.cornerRadius = 10
         moveButton.setImage(UIImage(systemName: "magnifyingglass"),
                             for: .normal)
-        moveButton.layer.borderColor = AppColorsEnum.borderCGColor
+        moveButton.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor
         moveButton.layer.borderWidth = 1
         moveButton.tintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
         moveButton.addTarget(self, action: #selector(self.searchButtonPressed),
@@ -203,8 +205,10 @@ class MapViewController: UIViewController,
         mapView.animate(toLocation: marker.position)
         FireBaseManager.shared.getModelByCoordinate(collection: "\(FireBaseCollectionsEnum.attraction)",
                                                     latitude: marker.position.latitude) { [weak self] QueryDocumentSnapshot in
+            
             //Выезжает VC попап
             guard let self = self else {return}
+            self.didTapIcon = QueryDocumentSnapshot
             //fpc.removePanelFromParent(animated: true)
             let popupVC = PopupMapViewController()
             popupVC.setModel(setModel: QueryDocumentSnapshot)
@@ -360,10 +364,21 @@ class MapViewController: UIViewController,
     
     //MARK: - Метод для выбора категорий по нажатию на ячейку через делегат
     func changeMarkerType(modelsSet: [QueryDocumentSnapshot]) {
+        shownModels = modelsSet
         markerArray.removeAll()
         mapView.clear()
         clusterManager.clearItems()
         doClusters(models: modelsSet)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    
+        if let shownModels = shownModels {
+            doClustersFromSearch(models: shownModels)
+        } else {
+            guard let models = models else {return}
+            doClustersFromSearch(models: models)
+        }
     }
     
     func doClustersFromSearch(models: [QueryDocumentSnapshot]) {

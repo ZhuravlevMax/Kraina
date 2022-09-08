@@ -154,7 +154,7 @@ extension FavoriteViewController: UICollectionViewDelegate,
             }
             collectionCell.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
             collectionCell.layer.cornerRadius = 5
-            collectionCell.layer.borderColor = AppColorsEnum.borderCGColor
+            collectionCell.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor
             collectionCell.dropShadow()
             
             return collectionCell

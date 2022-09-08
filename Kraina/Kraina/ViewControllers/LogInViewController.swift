@@ -74,7 +74,7 @@ class LogInViewController: UIViewController {
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.setTitle("Войти", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -96,7 +96,7 @@ class LogInViewController: UIViewController {
     
     private lazy var сreateAccButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.setTitle("Зарегистрироваться", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)

@@ -28,7 +28,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1
-        view.layer.borderColor = AppColorsEnum.borderCGColor
+        view.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor
         return view
     }()
     
@@ -96,7 +96,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
         
-        mainView.backgroundColor = isSelected ? AppColorsEnum.mainAppUIColor : UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
+        mainView.backgroundColor = isSelected ? UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)") : UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         guard let models = models else {return}
         var modelsToMapArray: [QueryDocumentSnapshot] = []
         if modelType == "\(FireBaseTypeEnum.all)" {

@@ -53,7 +53,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     private lazy var logOutButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.navigationBarColor)")
-        button.setTitle("Выйти",
+        button.setTitle(NSLocalizedString("MainViewController.logOutButton.title", comment: ""),
                         for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white,
@@ -107,6 +107,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         
         updateViewConstraints()
         mainTableView.reloadData()
+        makeRefresher()
+        
     }
     
     
@@ -179,6 +181,19 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         viewController.title = FireBaseManager.shared.getModelRusType(model: model)
         navigationController?.pushViewController(viewController,
                                                  animated: true)
+    }
+    
+    func makeRefresher() {
+        //MARK: - Работа с refresher to mainTableView
+        let refresh = UIRefreshControl()
+        mainTableView.refreshControl = refresh
+        refresh.addTarget(self, action: #selector(refresher(sender: )), for: .valueChanged)
+    }
+    
+    
+    @objc private func refresher(sender: UIRefreshControl) {
+        mainTableView.reloadData()
+        sender.endRefreshing()
     }
 }
 

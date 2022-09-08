@@ -35,7 +35,7 @@ class PopupMapViewController: UIViewController {
     
     private lazy var showModelButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         moveButton.setTitle("Узнать больше",
                             for: .normal)
         moveButton.layer.cornerRadius = 10
@@ -93,6 +93,7 @@ class PopupMapViewController: UIViewController {
             return
         }
         mapView?.showModel(model: modelUnwrapped)
+        
     }
     
     //MARK: - Метод для получения модели из других VC

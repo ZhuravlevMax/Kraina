@@ -23,7 +23,7 @@ class FavouriteTypeViewController: UIViewController, CheckFavouriteDelegate {
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.frame = CGRect(x: 0,
                               y: 0,
                               width: 35,
