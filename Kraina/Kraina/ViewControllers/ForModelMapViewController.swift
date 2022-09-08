@@ -57,7 +57,7 @@ class ForModelMapViewController: UIViewController,
     
     private var moveToButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.setTitle("Построить маршрут", for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
@@ -69,7 +69,7 @@ class ForModelMapViewController: UIViewController,
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.frame = CGRect(x: 0, y: 0, width: 35, height: 35)
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width

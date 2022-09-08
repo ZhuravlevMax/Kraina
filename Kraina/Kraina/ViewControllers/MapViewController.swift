@@ -64,7 +64,7 @@ class MapViewController: UIViewController,
     
     private lazy var showModel: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         moveButton.setTitle("Узнать больше",
                             for: .normal)
         moveButton.layer.cornerRadius = 10
@@ -98,7 +98,7 @@ class MapViewController: UIViewController,
         moveButton.layer.cornerRadius = 10
         moveButton.setImage(UIImage(systemName: "magnifyingglass"),
                             for: .normal)
-        moveButton.layer.borderColor = AppColorsEnum.borderCGColor
+        moveButton.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor
         moveButton.layer.borderWidth = 1
         moveButton.tintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
         moveButton.addTarget(self, action: #selector(self.searchButtonPressed),

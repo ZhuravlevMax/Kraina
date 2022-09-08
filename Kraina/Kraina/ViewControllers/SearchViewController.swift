@@ -17,7 +17,7 @@ class SearchViewController: UIViewController {
     //MARK: - Cоздание элементов UI
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController()
-        searchController.searchBar.tintColor = AppColorsEnum.mainAppUIColor
+        searchController.searchBar.tintColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         searchController.searchBar.searchBarStyle = .default
         searchController.searchBar.placeholder = "Найти достопримечательность"
         searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
@@ -27,7 +27,7 @@ class SearchViewController: UIViewController {
     
     private lazy var backButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.backgroundColor = AppColorsEnum.mainAppUIColor
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         button.frame = CGRect(x: 0,
                               y: 0,
                               width: 35,

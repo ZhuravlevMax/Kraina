@@ -35,7 +35,7 @@ class PopupForModelMapViewController: UIViewController {
     
     private lazy var moveToButton: UIButton = {
         let moveButton = UIButton()
-        moveButton.backgroundColor = AppColorsEnum.mainAppUIColor
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         moveButton.setTitle("Построить маршрут",
                             for: .normal)
         moveButton.layer.cornerRadius = 10

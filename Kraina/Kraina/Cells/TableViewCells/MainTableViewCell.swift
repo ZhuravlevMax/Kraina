@@ -40,7 +40,7 @@ class MainTableViewCell: UITableViewCell {
                             for: .normal)
         moveButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         moveButton.layer.cornerRadius = 10
-        moveButton.setTitleColor( AppColorsEnum.mainAppUIColor,
+        moveButton.setTitleColor( UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)"),
                                   for: .normal)
         moveButton.addTarget(self, action: #selector(self.showAllButtonPressed),
                              for: .touchUpInside)
