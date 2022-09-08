@@ -6,6 +6,8 @@
 	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string></string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
 	<key>GoogleMapsApiKey</key>
 	<string>AIzaSyCu_EB5yQKZ8lUOh_c7YRKacA3oQcI8zOY</string>
 	<key>LSApplicationCategoryType</key>

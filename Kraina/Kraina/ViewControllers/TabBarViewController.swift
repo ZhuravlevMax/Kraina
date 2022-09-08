@@ -30,13 +30,13 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         let navigationControllerFavorite = UINavigationController(rootViewController: FavoriteVC)
         
         viewControllers = [navigationControllerMain, navigationControllerMap, navigationControllerFavorite]
-        navigationControllerMain.tabBarItem.title = "Главная"
+        navigationControllerMain.tabBarItem.title = NSLocalizedString("navigationControllerMain.tabBarItem.title", comment: "")
         navigationControllerMain.tabBarItem.image = UIImage(systemName: "house")
         
-        navigationControllerMap.tabBarItem.title = "Карта"
+        navigationControllerMap.tabBarItem.title = NSLocalizedString("navigationControllerMap.tabBarItem.title", comment: "")
         navigationControllerMap.tabBarItem.image = UIImage(systemName: "map")
         
-        navigationControllerFavorite.tabBarItem.title = "Избранное"
+        navigationControllerFavorite.tabBarItem.title = NSLocalizedString("navigationControllerFavorite.tabBarItem.title", comment: "")
         navigationControllerFavorite.tabBarItem.image = UIImage(systemName: "bookmark")
         
         //Передаю модели на VC
@@ -44,7 +44,10 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             MapVC.setModels(modelsForSet: models)
             MainVC.models = models
             FavoriteVC.setModels(modelsForSet: models)
+            print( "!!!!!!!!!!!!!!!!!!!!!")
+            print( Locale.preferredLanguages )
         }
+        
     }
     
     

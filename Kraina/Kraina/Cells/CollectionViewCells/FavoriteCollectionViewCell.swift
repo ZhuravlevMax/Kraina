@@ -27,7 +27,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        nameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         
         return nameLabel
     }()

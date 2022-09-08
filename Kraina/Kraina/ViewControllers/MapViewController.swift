@@ -163,6 +163,19 @@ class MapViewController: UIViewController,
         //Добавляю карту на view
         let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
+        do {
+              // Set the map style by passing the URL of the local file.
+              if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+              } else {
+                NSLog("Unable to find style.json")
+              }
+            } catch {
+              NSLog("One or more of the map styles failed to load. \(error)")
+            }
+
+            self.view = mapView
+        
         self.forMapView.addSubview(self.mapView)
         
         self.mapView.delegate = self
@@ -199,6 +212,8 @@ class MapViewController: UIViewController,
         
         return false
     }
+    
+    
     
     //MARK: - действие при нажатии на иконку на карте
     func didTapOnIcon(marker: GMSMarker ) {
@@ -238,7 +253,7 @@ class MapViewController: UIViewController,
                 case UIImage(named: "\(FireBaseIconTypeEnum.architecture)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.architectureGreen)")
                 case UIImage(named: "\(FireBaseIconTypeEnum.religion)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.religionGreen)")
                 case UIImage(named: "\(FireBaseIconTypeEnum.museum)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.museumGreen)")
-                case UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreasGreen)")
+                case UIImage(named: "\(FireBaseIconTypeEnum.conservation)"): markerNew.icon = UIImage(named: "\(FireBaseIconTypeEnum.conservationGreen)")
                 default: ""
                 }
                 
@@ -431,7 +446,7 @@ extension MapViewController: UICollectionViewDelegate,
            let imageArchitecture = UIImage(named: "\(FireBaseIconTypeEnum.architecture)"),
            let imageReligion = UIImage(named: "\(FireBaseIconTypeEnum.religion)"),
            let imageMuseum = UIImage(named: "\(FireBaseIconTypeEnum.museum)"),
-           let imageProtectedAreas = UIImage(named: "\(FireBaseIconTypeEnum.protectedAreas)") {
+           let imageProtectedAreas = UIImage(named: "\(FireBaseIconTypeEnum.conservation)") {
             if let modelsUnwrapped = models {
                 switch indexPath.row {
                 case FireBaseIconTypeEnum.all.rawValue:
@@ -458,9 +473,9 @@ extension MapViewController: UICollectionViewDelegate,
                                           image: imageMuseum,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.protectedAreas.rawValue:
+                case FireBaseIconTypeEnum.conservation.rawValue:
                     collectionCell.setVar(setText: "Заповедники",
-                                          setType: "\(FireBaseIconTypeEnum.protectedAreas)",
+                                          setType: "\(FireBaseIconTypeEnum.conservation)",
                                           image: imageProtectedAreas,
                                           modelsSet: modelsUnwrapped)
                 default:

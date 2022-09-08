@@ -29,20 +29,23 @@ class MainTableViewCell: UITableViewCell {
     lazy var typeNameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        nameLabel.font = UIFont.systemFont(ofSize: 15,
+                                           weight: .medium)
         return nameLabel
     }()
     
     private lazy var showAllButton: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = .clear
-        moveButton.setTitle("ВCE",
+        moveButton.setTitle(NSLocalizedString("MainTableViewCell.showAllButton.title", comment: ""),
                             for: .normal)
-        moveButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        moveButton.titleLabel?.font = UIFont.systemFont(ofSize: 15,
+                                                        weight: .medium)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor( UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)"),
                                   for: .normal)
-        moveButton.addTarget(self, action: #selector(self.showAllButtonPressed),
+        moveButton.addTarget(self,
+                             action: #selector(self.showAllButtonPressed),
                              for: .touchUpInside)
         return moveButton
     }()

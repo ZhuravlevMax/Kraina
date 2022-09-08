@@ -41,7 +41,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Избранное"
+        title = NSLocalizedString("navigationControllerFavorite.tabBarItem.title", comment: "")
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         tabBarController?.delegate = self
         
@@ -122,7 +122,7 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             }
             
             self.protectedAreasTypeArray = self.favoriteModels.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
+                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.conservation)"
             }
             
             self.architectureTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.architectureTypeArray))
@@ -149,9 +149,10 @@ extension FavoriteViewController: UICollectionViewDelegate,
                                                                            for: indexPath) as? FavoriteCollectionViewCell {
             
             if let model = favouriteTypeArray[indexPath.row].first {
-                collectionCell.setVar(setText: FireBaseManager.shared.getModelRusType(model: model),
+                collectionCell.setVar(setText:  Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model).uppercased() : FireBaseManager.shared.getModelType(model: model).uppercased(),
                                       count: favouriteTypeArray[indexPath.row].count)
             }
+            
             collectionCell.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
             collectionCell.layer.cornerRadius = 5
             collectionCell.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor

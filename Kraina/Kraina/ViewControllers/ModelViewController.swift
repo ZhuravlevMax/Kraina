@@ -79,7 +79,7 @@ class ModelViewController: UIViewController {
     private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        button.setTitle("Посмотреть на карте",
+        button.setTitle(NSLocalizedString("ModelViewController.showDescriptionButton.title", comment: ""),
                         for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white,

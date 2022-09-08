@@ -19,9 +19,9 @@ class SearchViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.tintColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         searchController.searchBar.searchBarStyle = .default
-        searchController.searchBar.placeholder = "Найти достопримечательность"
+        searchController.searchBar.placeholder = NSLocalizedString("SearchViewController.searchController.placeholder", comment: "")
         searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
-        searchController.searchBar.setValue("Назад", forKey: "cancelButtonText")
+        searchController.searchBar.setValue(NSLocalizedString("SearchViewController.searchController.searchBar", comment: ""), forKey: "cancelButtonText")
         return searchController
     }()
     

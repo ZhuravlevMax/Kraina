@@ -5,5 +5,21 @@
   Created by Максим Журавлев on 8.09.22.
   
 */
+//MARK: - TabBarViewController.logOutButton
+"navigationControllerMain.tabBarItem.title" = "Главная";
+"navigationControllerMap.tabBarItem.title" = "Карта";
+"navigationControllerFavorite.tabBarItem.title" = "Избранное";
+
 //MARK: - MainViewController.logOutButton
+"MainViewController.title" = "Главная";
 "MainViewController.logOutButton.title" = "Выйти";
+
+//MARK: - MainTableViewCell
+"MainTableViewCell.showAllButton.title" = "ВСЕ";
+
+//MARK: - SearchViewController
+"SearchViewController.searchController.placeholder" = "Найти достопримечательность";
+"SearchViewController.searchController.searchBar" = "Назад";
+
+//MARK: - ModelViewController
+"ModelViewController.showDescriptionButton.title" = "Показать на карте";

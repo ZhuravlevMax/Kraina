@@ -5,5 +5,22 @@
   Created by Максим Журавлев on 8.09.22.
   
 */
-//MARK: - MainViewController.logOutButton
+//MARK: - TabBarViewController.logOutButton
+"navigationControllerMain.tabBarItem.title" = "Main";
+"navigationControllerMap.tabBarItem.title" = "Map";
+"navigationControllerFavorite.tabBarItem.title" = "Favourite";
+
+//MARK: - MainViewController
+"MainViewController.title" = "Main";
 "MainViewController.logOutButton.title" = "Log out";
+
+//MARK: - MainTableViewCell
+"MainTableViewCell.showAllButton.title" = "ALL";
+
+//MARK: - SearchViewController
+"SearchViewController.searchController.placeholder" = "Find sight";
+"SearchViewController.searchController.searchBar" = "Сancel";
+
+//MARK: - ModelViewController
+"ModelViewController.showDescriptionButton.title" = "Show on map";
+//NSLocalizedString("MainViewController.title", comment: "")
