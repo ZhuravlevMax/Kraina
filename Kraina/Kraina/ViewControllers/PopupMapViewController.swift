@@ -36,7 +36,8 @@ class PopupMapViewController: UIViewController {
     private lazy var showModelButton: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        moveButton.setTitle(NSLocalizedString("PopupMapViewController.showModelButton.title", comment: ""),
+        moveButton.setTitle(NSLocalizedString("PopupMapViewController.showModelButton.title",
+                                              comment: ""),
                             for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white,
@@ -103,9 +104,13 @@ class PopupMapViewController: UIViewController {
     
     func updateData(model: QueryDocumentSnapshot) {
         //MARK: - Текст для лейблов
-        self.nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
+        self.nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ?
+        FireBaseManager.shared.getModelName(model: model) :
+        FireBaseManager.shared.getModelNameEn(model: model)
 
-        self.adressModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: model) : FireBaseManager.shared.getModelAdressEn(model: model)
+        self.adressModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ?
+        FireBaseManager.shared.getModelAdress(model: model) :
+        FireBaseManager.shared.getModelAdressEn(model: model)
     }
 }
 

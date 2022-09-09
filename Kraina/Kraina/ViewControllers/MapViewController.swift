@@ -115,6 +115,7 @@ class MapViewController: UIViewController,
     private lazy var appearance: SurfaceAppearance = {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 15
+        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return appearance
     }()
     
@@ -399,7 +400,7 @@ class MapViewController: UIViewController,
             let position = CLLocationCoordinate2D(latitude: coordinate[FirebaseCoordinateEnum.latitude.rawValue],
                                                   longitude: coordinate[FirebaseCoordinateEnum.longtitude.rawValue])
             let marker = GMSMarker(position: position)
-            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0))
+            marker.icon = UIImage(named: FireBaseManager.shared.getModelType(model: $0).lowercased())
             self.markerArray.append(marker)
         }
         
@@ -438,31 +439,31 @@ extension MapViewController: UICollectionViewDelegate,
             if let modelsUnwrapped = models {
                 switch indexPath.row {
                 case FireBaseIconTypeEnum.all.rawValue:
-                    collectionCell.setVar(setText: "Все",
+                    collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setTextAll", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.all)",
                                           image: imageAll,
                                           modelsSet: modelsUnwrapped)
                     
                 case FireBaseIconTypeEnum.architecture.rawValue:
-                    collectionCell.setVar(setText: "Архитектура",
+                    collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.architecture", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.architecture)",
                                           image: imageArchitecture,
                                           modelsSet: modelsUnwrapped)
                     
                 case FireBaseIconTypeEnum.religion.rawValue:
-                    collectionCell.setVar(setText: "Религия",
+                    collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.religion", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.religion)",
                                           image: imageReligion,
                                           modelsSet: modelsUnwrapped)
                     
                 case FireBaseIconTypeEnum.museum.rawValue:
-                    collectionCell.setVar(setText: "Музеи",
+                    collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.museum", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.museum)",
                                           image: imageMuseum,
                                           modelsSet: modelsUnwrapped)
                     
                 case FireBaseIconTypeEnum.conservation.rawValue:
-                    collectionCell.setVar(setText: "Заповедники",
+                    collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.conservation", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.conservation)",
                                           image: imageProtectedAreas,
                                           modelsSet: modelsUnwrapped)

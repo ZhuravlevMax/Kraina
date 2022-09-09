@@ -99,8 +99,9 @@ class PopupForModelMapViewController: UIViewController {
     
     func updateData(model: QueryDocumentSnapshot) {
         //MARK: - Текст для лейблов
-        self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
-        self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: model)
+        self.nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
+
+        self.adressModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: model) : FireBaseManager.shared.getModelAdressEn(model: model)
     }
     
 }

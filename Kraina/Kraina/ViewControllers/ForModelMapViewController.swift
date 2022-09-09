@@ -96,6 +96,7 @@ class ForModelMapViewController: UIViewController,
     private lazy var appearance: SurfaceAppearance = {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 15
+        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)") 
         return appearance
     }()
     

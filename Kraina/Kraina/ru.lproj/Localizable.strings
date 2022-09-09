@@ -34,3 +34,12 @@
 
 //MARK: - PopupMapViewController
 "PopupMapViewController.showModelButton.title" = "Узнать больше";
+
+//MARK: - MapViewController
+"MapViewController.modelCollectionViewCell.setTextAll" = "Все";
+"MapViewController.modelCollectionViewCell.setText.architecture" = "Архитектура";
+"MapViewController.modelCollectionViewCell.setText.religion" = "Религия";
+"MapViewController.modelCollectionViewCell.setText.museum" = "Музеи";
+"MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
+
+
