@@ -181,7 +181,9 @@ class RegistrationViewController: UIViewController {
                     }
                 }
             } else {
-                doErrorAlert(title: "Error", message: "Passwords do not match!")
+                doErrorAlert(title: NSLocalizedString("Error",
+                                                      comment: ""), message: NSLocalizedString("PasswordsDoNotMatch",
+                                                                                               comment: ""))
             }
         }
     }

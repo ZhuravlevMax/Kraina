@@ -53,3 +53,18 @@
 "LoginViewController.titleLoginLable.text" = "Sign In";
 "LoginViewController.logInButton.title" = "Log In";
 "LoginViewController.createAccLabel.text" = "Have no account?";
+
+//MARK: - errorMessages
+"wrongPassword" = "Your password is incorrect.";
+"emailAlreadyInUse" = "The email is already in use with another account";
+"userNotFound" = "Account not found for the specified user. Please check and try again";
+"userDisabled" = "Your account has been disabled. Please contact support.";
+"invalidEmail" = "Please enter a valid email";
+"networkError" = "Network error. Please try again.";
+"weakPassword" = "Your password is too weak. The password must be 6 characters long or more.";
+"unknown" = "Unknown error occurred";
+"Error" = "Oops!";
+"emptyFields" = "Fill in all fields!";
+"PasswordsDoNotMatch" = "Passwords do not match!";
+
+

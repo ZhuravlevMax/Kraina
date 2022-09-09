@@ -230,7 +230,9 @@ class LogInViewController: UIViewController {
             }
             
         } else {
-            doErrorAlert(title: "Error", message: "Fill in all the fields")
+            doErrorAlert(title: NSLocalizedString("Error",
+                                                  comment: ""), message: NSLocalizedString("emptyFields",
+                                                                                           comment: ""))
         }
     }
     

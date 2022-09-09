@@ -12,21 +12,29 @@ extension AuthErrorCode.Code {
     var errorMessage: String {
         switch self {
         case .wrongPassword:
-            return "Your password is incorrect."
+            return NSLocalizedString("wrongPassword",
+                                     comment: "")
         case .emailAlreadyInUse:
-            return "The email is already in use with another account"
+            return NSLocalizedString("emailAlreadyInUse",
+                                     comment: "")
         case .userNotFound:
-            return "Account not found for the specified user. Please check and try again"
+            return NSLocalizedString("userNotFound",
+                                     comment: "")
         case .userDisabled:
-            return "Your account has been disabled. Please contact support."
+            return NSLocalizedString("userDisabled",
+                                     comment: "")
         case .invalidEmail, .invalidSender, .invalidRecipientEmail:
-            return "Please enter a valid email"
+            return NSLocalizedString("invalidEmail",
+                                     comment: "")
         case .networkError:
-            return "Network error. Please try again."
+            return NSLocalizedString("networkError",
+                                     comment: "")
         case .weakPassword:
-            return "Your password is too weak. The password must be 6 characters long or more."
+            return NSLocalizedString("weakPassword",
+                                     comment: "")
         default:
-            return "Unknown error occurred"
+            return NSLocalizedString("unknown",
+                                     comment: "")
         }
     }
     
