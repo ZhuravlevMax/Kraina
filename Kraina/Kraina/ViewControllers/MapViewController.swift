@@ -163,18 +163,6 @@ class MapViewController: UIViewController,
         //Добавляю карту на view
         let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
-        do {
-              // Set the map style by passing the URL of the local file.
-              if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-              } else {
-                NSLog("Unable to find style.json")
-              }
-            } catch {
-              NSLog("One or more of the map styles failed to load. \(error)")
-            }
-
-            self.view = mapView
         
         self.forMapView.addSubview(self.mapView)
         

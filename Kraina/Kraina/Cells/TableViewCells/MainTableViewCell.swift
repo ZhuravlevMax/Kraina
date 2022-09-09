@@ -51,11 +51,7 @@ class MainTableViewCell: UITableViewCell {
     }()
     
     lazy var typeCollectionView: UICollectionView = {
-        
-        //        let layout = UICollectionViewFlowLayout()
-        //        layout.minimumInteritemSpacing = 0
-        //        layout.minimumLineSpacing = 10
-        //        layout.scrollDirection = .horizontal
+
         let fapagination = FAPaginationLayout()
         fapagination.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero,

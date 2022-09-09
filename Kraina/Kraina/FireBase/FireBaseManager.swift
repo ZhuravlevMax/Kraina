@@ -115,6 +115,23 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения названия достопримечательности по кооринатам ENGLISH
+    func getNameByCoordinateEn(models: [QueryDocumentSnapshot], latitude: Double) -> String {
+        for model in models {
+            let coordinates = getCoordinatesArray(model: model)
+            if coordinates.contains(latitude){
+                let modelData = model.data()
+                let nameDict = modelData.first { key, value in
+                    return key.contains("\(FireBaseFieldsEnum.nameEn)")
+                }
+                if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
+                    return name
+                }
+            }
+        }
+        return ""
+    }
+    
     //MARK: - метод для получения достопримечательности по кооринатам
     func getModelByCoordinate(collection: String, latitude: Double, completion: @escaping (QueryDocumentSnapshot) -> Void) {
         db.collection(collection).getDocuments() { [weak self] (querySnapshot, err) in
@@ -144,6 +161,18 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения названия достопримечательности English
+    func getModelNameEn(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let nameDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.nameEn)")
+        }
+        if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
+            return name
+        }
+        return ""
+    }
+    
     //MARK: - метод для получения адреса достопримечательности
     func getModelAdress(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
@@ -156,11 +185,35 @@ class FireBaseManager {
         return ""
     }
     
+    //MARK: - метод для получения адреса достопримечательности English
+    func getModelAdressEn(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let adressDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.adressEn)")
+        }
+        if let adressDictUnwrapped = adressDict, let adress = adressDictUnwrapped.value as? String {
+            return adress
+        }
+        return ""
+    }
+    
     //MARK: - метод для получения описания достопримечательности
     func getModelDescription(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
         let descriptionDict = modelData.first { key, value in
             return key.contains("\(FireBaseFieldsEnum.description)")
+        }
+        if let descriptionDictUnwrapped = descriptionDict, let description = descriptionDictUnwrapped.value as? String {
+            return description
+        }
+        return ""
+    }
+    
+    //MARK: - метод для получения описания достопримечательности English
+    func getModelDescriptionEn(model: QueryDocumentSnapshot) -> String {
+        let modelData = model.data()
+        let descriptionDict = modelData.first { key, value in
+            return key.contains("\(FireBaseFieldsEnum.descriptionEn)")
         }
         if let descriptionDictUnwrapped = descriptionDict, let description = descriptionDictUnwrapped.value as? String {
             return description
