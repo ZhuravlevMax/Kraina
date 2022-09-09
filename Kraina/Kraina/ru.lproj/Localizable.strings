@@ -42,4 +42,14 @@
 "MapViewController.modelCollectionViewCell.setText.museum" = "Музеи";
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
 
+//MARK: - RegistrationViewController
+"RegistrationViewController.titleRegisterLable.text" = "Регистрация";
+"RegistrationViewController.emailTextField.placeholder" = "Введите email";
+"RegistrationViewController.passwordTextField.placeholder" = "Введите пароль";
+"RegistrationViewController.confirmPasswordTextField.placeholder" = "Подтвердите пароль";
+"RegistrationViewController.registerButton.title" = "Зарегистрироваться";
 
+//MARK: - LoginViewController
+"LoginViewController.titleLoginLable.text" = "Войдите в аккаунт";
+"LoginViewController.logInButton.title" = "Войти";
+"LoginViewController.createAccLabel.text" = "Нет аккаунта?";

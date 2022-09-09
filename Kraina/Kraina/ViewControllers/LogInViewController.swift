@@ -32,7 +32,8 @@ class LogInViewController: UIViewController {
     private lazy var titleLoginLable: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.text = "Войдите в аккаунт"
+        nameLabel.text = NSLocalizedString("LoginViewController.titleLoginLable.text",
+                                           comment: "")
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return nameLabel
     }()
@@ -41,7 +42,8 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Введите email",
+            string: NSLocalizedString("RegistrationViewController.emailTextField.placeholder",
+                                      comment: ""),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.emailAddress
@@ -58,7 +60,8 @@ class LogInViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Введите пароль",
+            string: NSLocalizedString("RegistrationViewController.passwordTextField.placeholder",
+                                      comment: ""),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
@@ -75,7 +78,8 @@ class LogInViewController: UIViewController {
     private lazy var logInButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        button.setTitle("Войти", for: .normal)
+        button.setTitle(NSLocalizedString("LoginViewController.logInButton.title",
+                                          comment: ""), for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)
@@ -89,7 +93,8 @@ class LogInViewController: UIViewController {
     private lazy var createAccLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.text = "Нет аккаунта?"
+        nameLabel.text = NSLocalizedString("LoginViewController.createAccLabel.text",
+                                           comment: "")
         nameLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
         return nameLabel
     }()
@@ -97,7 +102,8 @@ class LogInViewController: UIViewController {
     private lazy var сreateAccButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        button.setTitle("Зарегистрироваться", for: .normal)
+        button.setTitle(NSLocalizedString("RegistrationViewController.registerButton.title",
+                                          comment: ""), for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.green, for: .highlighted)

@@ -23,7 +23,8 @@ class RegistrationViewController: UIViewController {
     private lazy var titleRegisterLable: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
-        nameLabel.text = "Регистрация"
+        nameLabel.text = NSLocalizedString("RegistrationViewController.titleRegisterLable.text",
+                                           comment: "")
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return nameLabel
     }()
@@ -40,7 +41,8 @@ class RegistrationViewController: UIViewController {
         textField.clearButtonMode = UITextField.ViewMode.whileEditing;
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Введите email",
+            string: NSLocalizedString("RegistrationViewController.emailTextField.placeholder",
+                                      comment: ""),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         return textField
     }()
@@ -49,7 +51,8 @@ class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Введите пароль",
+            string: NSLocalizedString("RegistrationViewController.passwordTextField.placeholder",
+                                      comment: ""),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         textField.keyboardType = UIKeyboardType.default
@@ -67,7 +70,8 @@ class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Подтвердите пароль",
+            string: NSLocalizedString("RegistrationViewController.confirmPasswordTextField.placeholder",
+                                      comment: ""),
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
@@ -84,9 +88,12 @@ class RegistrationViewController: UIViewController {
     private lazy var registerButton: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        moveButton.setTitle("Подтвердить", for: .normal)
+        moveButton.setTitle(NSLocalizedString("RegistrationViewController.registerButton.title",
+                                              comment: ""),
+                            for: .normal)
         moveButton.layer.cornerRadius = 10
-        moveButton.setTitleColor(.white, for: .normal)
+        moveButton.setTitleColor(.white,
+                                 for: .normal)
         moveButton.dropShadow()
         moveButton.addTarget(self,
                              action: #selector(self.registerButtonPressed),
