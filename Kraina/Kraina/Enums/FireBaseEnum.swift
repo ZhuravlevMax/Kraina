@@ -39,15 +39,16 @@ enum FireBaseCastlesEnum {
 
 enum FireBaseFieldsEnum {
     case adress
+    case enName
+    case enAdress
+    case enDescription
     case name
     case coordinate
     case description
     case images
     case type
     case rusType
-    case nameEn
-    case adressEn
-    case descriptionEn
+    
 }
 
 enum FirebaseCoordinateEnum: Int {

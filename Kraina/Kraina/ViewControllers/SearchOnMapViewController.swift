@@ -119,11 +119,11 @@ extension SearchOnMapViewController: UITableViewDelegate,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let searchTableViewCell = searchTableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.key,
                                                                          for: indexPath) as? SearchTableViewCell {
-            searchTableViewCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row])
-            searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
-            searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
-            searchTableViewCell.backgroundColor = .clear
+            searchTableViewCell.nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: filteredModels[indexPath.row])
+            searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]).lowercased())
+            searchTableViewCell.typeModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row]) : FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row])
             searchTableViewCell.sizeToFit()
+            searchTableViewCell.backgroundColor = .clear
             
             return searchTableViewCell
         }
@@ -172,7 +172,7 @@ extension SearchOnMapViewController: UISearchResultsUpdating {
     func filterModelsForSearch(searchText: String) {
         guard let models = models else {return}
         filteredModels = models.filter({
-            FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
+            Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased()) : FireBaseManager.shared.getModelNameEn(model: $0).lowercased().contains(searchText.lowercased())
         })
         searchTableView.reloadData()
     }

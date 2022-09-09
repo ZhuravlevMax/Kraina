@@ -147,19 +147,19 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     func letTypeModels() {
         architectureTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.architecture)"
         }
         
         religionTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.religion)"
         }
         
         museumTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.museum)"
         }
         
         protectedAreasTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.conservation)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.conservation)"
         }
         
         allTypeArray = [architectureTypeArray,
@@ -179,7 +179,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         let viewController = FavouriteTypeViewController()
         viewController.setVar(setFavouriteModels: models)
         guard let model = models.first else {return}
-        viewController.title = FireBaseManager.shared.getModelRusType(model: model)
+        viewController.title = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model) : FireBaseManager.shared.getModelType(model: model)
         navigationController?.pushViewController(viewController,
                                                  animated: true)
     }

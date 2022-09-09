@@ -188,18 +188,19 @@ class ModelViewController: UIViewController {
         imagesCollectionView.register(ImagesCollectionViewCell.self,
                                       forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
         
-        self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
-        self.adressLabel.text = FireBaseManager.shared.getModelAdress(model: model)
+        self.nameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
+        self.adressLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: model) : FireBaseManager.shared.getModelAdressEn(model: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
-        self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
+        
+        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model) : FireBaseManager.shared.getModelDescriptionEn(model: model)
         
         FireBaseManager.shared.getUserFavoritesArray { [weak self] in
             guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)
             self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
                                               for: .normal)
-            
         }
+        
         imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
         pageControl.currentPage = 0
         pageControl.numberOfPages = imagesURLArray.count

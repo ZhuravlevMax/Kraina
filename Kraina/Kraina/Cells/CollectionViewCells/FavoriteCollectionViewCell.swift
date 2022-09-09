@@ -82,7 +82,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         guard let models = models else {return}
         
         let modelsToMapArray = models.filter({
-            self.modelType == FireBaseManager.shared.getModelType(model: $0)
+            self.modelType == (Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: $0) : FireBaseManager.shared.getModelType(model: $0))
         })
         
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}

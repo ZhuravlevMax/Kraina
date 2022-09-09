@@ -122,7 +122,7 @@ class FireBaseManager {
             if coordinates.contains(latitude){
                 let modelData = model.data()
                 let nameDict = modelData.first { key, value in
-                    return key.contains("\(FireBaseFieldsEnum.nameEn)")
+                    return key.contains("\(FireBaseFieldsEnum.enName)")
                 }
                 if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
                     return name
@@ -165,7 +165,7 @@ class FireBaseManager {
     func getModelNameEn(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
         let nameDict = modelData.first { key, value in
-            return key.contains("\(FireBaseFieldsEnum.nameEn)")
+            return key.contains("\(FireBaseFieldsEnum.enName)")
         }
         if let nameDictUnwrapped = nameDict, let name = nameDictUnwrapped.value as? String {
             return name
@@ -189,7 +189,7 @@ class FireBaseManager {
     func getModelAdressEn(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
         let adressDict = modelData.first { key, value in
-            return key.contains("\(FireBaseFieldsEnum.adressEn)")
+            return key.contains("\(FireBaseFieldsEnum.enAdress)")
         }
         if let adressDictUnwrapped = adressDict, let adress = adressDictUnwrapped.value as? String {
             return adress
@@ -213,7 +213,7 @@ class FireBaseManager {
     func getModelDescriptionEn(model: QueryDocumentSnapshot) -> String {
         let modelData = model.data()
         let descriptionDict = modelData.first { key, value in
-            return key.contains("\(FireBaseFieldsEnum.descriptionEn)")
+            return key.contains("\(FireBaseFieldsEnum.enDescription)")
         }
         if let descriptionDictUnwrapped = descriptionDict, let description = descriptionDictUnwrapped.value as? String {
             return description

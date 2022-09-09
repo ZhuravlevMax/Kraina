@@ -116,8 +116,8 @@ class ForModelMapViewController: UIViewController,
         
         guard let modelUnwrapped = model else { return }
         coordinates = FireBaseManager.shared.getCoordinatesArray(model: modelUnwrapped)
-        nameModel.text = FireBaseManager.shared.getModelName(model: modelUnwrapped)
-        adressModel.text = FireBaseManager.shared.getModelAdress(model: modelUnwrapped)
+        nameModel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: modelUnwrapped) : FireBaseManager.shared.getModelNameEn(model: modelUnwrapped)
+        adressModel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: modelUnwrapped) : FireBaseManager.shared.getModelAdressEn(model: modelUnwrapped)
         
         //MARK: - Работа с googleMaps
         //Добавляю карту на view
@@ -282,7 +282,7 @@ class ForModelMapViewController: UIViewController,
     //MARK: - AlertController для выбора навигатора
     func doNavigationAlert() {
         dismiss(animated: true)
-        let navigationAlert = UIAlertController(title: "В путь!", message: "Выберите навигатор для поездки", preferredStyle: .actionSheet)
+        let navigationAlert = UIAlertController(title: NSLocalizedString("ForModelMapViewController.doNavigationAlert.navigationAlert.title", comment: ""), message: NSLocalizedString("ForModelMapViewController.doNavigationAlert.navigationAlert.message", comment: ""), preferredStyle: .actionSheet)
         let google = UIAlertAction(title: "Google Maps", style: .default) { [weak self]_ in
             guard let self = self else {return}
             self.showGoogleApp(coordinates: self.coordinates)
@@ -291,7 +291,7 @@ class ForModelMapViewController: UIViewController,
             guard let self = self else {return}
             self.showYandexApp(coordinates: self.coordinates)
         }
-        let cancel = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancel = UIAlertAction(title: NSLocalizedString("ForModelMapViewController.doNavigationAlert.cancelButton.title", comment: ""), style: .cancel)
         navigationAlert.addAction(google)
         navigationAlert.addAction(yandex)
         navigationAlert.addAction(cancel)

@@ -12,7 +12,7 @@ import Kingfisher
 class TypeCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Создание переменных
-    static let key = "MainCollectionViewCell"
+    static let key = "TypeCollectionViewCell"
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {

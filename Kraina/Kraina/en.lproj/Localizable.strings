@@ -23,4 +23,14 @@
 
 //MARK: - ModelViewController
 "ModelViewController.showDescriptionButton.title" = "Show on map";
-//NSLocalizedString("MainViewController.title", comment: "")
+
+//MARK: - PopupForModelMapViewController
+"PopupForModelMapViewController.moveToButton.title" = "Get directions";
+
+//MARK: - ForModelMapViewController
+"ForModelMapViewController.doNavigationAlert.navigationAlert.title" = "Let's hit the road!";
+"ForModelMapViewController.doNavigationAlert.navigationAlert.message" = "Choose a navigator for your trip";
+"ForModelMapViewController.doNavigationAlert.cancelButton.title" = "Cancel";
+
+//MARK: - PopupMapViewController
+"PopupMapViewController.showModelButton.title" = "Show more";

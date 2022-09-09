@@ -23,3 +23,14 @@
 
 //MARK: - ModelViewController
 "ModelViewController.showDescriptionButton.title" = "Показать на карте";
+
+//MARK: - PopupForModelMapViewController
+"PopupForModelMapViewController.moveToButton.title" = "Построить маршрут";
+
+//MARK: - ForModelMapViewController
+"ForModelMapViewController.doNavigationAlert.navigationAlert.title" = "В путь!";
+"ForModelMapViewController.doNavigationAlert.navigationAlert.message" = "Выберите навигатор для поездки";
+"ForModelMapViewController.doNavigationAlert.cancelButton.title" = "Отмена";
+
+//MARK: - PopupMapViewController
+"PopupMapViewController.showModelButton.title" = "Узнать больше";

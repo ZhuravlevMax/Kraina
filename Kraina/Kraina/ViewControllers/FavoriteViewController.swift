@@ -110,19 +110,19 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             self.favouriteTypeArray.removeAll()
             
             self.architectureTypeArray = self.favoriteModels.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+                FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.architecture)"
             }
             
             self.religionTypeArray = self.favoriteModels.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+                FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.religion)"
             }
             
             self.museumTypeArray = self.favoriteModels.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+                FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.museum)"
             }
             
             self.protectedAreasTypeArray = self.favoriteModels.filter {
-                FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.conservation)"
+                FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.conservation)"
             }
             
             self.architectureTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.architectureTypeArray))
@@ -188,7 +188,7 @@ extension FavoriteViewController: UICollectionViewDelegate,
         let favouriteTypeVC = FavouriteTypeViewController()
         favouriteTypeVC.setVar(setFavouriteModels: favouriteTypeArray[indexPath.row])
         favouriteTypeVC.favouriteVC = self
-        favouriteTypeVC.title = FireBaseManager.shared.getModelRusType(model: model)
+        favouriteTypeVC.title = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model) : FireBaseManager.shared.getModelType(model: model)
         self.navigationController?.pushViewController(favouriteTypeVC,
                                                       animated: true)
     }
