@@ -15,7 +15,7 @@ enum FireBaseTypeEnum: Int, CaseIterable{
     case architecture = 0
     case religion
     case museum
-    case protectedAreas
+    case conservation
     case all
 }
 
@@ -23,12 +23,12 @@ enum FireBaseIconTypeEnum: Int, CaseIterable{
     case architecture = 0
     case religion
     case museum
-    case protectedAreas
+    case conservation
     case all
     case architectureGreen
     case religionGreen
     case museumGreen
-    case protectedAreasGreen
+    case conservationGreen
 }
 
 
@@ -39,12 +39,16 @@ enum FireBaseCastlesEnum {
 
 enum FireBaseFieldsEnum {
     case adress
+    case enName
+    case enAdress
+    case enDescription
     case name
     case coordinate
     case description
     case images
     case type
     case rusType
+    
 }
 
 enum FirebaseCoordinateEnum: Int {

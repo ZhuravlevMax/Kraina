@@ -85,7 +85,10 @@ class ModelCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Метод для получения значений из других VC
-    func setVar(setText: String, setType: String, image: UIImage, modelsSet: [QueryDocumentSnapshot]) {
+    func setVar(setText: String,
+                setType: String,
+                image: UIImage,
+                modelsSet: [QueryDocumentSnapshot]) {
         modelName.text = setText
         modelType = setType
         iconImageView.image = image
@@ -103,7 +106,7 @@ class ModelCollectionViewCell: UICollectionViewCell {
             modelsToMapArray = models
         } else {
             modelsToMapArray = models.filter({
-                self.modelType == FireBaseManager.shared.getModelType(model: $0)
+                self.modelType == FireBaseManager.shared.getModelType(model: $0).lowercased()
             })
         }
         

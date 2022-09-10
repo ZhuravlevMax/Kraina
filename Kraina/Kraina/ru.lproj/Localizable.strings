@@ -5,5 +5,64 @@
   Created by Максим Журавлев on 8.09.22.
   
 */
+//MARK: - TabBarViewController.logOutButton
+"navigationControllerMain.tabBarItem.title" = "Главная";
+"navigationControllerMap.tabBarItem.title" = "Карта";
+"navigationControllerFavorite.tabBarItem.title" = "Избранное";
+
 //MARK: - MainViewController.logOutButton
+"MainViewController.title" = "Главная";
 "MainViewController.logOutButton.title" = "Выйти";
+
+//MARK: - MainTableViewCell
+"MainTableViewCell.showAllButton.title" = "ВСЕ";
+
+//MARK: - SearchViewController
+"SearchViewController.searchController.placeholder" = "Найти достопримечательность";
+"SearchViewController.searchController.searchBar" = "Назад";
+
+//MARK: - ModelViewController
+"ModelViewController.showDescriptionButton.title" = "Показать на карте";
+
+//MARK: - PopupForModelMapViewController
+"PopupForModelMapViewController.moveToButton.title" = "Построить маршрут";
+
+//MARK: - ForModelMapViewController
+"ForModelMapViewController.doNavigationAlert.navigationAlert.title" = "В путь!";
+"ForModelMapViewController.doNavigationAlert.navigationAlert.message" = "Выберите навигатор для поездки";
+"ForModelMapViewController.doNavigationAlert.cancelButton.title" = "Отмена";
+
+//MARK: - PopupMapViewController
+"PopupMapViewController.showModelButton.title" = "Узнать больше";
+
+//MARK: - MapViewController
+"MapViewController.modelCollectionViewCell.setTextAll" = "Все";
+"MapViewController.modelCollectionViewCell.setText.architecture" = "Архитектура";
+"MapViewController.modelCollectionViewCell.setText.religion" = "Религия";
+"MapViewController.modelCollectionViewCell.setText.museum" = "Музеи";
+"MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
+
+//MARK: - RegistrationViewController
+"RegistrationViewController.titleRegisterLable.text" = "Регистрация";
+"RegistrationViewController.emailTextField.placeholder" = "Введите email";
+"RegistrationViewController.passwordTextField.placeholder" = "Введите пароль";
+"RegistrationViewController.confirmPasswordTextField.placeholder" = "Подтвердите пароль";
+"RegistrationViewController.registerButton.title" = "Зарегистрироваться";
+
+//MARK: - LoginViewController
+"LoginViewController.titleLoginLable.text" = "Войдите в аккаунт";
+"LoginViewController.logInButton.title" = "Войти";
+"LoginViewController.createAccLabel.text" = "Нет аккаунта?";
+
+//MARK: - errorMessages
+"wrongPassword" = "Неверный пароль.";
+"emailAlreadyInUse" = "Этот Email уже используется другим аккаунтом.";
+"userNotFound" = "Аккаунт не найдет. Попробуйте еще.";
+"userDisabled" = "Ваш аакаунт был отключен. Свяжитесь с техподдержкой.";
+"invalidEmail" = "Пожалуста проверьте правильность Email";
+"networkError" = "Проблема с сетью. Попробуйте позже.";
+"weakPassword" = "Слабый пароль. Пароль должен содержать не менее 6 символов.";
+"unknown" = "Неизвестная ошибка";
+"Error" = "Упс!";
+"emptyFields" = "Заполните все поля!";
+"PasswordsDoNotMatch" = "Пароли не совпадают!";

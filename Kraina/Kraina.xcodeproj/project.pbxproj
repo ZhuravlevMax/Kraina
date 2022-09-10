@@ -53,6 +53,8 @@
 		94DE307728A51A9F003B5DF4 /* FireBaseEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */; };
 		94F1A09C28C9DCD00084AB0B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94F1A09E28C9DCD00084AB0B /* Localizable.strings */; };
 		94F1A0A328C9DD570084AB0B /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94F1A0A528C9DD570084AB0B /* infoPlist.strings */; };
+		94F1A0A828CA14DA0084AB0B /* LanguageEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F1A0A728CA14DA0084AB0B /* LanguageEnum.swift */; };
+		94F1A0AC28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */; };
 		A15365B6BB8F12B935496593 /* Pods_Kraina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2904552F156C4587AD370719 /* Pods_Kraina.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +132,8 @@
 		94F1A0A028C9DCF60084AB0B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94F1A0A428C9DD570084AB0B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		94F1A0A628C9DD590084AB0B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		94F1A0A728CA14DA0084AB0B /* LanguageEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageEnum.swift; sourceTree = "<group>"; };
+		94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewCollectionCell+Exstension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				9469CA4628B3A5450025CD0F /* ColorsEnum.swift */,
+				94F1A0A728CA14DA0084AB0B /* LanguageEnum.swift */,
 				94DE307628A51A9F003B5DF4 /* FireBaseEnum.swift */,
 			);
 			path = Enums;
@@ -333,6 +338,7 @@
 				945F75FA28A96FFE0013122D /* Image+Extension.swift */,
 				949EC2DC28BC07830055EF48 /* CollectionView+Extension.swift */,
 				94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */,
+				94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,
 				949EC2D928BBED1F0055EF48 /* FavouriteTypeViewController.swift in Sources */,
 				949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */,
+				94F1A0AC28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift in Sources */,
 				94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */,
 				94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */,
 				949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */,
@@ -571,6 +578,7 @@
 				94B67B8228C0881000C1E5B8 /* PopupForModelMapViewController.swift in Sources */,
 				94B67B8828C2ADF500C1E5B8 /* PopupMapViewController.swift in Sources */,
 				94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */,
+				94F1A0A828CA14DA0084AB0B /* LanguageEnum.swift in Sources */,
 				94DE306F28A2F065003B5DF4 /* FireBaseManager.swift in Sources */,
 				94B67B8428C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift in Sources */,
 				94A8AE5028ABD57000DEF47D /* ForModelMapViewController.swift in Sources */,

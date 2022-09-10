@@ -19,9 +19,9 @@ class SearchViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.tintColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         searchController.searchBar.searchBarStyle = .default
-        searchController.searchBar.placeholder = "Найти достопримечательность"
+        searchController.searchBar.placeholder = NSLocalizedString("SearchViewController.searchController.placeholder", comment: "")
         searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
-        searchController.searchBar.setValue("Назад", forKey: "cancelButtonText")
+        searchController.searchBar.setValue(NSLocalizedString("SearchViewController.searchController.searchBar", comment: ""), forKey: "cancelButtonText")
         return searchController
     }()
     
@@ -114,7 +114,8 @@ extension SearchViewController: UISearchResultsUpdating {
     func filterModelsForSearch(searchText: String) {
         guard let models = models else {return}
         filteredModels = models.filter({
-            FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased())
+            Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: $0).lowercased().contains(searchText.lowercased()) : FireBaseManager.shared.getModelNameEn(model: $0).lowercased().contains(searchText.lowercased())
+
         })
         searchTableView.reloadData()
     }
@@ -143,9 +144,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let searchTableViewCell = searchTableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.key,
                                                                          for: indexPath) as? SearchTableViewCell {
-            searchTableViewCell.nameModelLabel.text = FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row])
-            searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]))
-            searchTableViewCell.typeModelLabel.text = FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row])
+            searchTableViewCell.nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: filteredModels[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: filteredModels[indexPath.row])
+            searchTableViewCell.iconImageView.image = UIImage(named: FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row]).lowercased())
+            searchTableViewCell.typeModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: filteredModels[indexPath.row]) : FireBaseManager.shared.getModelType(model: filteredModels[indexPath.row])
             searchTableViewCell.sizeToFit()
             searchTableViewCell.backgroundColor = .clear
             

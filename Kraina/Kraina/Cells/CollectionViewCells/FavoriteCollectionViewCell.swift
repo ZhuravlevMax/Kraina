@@ -27,7 +27,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        nameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         
         return nameLabel
     }()
@@ -82,7 +82,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         guard let models = models else {return}
         
         let modelsToMapArray = models.filter({
-            self.modelType == FireBaseManager.shared.getModelType(model: $0)
+            self.modelType == (Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: $0) : FireBaseManager.shared.getModelType(model: $0))
         })
         
         guard let changeTypeDelegate = self.changeTypeDelegate else {return}

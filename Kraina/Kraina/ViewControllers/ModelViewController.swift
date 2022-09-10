@@ -79,7 +79,7 @@ class ModelViewController: UIViewController {
     private lazy var showDescriptionButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        button.setTitle("Посмотреть на карте",
+        button.setTitle(NSLocalizedString("ModelViewController.showDescriptionButton.title", comment: ""),
                         for: .normal)
         button.layer.cornerRadius = 10
         button.setTitleColor(.white,
@@ -188,18 +188,19 @@ class ModelViewController: UIViewController {
         imagesCollectionView.register(ImagesCollectionViewCell.self,
                                       forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
         
-        self.nameLabel.text = FireBaseManager.shared.getModelName(model: model)
-        self.adressLabel.text = FireBaseManager.shared.getModelAdress(model: model)
+        self.nameLabel.text = showLocalizedModelName(for: model)
+        self.adressLabel.text = showLocalizedModelAdress(for: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
-        self.modelDescription.text = "\(FireBaseManager.shared.getModelDescription(model: model))"
+        
+        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model) : FireBaseManager.shared.getModelDescriptionEn(model: model)
         
         FireBaseManager.shared.getUserFavoritesArray { [weak self] in
             guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)
             self.addToFavoriteButton.setImage(UIImage(systemName: self.favoriteState ? "bookmark.fill" : "bookmark"),
                                               for: .normal)
-            
         }
+        
         imagesURLArray = FireBaseManager.shared.getImagesPathArray(model: model)
         pageControl.currentPage = 0
         pageControl.numberOfPages = imagesURLArray.count

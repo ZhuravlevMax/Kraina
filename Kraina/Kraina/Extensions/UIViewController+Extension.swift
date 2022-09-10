@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import Firebase
 
 extension UIViewController {
     func setupClearNavBar() {
@@ -49,10 +50,20 @@ extension UIViewController {
     func handleError(_ error: Error) {
         if let errorCode = AuthErrorCode.Code(rawValue: error._code) {
             print(errorCode.errorMessage)
-            let alert = UIAlertController(title: "Error", message: errorCode.errorMessage, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: NSLocalizedString("\(AuthErrorCode.Code.self)", comment: ""), preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func showLocalizedModelName(for model: QueryDocumentSnapshot) -> String {
+        return Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
+    }
+    
+    func showLocalizedModelAdress(for model: QueryDocumentSnapshot) -> String{
+        Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: model) : FireBaseManager.shared.getModelAdressEn(model: model)
+        
+    }
+    
 }

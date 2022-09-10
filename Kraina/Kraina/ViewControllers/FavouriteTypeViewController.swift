@@ -93,7 +93,7 @@ extension FavouriteTypeViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
                                                                  for: indexPath) as? FavouriteTypeTableViewCell {
-            cell.setVar(nameModel: FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row]))
+            cell.setVar(nameModel: Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: favouriteModels[indexPath.row]))
             cell.setImage(model: favouriteModels[indexPath.row])
             cell.selectionStyle = .none
             

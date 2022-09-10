@@ -5,5 +5,66 @@
   Created by Максим Журавлев on 8.09.22.
   
 */
-//MARK: - MainViewController.logOutButton
+//MARK: - TabBarViewController.logOutButton
+"navigationControllerMain.tabBarItem.title" = "Main";
+"navigationControllerMap.tabBarItem.title" = "Map";
+"navigationControllerFavorite.tabBarItem.title" = "Favourite";
+
+//MARK: - MainViewController
+"MainViewController.title" = "Main";
 "MainViewController.logOutButton.title" = "Log out";
+
+//MARK: - MainTableViewCell
+"MainTableViewCell.showAllButton.title" = "ALL";
+
+//MARK: - SearchViewController
+"SearchViewController.searchController.placeholder" = "Find sight";
+"SearchViewController.searchController.searchBar" = "Сancel";
+
+//MARK: - ModelViewController
+"ModelViewController.showDescriptionButton.title" = "Show on map";
+
+//MARK: - PopupForModelMapViewController
+"PopupForModelMapViewController.moveToButton.title" = "Get directions";
+
+//MARK: - ForModelMapViewController
+"ForModelMapViewController.doNavigationAlert.navigationAlert.title" = "Let's hit the road!";
+"ForModelMapViewController.doNavigationAlert.navigationAlert.message" = "Choose a navigator for your trip";
+"ForModelMapViewController.doNavigationAlert.cancelButton.title" = "Cancel";
+
+//MARK: - PopupMapViewController
+"PopupMapViewController.showModelButton.title" = "Show more";
+
+//MARK: - MapViewController
+"MapViewController.modelCollectionViewCell.setTextAll" = "All";
+"MapViewController.modelCollectionViewCell.setText.architecture" = "Architecture";
+"MapViewController.modelCollectionViewCell.setText.religion" = "Religion";
+"MapViewController.modelCollectionViewCell.setText.museum" = "Museum";
+"MapViewController.modelCollectionViewCell.setText.conservation" = "Conservation";
+
+//MARK: - RegistrationViewController
+"RegistrationViewController.titleRegisterLable.text" = "Registration";
+"RegistrationViewController.emailTextField.placeholder" = "Enter email";
+"RegistrationViewController.passwordTextField.placeholder" = "Enter password";
+"RegistrationViewController.confirmPasswordTextField.placeholder" = "Confirm password";
+"RegistrationViewController.registerButton.title" = "Register";
+
+//MARK: - LoginViewController
+"LoginViewController.titleLoginLable.text" = "Sign In";
+"LoginViewController.logInButton.title" = "Log In";
+"LoginViewController.createAccLabel.text" = "Have no account?";
+
+//MARK: - errorMessages
+"wrongPassword" = "Your password is incorrect.";
+"emailAlreadyInUse" = "The email is already in use with another account";
+"userNotFound" = "Account not found for the specified user. Please check and try again";
+"userDisabled" = "Your account has been disabled. Please contact support.";
+"invalidEmail" = "Please enter a valid email";
+"networkError" = "Network error. Please try again.";
+"weakPassword" = "Your password is too weak. The password must be 6 characters long or more.";
+"unknown" = "Unknown error occurred";
+"Error" = "Oops!";
+"emptyFields" = "Fill in all fields!";
+"PasswordsDoNotMatch" = "Passwords do not match!";
+
+

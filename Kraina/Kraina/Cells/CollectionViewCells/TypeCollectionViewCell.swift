@@ -12,7 +12,7 @@ import Kingfisher
 class TypeCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Создание переменных
-    static let key = "MainCollectionViewCell"
+    static let key = "TypeCollectionViewCell"
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
@@ -111,7 +111,8 @@ class TypeCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод для передачи объекта из другого VC и работы с UI
     func configure(with model: QueryDocumentSnapshot) {
         setImage(model: model)
-        nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
+        nameModelLabel.text = showLocalizedModelName(for: model)
+ 
         contentView.layer.cornerRadius = 6
     }
     

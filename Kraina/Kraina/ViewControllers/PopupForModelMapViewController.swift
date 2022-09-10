@@ -36,7 +36,7 @@ class PopupForModelMapViewController: UIViewController {
     private lazy var moveToButton: UIButton = {
         let moveButton = UIButton()
         moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
-        moveButton.setTitle("Построить маршрут",
+        moveButton.setTitle(NSLocalizedString("PopupForModelMapViewController.moveToButton.title", comment: ""),
                             for: .normal)
         moveButton.layer.cornerRadius = 10
         moveButton.setTitleColor(.white,
@@ -99,8 +99,8 @@ class PopupForModelMapViewController: UIViewController {
     
     func updateData(model: QueryDocumentSnapshot) {
         //MARK: - Текст для лейблов
-        self.nameModelLabel.text = FireBaseManager.shared.getModelName(model: model)
-        self.adressModelLabel.text = FireBaseManager.shared.getModelAdress(model: model)
+        self.nameModelLabel.text = showLocalizedModelName(for: model)
+        self.adressModelLabel.text = showLocalizedModelAdress(for: model)
     }
     
 }

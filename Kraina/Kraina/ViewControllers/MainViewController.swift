@@ -22,6 +22,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     private var religionTypeArray = [QueryDocumentSnapshot]()
     private var museumTypeArray = [QueryDocumentSnapshot]()
     private var protectedAreasTypeArray = [QueryDocumentSnapshot]()
+    private var userLanguage = "\(LanguageEnum.en)"
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
@@ -78,7 +79,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         
         view.layoutSubviews()
         
-        title = "Главная"
+        title = NSLocalizedString("MainViewController.title", comment: "")
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         mainTableView.delegate = self
@@ -146,19 +147,19 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     func letTypeModels() {
         architectureTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.architecture)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.architecture)"
         }
         
         religionTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.religion)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.religion)"
         }
         
         museumTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.museum)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.museum)"
         }
         
         protectedAreasTypeArray = models.filter {
-            FireBaseManager.shared.getModelType(model: $0) == "\(FireBaseTypeEnum.protectedAreas)"
+            FireBaseManager.shared.getModelType(model: $0).lowercased() == "\(FireBaseTypeEnum.conservation)"
         }
         
         allTypeArray = [architectureTypeArray,
@@ -178,7 +179,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
         let viewController = FavouriteTypeViewController()
         viewController.setVar(setFavouriteModels: models)
         guard let model = models.first else {return}
-        viewController.title = FireBaseManager.shared.getModelRusType(model: model)
+        viewController.title = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model) : FireBaseManager.shared.getModelType(model: model)
         navigationController?.pushViewController(viewController,
                                                  animated: true)
     }
@@ -213,25 +214,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case FireBaseTypeEnum.architecture.rawValue:
                 cell.models = architectureTypeArray
                 if let model = architectureTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
+                    cell.typeNameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model).uppercased() : FireBaseManager.shared.getModelType(model: model).uppercased()
                 }
                 
             case FireBaseTypeEnum.religion.rawValue:
                 cell.models = religionTypeArray
                 if let model = religionTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
+                    cell.typeNameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model).uppercased() : FireBaseManager.shared.getModelType(model: model).uppercased()
                 }
                 
             case FireBaseTypeEnum.museum.rawValue:
                 cell.models = museumTypeArray
                 if let model = museumTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
+                    cell.typeNameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model).uppercased() : FireBaseManager.shared.getModelType(model: model).uppercased()
                 }
                 
-            case FireBaseTypeEnum.protectedAreas.rawValue:
+            case FireBaseTypeEnum.conservation.rawValue:
                 cell.models = protectedAreasTypeArray
                 if let model = protectedAreasTypeArray.first {
-                    cell.typeNameLabel.text = FireBaseManager.shared.getModelRusType(model: model).uppercased()
+                    cell.typeNameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model).uppercased() : FireBaseManager.shared.getModelType(model: model).uppercased()
                 }
                 
             default:
