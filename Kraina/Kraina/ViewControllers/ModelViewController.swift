@@ -188,8 +188,8 @@ class ModelViewController: UIViewController {
         imagesCollectionView.register(ImagesCollectionViewCell.self,
                                       forCellWithReuseIdentifier: ImagesCollectionViewCell.key)
         
-        self.nameLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
-        self.adressLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelAdress(model: model) : FireBaseManager.shared.getModelAdressEn(model: model)
+        self.nameLabel.text = showLocalizedModelName(for: model)
+        self.adressLabel.text = showLocalizedModelAdress(for: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         
         self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model) : FireBaseManager.shared.getModelDescriptionEn(model: model)

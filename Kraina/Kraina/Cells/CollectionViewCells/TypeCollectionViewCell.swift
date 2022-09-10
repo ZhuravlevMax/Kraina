@@ -111,7 +111,7 @@ class TypeCollectionViewCell: UICollectionViewCell {
     //MARK: - Метод для передачи объекта из другого VC и работы с UI
     func configure(with model: QueryDocumentSnapshot) {
         setImage(model: model)
-        nameModelLabel.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: model) : FireBaseManager.shared.getModelNameEn(model: model)
+        nameModelLabel.text = showLocalizedModelName(for: model)
  
         contentView.layer.cornerRadius = 6
     }
