@@ -566,10 +566,10 @@ extension MapViewController: UICollectionViewDelegate,
     //MARK: - AlertController для ошибок
     func doSettingsAlert(title: String, message: String) {
         let settingsAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let settingsButtonAction = UIAlertAction(title: "Settings", style: .default) { make in
+        let settingsButtonAction = UIAlertAction(title: NSLocalizedString("MapViewController.doSettingsAlert.settingsButtonAction.title", comment: ""), style: .default) { make in
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
         }
-        let cancelButtonAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelButtonAction = UIAlertAction(title: NSLocalizedString("MapViewController.doSettingsAlert.cancelButtonAction.title", comment: ""), style: .cancel)
         settingsAlertController.addAction(settingsButtonAction)
         settingsAlertController.addAction(cancelButtonAction)
         
