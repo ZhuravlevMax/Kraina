@@ -493,38 +493,38 @@ extension MapViewController: UICollectionViewDelegate,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key,
                                                                         for: indexPath) as? ModelCollectionViewCell,
-           let imageAll = UIImage(named: "\(FireBaseIconTypeEnum.all)"),
-           let imageArchitecture = UIImage(named: "\(FireBaseIconTypeEnum.architecture)"),
-           let imageReligion = UIImage(named: "\(FireBaseIconTypeEnum.religion)"),
-           let imageMuseum = UIImage(named: "\(FireBaseIconTypeEnum.museum)"),
-           let imageProtectedAreas = UIImage(named: "\(FireBaseIconTypeEnum.conservation)") {
+           let imageAll = UIImage(named: "\(FireBaseTypeForMapEnum.all)"),
+           let imageArchitecture = UIImage(named: "\(FireBaseTypeForMapEnum.architecture)"),
+           let imageReligion = UIImage(named: "\(FireBaseTypeForMapEnum.religion)"),
+           let imageMuseum = UIImage(named: "\(FireBaseTypeForMapEnum.museum)"),
+           let imageProtectedAreas = UIImage(named: "\(FireBaseTypeForMapEnum.conservation)") {
             if let modelsUnwrapped = models {
                 switch indexPath.row {
-                case FireBaseIconTypeEnum.all.rawValue:
+                case FireBaseTypeForMapEnum.all.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setTextAll", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.all)",
                                           image: imageAll,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.architecture.rawValue:
+                case FireBaseTypeForMapEnum.architecture.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.architecture", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.architecture)",
                                           image: imageArchitecture,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.religion.rawValue:
+                case FireBaseTypeForMapEnum.religion.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.religion", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.religion)",
                                           image: imageReligion,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.museum.rawValue:
+                case FireBaseTypeForMapEnum.museum.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.museum", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.museum)",
                                           image: imageMuseum,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.conservation.rawValue:
+                case FireBaseTypeForMapEnum.conservation.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.conservation", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.conservation)",
                                           image: imageProtectedAreas,
