@@ -131,6 +131,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     @objc private func logOutButtonPressed() {
         do {
             try Auth.auth().signOut()
+            UserDefaults.standard.removeObject(forKey: "\(UserDefaultsKeysEnum.notFirstTime)")
         } catch {
             print(error)
         }

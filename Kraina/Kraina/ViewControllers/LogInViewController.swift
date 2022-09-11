@@ -226,7 +226,9 @@ class LogInViewController: UIViewController {
                     print(error._code)
                     self.handleError(error)
                     return
-                } 
+                } else {
+                    UserDefaults.standard.set(true, forKey: "\(UserDefaultsKeysEnum.notFirstTime)")
+                }
             }
             
         } else {

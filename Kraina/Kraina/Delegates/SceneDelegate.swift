@@ -26,6 +26,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         //window?.rootViewController = TabBarViewController()
 
+        if !UserDefaults.standard.bool(forKey: "\(UserDefaultsKeysEnum.notFirstTime)") {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print(error)
+            }
+        }
+        
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             guard let self = self else {return}
             if user == nil {

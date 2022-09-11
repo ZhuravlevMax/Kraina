@@ -178,6 +178,7 @@ class RegistrationViewController: UIViewController {
                                                                                    "\(UsersFieldsEnum.favorites)" : [""]])
                             
                         }
+                        UserDefaults.standard.set(true, forKey: "\(UserDefaultsKeysEnum.notFirstTime)")
                     }
                 }
             } else {
