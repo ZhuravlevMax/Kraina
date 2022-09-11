@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Kraina
+
+  Created by Максим Журавлев on 11.09.22.
+  
+*/
+"CFBundleDisplayName" = "Kraina";
+"NSLocationWhenInUseUsageDescription" = "Uses location for getting user current address";

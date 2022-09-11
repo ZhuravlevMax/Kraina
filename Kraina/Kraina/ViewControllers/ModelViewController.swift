@@ -366,12 +366,18 @@ extension ModelViewController: UICollectionViewDelegate,
         return UICollectionViewCell()
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        willDisplay cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        self.pageControl.currentPage = indexPath.row
+    //Методы для связи pageControl и collectionView
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     
+    //Размер ячеек
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

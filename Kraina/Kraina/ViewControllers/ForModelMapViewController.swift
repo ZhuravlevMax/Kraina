@@ -96,7 +96,7 @@ class ForModelMapViewController: UIViewController,
     private lazy var appearance: SurfaceAppearance = {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 15
-        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)") 
+        appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return appearance
     }()
     
@@ -138,7 +138,6 @@ class ForModelMapViewController: UIViewController,
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
-        //MARK: - МЕСТО С УТЕЧКОЙ ПАМЯТИ!!!!!!!!
         //MARK: - Работа с всплывающим попапом
         fpc.surfaceView.appearance = appearance
         fpc.layout = MyFloatingPanelLayout()

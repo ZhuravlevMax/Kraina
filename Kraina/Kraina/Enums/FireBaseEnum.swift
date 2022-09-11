@@ -19,6 +19,14 @@ enum FireBaseTypeEnum: Int, CaseIterable{
     case all
 }
 
+enum FireBaseTypeForMapEnum: Int, CaseIterable{
+    case all = 0
+    case architecture
+    case religion
+    case museum
+    case conservation
+}
+
 enum FireBaseIconTypeEnum: Int, CaseIterable{
     case architecture = 0
     case religion

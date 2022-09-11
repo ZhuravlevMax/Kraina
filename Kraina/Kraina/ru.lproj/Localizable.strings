@@ -41,6 +41,8 @@
 "MapViewController.modelCollectionViewCell.setText.religion" = "Религия";
 "MapViewController.modelCollectionViewCell.setText.museum" = "Музеи";
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
+"MapViewController.doSettingsAlert.settingsButtonAction.title" = "Настройки";
+"MapViewController.doSettingsAlert.cancelButtonAction.title" = "Отмена";
 
 //MARK: - RegistrationViewController
 "RegistrationViewController.titleRegisterLable.text" = "Регистрация";

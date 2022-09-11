@@ -32,6 +32,7 @@ class MapViewController: UIViewController,
     private var markerArray: [GMSMarker] = []
     private var shownModels: [QueryDocumentSnapshot]?
     private var didTapIcon: QueryDocumentSnapshot?
+    private var locationButtonState = false
     
     //MARK: - Cоздание элементов UI
     private var forMapView: UIView = {
@@ -106,6 +107,20 @@ class MapViewController: UIViewController,
         return moveButton
     }()
     
+    private lazy var locationButton: UIButton = {
+        let moveButton = UIButton()
+        moveButton.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
+        moveButton.layer.cornerRadius = 10
+        moveButton.setImage(UIImage(systemName: "location"),
+                            for: .normal)
+        moveButton.layer.borderColor = UIColor(named: "\(NameColorForThemesEnum.borderCGColor)")?.cgColor
+        moveButton.layer.borderWidth = 1
+        moveButton.tintColor = UIColor(named: "\(NameColorForThemesEnum.unselectedItemTintColor)")
+        moveButton.addTarget(self, action: #selector(self.locationButtonPressed),
+                             for: .touchUpInside)
+        return moveButton
+    }()
+    
     private lazy var fpc: FloatingPanelController = {
         let fpc = FloatingPanelController()
         fpc.delegate = self
@@ -117,6 +132,14 @@ class MapViewController: UIViewController,
         appearance.cornerRadius = 15
         appearance.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         return appearance
+    }()
+    
+    //Для работы с GPS пользователя
+    private lazy var coreManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        //точность передвижения
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        return manager
     }()
     
     
@@ -140,9 +163,12 @@ class MapViewController: UIViewController,
         view.addSubview(modelCollectionView)
         view.addSubview(popupView)
         view.addSubview(searchButton)
+        view.addSubview(locationButton)
         popupView.addSubview(nameModelLabel)
         popupView.addSubview(adressModelLabel)
         popupView.addSubview(showModel)
+        
+        coreManager.delegate = self
         
         //Добавляю координаты моделей на карту для отображения маркеров и кластеров
         if let modelsUnwrapped = models {
@@ -275,10 +301,6 @@ class MapViewController: UIViewController,
         
     }
     
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        
-    }
-    
     //MARK: - Метод для задания сдвига попапа, когда тянешь
     func floatingPanelDidMove(_ vc: FloatingPanelController) {
         if vc.isAttracting == false {
@@ -339,6 +361,12 @@ class MapViewController: UIViewController,
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-220)
             $0.height.width.equalTo(50)
         }
+        
+        locationButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(20)
+            $0.bottom.equalTo(searchButton.snp.top).offset(-10)
+            $0.height.width.equalTo(50)
+        }
         super.updateViewConstraints()
     }
     
@@ -354,6 +382,39 @@ class MapViewController: UIViewController,
         searchVC.models = models
         searchVC.mapVC = self
         present(navigationControllerMain, animated: true)
+    }
+    
+    //MARK: - Действие кнопки locationButton
+    @objc private func locationButtonPressed() {
+        
+        if locationButtonState {
+            locationButtonState = false
+            locationButton.setImage(UIImage(systemName: "location"),
+                                    for: .normal)
+            //coreManager.requestWhenInUseAuthorization()
+            coreManager.startUpdatingLocation()
+        } else {
+            //Запрашиваем авторизацию у юзера
+            locationButtonState = true
+            locationButton.setImage(UIImage(systemName: "location.fill"),
+                                    for: .normal)
+            coreManager.requestWhenInUseAuthorization()
+            print(coreManager.authorizationStatus.rawValue)
+            if coreManager.authorizationStatus == .authorizedAlways ||
+                coreManager.authorizationStatus == .authorizedWhenInUse {
+                locationButton.setImage(UIImage(systemName: "location.fill"),
+                                        for: .normal)
+                locationButtonState = true
+                coreManager.startUpdatingLocation()
+            } else if coreManager.authorizationStatus == .denied {
+                locationButtonState = false
+                locationButton.setImage(UIImage(systemName: "location"),
+                                        for: .normal)
+                doSettingsAlert(title: "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию", message: "")
+            }
+            
+        }
+        
     }
     
     //MARK: - Метод для передачи моделей из других VC
@@ -376,7 +437,7 @@ class MapViewController: UIViewController,
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    
+        
         if let shownModels = shownModels {
             doClustersFromSearch(models: shownModels)
         } else {
@@ -421,7 +482,8 @@ class MapViewController: UIViewController,
 
 //MARK: - Работа с СollectionView
 extension MapViewController: UICollectionViewDelegate,
-                             UICollectionViewDataSource {
+                             UICollectionViewDataSource,
+                             CLLocationManagerDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         FireBaseTypeEnum.allCases.count
@@ -431,38 +493,38 @@ extension MapViewController: UICollectionViewDelegate,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionCell = modelCollectionView.dequeueReusableCell(withReuseIdentifier: ModelCollectionViewCell.key,
                                                                         for: indexPath) as? ModelCollectionViewCell,
-           let imageAll = UIImage(named: "\(FireBaseIconTypeEnum.all)"),
-           let imageArchitecture = UIImage(named: "\(FireBaseIconTypeEnum.architecture)"),
-           let imageReligion = UIImage(named: "\(FireBaseIconTypeEnum.religion)"),
-           let imageMuseum = UIImage(named: "\(FireBaseIconTypeEnum.museum)"),
-           let imageProtectedAreas = UIImage(named: "\(FireBaseIconTypeEnum.conservation)") {
+           let imageAll = UIImage(named: "\(FireBaseTypeForMapEnum.all)"),
+           let imageArchitecture = UIImage(named: "\(FireBaseTypeForMapEnum.architecture)"),
+           let imageReligion = UIImage(named: "\(FireBaseTypeForMapEnum.religion)"),
+           let imageMuseum = UIImage(named: "\(FireBaseTypeForMapEnum.museum)"),
+           let imageProtectedAreas = UIImage(named: "\(FireBaseTypeForMapEnum.conservation)") {
             if let modelsUnwrapped = models {
                 switch indexPath.row {
-                case FireBaseIconTypeEnum.all.rawValue:
+                case FireBaseTypeForMapEnum.all.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setTextAll", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.all)",
                                           image: imageAll,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.architecture.rawValue:
+                case FireBaseTypeForMapEnum.architecture.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.architecture", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.architecture)",
                                           image: imageArchitecture,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.religion.rawValue:
+                case FireBaseTypeForMapEnum.religion.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.religion", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.religion)",
                                           image: imageReligion,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.museum.rawValue:
+                case FireBaseTypeForMapEnum.museum.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.museum", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.museum)",
                                           image: imageMuseum,
                                           modelsSet: modelsUnwrapped)
                     
-                case FireBaseIconTypeEnum.conservation.rawValue:
+                case FireBaseTypeForMapEnum.conservation.rawValue:
                     collectionCell.setVar(setText: NSLocalizedString("MapViewController.modelCollectionViewCell.setText.conservation", comment: ""),
                                           setType: "\(FireBaseIconTypeEnum.conservation)",
                                           image: imageProtectedAreas,
@@ -486,5 +548,50 @@ extension MapViewController: UICollectionViewDelegate,
                             bottom: 20,
                             right: 5)
     }
+    
+    //MARK: - Работа с геолокацией
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if locationButtonState {
+            if manager.authorizationStatus == .authorizedAlways ||
+                manager.authorizationStatus == .authorizedWhenInUse {
+                coreManager.startUpdatingLocation()
+            } else if manager.authorizationStatus == .denied {
+                locationButtonState = false
+                locationButton.setImage(UIImage(systemName: "location"),
+                                        for: .normal)
+            }
+        }
+    }
+    
+    //MARK: - AlertController для ошибок
+    func doSettingsAlert(title: String, message: String) {
+        let settingsAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let settingsButtonAction = UIAlertAction(title: NSLocalizedString("MapViewController.doSettingsAlert.settingsButtonAction.title", comment: ""), style: .default) { make in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {return}
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+        }
+        let cancelButtonAction = UIAlertAction(title: NSLocalizedString("MapViewController.doSettingsAlert.cancelButtonAction.title", comment: ""), style: .cancel)
+        settingsAlertController.addAction(settingsButtonAction)
+        settingsAlertController.addAction(cancelButtonAction)
+        
+        self.present(settingsAlertController, animated: true)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if locationButtonState {
+            guard let userLocation = locations.last else {return}
+            let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 13);
+            self.mapView.isMyLocationEnabled = true
+            mapView.animate(to: camera)
+            coreManager.stopUpdatingLocation()
+        } else {
+            let camera = GMSCameraPosition.camera(withLatitude: 53.893009, longitude: 27.567444, zoom: 5)
+            mapView.animate(to: camera)
+            self.mapView.isMyLocationEnabled = false
+            coreManager.stopUpdatingLocation()
+        }
+    }
 }
+
 
