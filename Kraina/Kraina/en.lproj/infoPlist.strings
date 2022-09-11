@@ -6,3 +6,4 @@
   
 */
 "CFBundleDisplayName" = "Kraina";
+"NSLocationWhenInUseUsageDescription" = "Uses location for getting user current address";

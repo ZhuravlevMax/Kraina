@@ -6,3 +6,4 @@
   
 */
 "CFBundleDisplayName" = "Имя";
+"NSLocationWhenInUseUsageDescription" = "Используем геолокацию для отображения пользователся на карте";
