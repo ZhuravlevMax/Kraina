@@ -52,9 +52,11 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         super.layoutIfNeeded()
         self.contentView.frame = self.bounds
         
-        infoView.frame = contentView.frame
+        //infoView.frame = contentView.frame
+        infoView.frame.size = CGSize(width: contentView.frame.width,
+                                     height: contentView.frame.height/2.5)
         
-        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
+        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
                                        secondColor: .clear)
     }
     
