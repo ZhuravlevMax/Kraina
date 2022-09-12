@@ -43,6 +43,7 @@
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
 "MapViewController.doSettingsAlert.settingsButtonAction.title" = "Настройки";
 "MapViewController.doSettingsAlert.cancelButtonAction.title" = "Отмена";
+"MapViewController.doSettingsAlert.title" = "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию";
 
 //MARK: - RegistrationViewController
 "RegistrationViewController.titleRegisterLable.text" = "Регистрация";

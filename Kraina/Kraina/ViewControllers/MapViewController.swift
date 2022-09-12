@@ -410,7 +410,9 @@ class MapViewController: UIViewController,
                 locationButtonState = false
                 locationButton.setImage(UIImage(systemName: "location"),
                                         for: .normal)
-                doSettingsAlert(title: "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию", message: "")
+                doSettingsAlert(title: NSLocalizedString("MapViewController.doSettingsAlert.title",
+                                                         comment: ""),
+                                message: "")
             }
             
         }

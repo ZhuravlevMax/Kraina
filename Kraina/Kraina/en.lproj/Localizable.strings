@@ -41,6 +41,7 @@
 "MapViewController.modelCollectionViewCell.setText.religion" = "Religion";
 "MapViewController.modelCollectionViewCell.setText.museum" = "Museum";
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Conservation";
+"MapViewController.doSettingsAlert.title" = "Please allow access to Geolocation in the settings to determine your position";
 "MapViewController.doSettingsAlert.settingsButtonAction.title" = "Settings";
 "MapViewController.doSettingsAlert.cancelButtonAction.title" = "Cancel";
 
