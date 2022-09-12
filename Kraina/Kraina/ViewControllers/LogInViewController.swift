@@ -8,8 +8,9 @@
 import UIKit
 import Firebase
 import SnapKit
+import GoogleSignIn
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Создание переменных
     var register = false
@@ -114,10 +115,24 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    private lazy var сreateAccGoogleButton: GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.addTarget(self,
+                         action: #selector(self.сreateAccGoogleButtonPressed),
+                         for: .touchUpInside)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        button.dropShadow()
+        return button
+    }()
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -141,8 +156,10 @@ class LogInViewController: UIViewController {
         logInView.addSubview(logInButton)
         logInView.addSubview(createAccLabel)
         logInView.addSubview(сreateAccButton)
+        logInView.addSubview(сreateAccGoogleButton)
         
         updateViewConstraints()
+        
     }
     
     //MARK: - Работа с констрейнтами
@@ -160,48 +177,60 @@ class LogInViewController: UIViewController {
         
         titleLoginLable.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(30)
+            $0.top.equalToSuperview().inset(10)
         }
         
         emailTextField.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(titleLoginLable).inset(50)
+            $0.top.equalTo(titleLoginLable.snp.bottom).offset(20)
         }
         
         passwordTextField.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(emailTextField).inset(50)
+            $0.top.equalTo(emailTextField.snp.bottom).offset(10)
         }
         
         logInButton.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(passwordTextField).inset(50)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(20)
             $0.height.equalTo(50)
+        }
+        
+        сreateAccGoogleButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(logInButton.snp.bottom).offset(10)
         }
         
         createAccLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(logInButton).inset(80)
+            $0.top.equalTo(сreateAccGoogleButton.snp.bottom).offset(20)
         }
         
         сreateAccButton.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(createAccLabel).inset(30)
+            $0.top.equalTo(createAccLabel.snp.bottom).offset(10)
             $0.height.equalTo(50)
         }
         
-        hideKeyboardWhenTappedAround()
+        
+        
+       // hideKeyboardWhenTappedAround()
         super.updateViewConstraints()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= 120
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 110
         }
     }
     
@@ -236,6 +265,53 @@ class LogInViewController: UIViewController {
                                                   comment: ""), message: NSLocalizedString("emptyFields",
                                                                                            comment: ""))
         }
+    }
+    
+    //MARK: - Действие кнопки SignIn Google
+    @objc private func сreateAccGoogleButtonPressed() {
+        
+        //MARK: - Регистрация через гугл
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+            
+            if let error = error {
+                return
+            }
+            
+            guard let authentication = user?.authentication,
+                  let idToken = authentication.idToken else {return}
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: authentication.accessToken)
+            
+            Auth.auth().signIn(with: credential) { [weak self] result, error in
+                if error != nil {
+                    guard let self = self,
+                          let error = error else {return}
+                    print(error._code)
+                    self.handleError(error)
+                    return
+                } else {
+                    if let resultUnwrapped = result {
+                        print(resultUnwrapped.user.uid)
+                        let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                        Database.database().reference().child("\(UsersFieldsEnum.users)").child(resultUnwrapped.user.uid).observe(.value) { snapshot in
+                            if let value = snapshot.value, snapshot.exists() {
+                                ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : user?.userID])
+                            } else {
+                                ref.child(resultUnwrapped.user.uid).updateChildValues(["\(UsersFieldsEnum.email)" : user?.userID,
+                                                                                       "\(UsersFieldsEnum.favorites)" : [""]])
+                            }
+                        }
+                    }
+                    UserDefaults.standard.set(true, forKey: "\(UserDefaultsKeysEnum.notFirstTime)")
+                }
+            }
+        }
+        
     }
     
     //MARK: - Действие кнопки createAcc

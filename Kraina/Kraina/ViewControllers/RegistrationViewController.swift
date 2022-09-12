@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Создание переменных
     var successfullLabel: (() -> Void)?
@@ -104,6 +104,10 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
         //MARK: - Добавление элементов на экран
@@ -154,6 +158,11 @@ class RegistrationViewController: UIViewController {
             $0.height.equalTo(50)
         }
         super.updateViewConstraints()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     //MARK: - Действие кнопки createAcc
