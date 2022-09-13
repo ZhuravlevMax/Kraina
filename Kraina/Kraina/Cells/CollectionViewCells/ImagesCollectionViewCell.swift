@@ -50,7 +50,7 @@ class ImagesCollectionViewCell: UICollectionViewCell {
         forShadowView.frame.size = CGSize(width: contentView.frame.width,
                                      height: contentView.frame.height/2.5)
         
-        traitCollection.userInterfaceStyle == .dark ? (forShadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.8), secondColor: .clear)) : (forShadowView.addGradientBackground(firstColor: .white.withAlphaComponent(0.8), secondColor: .clear))
+        traitCollection.userInterfaceStyle == .dark ? (forShadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.5), secondColor: .clear)) : (forShadowView.addGradientBackground(firstColor: .white.withAlphaComponent(0.5), secondColor: .clear))
     }
     
     required init?(coder: NSCoder) {
@@ -59,7 +59,7 @@ class ImagesCollectionViewCell: UICollectionViewCell {
    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         
-        traitCollection.userInterfaceStyle == .dark ? (forShadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.8), secondColor: .clear)) : (forShadowView.addGradientBackground(firstColor: .white.withAlphaComponent(0.8), secondColor: .clear))
+        traitCollection.userInterfaceStyle == .dark ? (forShadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.5), secondColor: .clear)) : (forShadowView.addGradientBackground(firstColor: .white.withAlphaComponent(0.5), secondColor: .clear))
         
     }
     

@@ -73,4 +73,8 @@
 "emptyFields" = "Fill in all fields!";
 "PasswordsDoNotMatch" = "Passwords do not match!";
 
+//MARK: - FavoriteViewController
+"FavoriteViewController.nothingAddedLabel.text" = "You haven't added anything yet";
+
+
 

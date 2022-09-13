@@ -38,6 +38,31 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
         return collectionView
     }()
     
+    private lazy var forImageView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private lazy var mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .clear
+        //imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
+        imageView.image = UIImage(named: "zubr")
+        return imageView
+    }()
+    
+    private lazy var nothingAddedLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = NSLocalizedString("FavoriteViewController.nothingAddedLabel.text",
+                                           comment: "")
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        return label
+    }()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +88,10 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
         
         //MARK: - добавление элементов UI на View
         view.addSubview(favoriteCollectionView)
+        view.addSubview(forImageView)
+        forImageView.addSubview(mainImageView)
+        forImageView.addSubview(nothingAddedLabel)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,6 +113,21 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             $0.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        forImageView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.width.equalTo(300)
+        }
+        
+        mainImageView.snp.makeConstraints {
+            $0.centerY.centerX.equalToSuperview()
+            $0.height.width.equalTo(200)
+        }
+        
+        nothingAddedLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(mainImageView.snp.bottom).offset(5)
         }
         super.updateViewConstraints()
     }
@@ -130,7 +174,21 @@ class FavoriteViewController: UIViewController, UITabBarControllerDelegate, Chec
             self.museumTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.museumTypeArray))
             self.protectedAreasTypeArray.isEmpty ? () : (self.favouriteTypeArray.append(self.protectedAreasTypeArray))
             self.favoriteCollectionView.reloadData()
+            
+            if self.favoriteModels.count == 0 {
+                UIView.animate(withDuration: 0.5) { [weak self] in
+                    guard let self = self else {return}
+                    self.forImageView.alpha = 1
+                    self.view.layoutIfNeeded()
+                }
+            } else {
+                    self.forImageView.alpha = 0
+                    self.view.layoutIfNeeded()
+
+    }
         })
+        
+        
     }
 }
 

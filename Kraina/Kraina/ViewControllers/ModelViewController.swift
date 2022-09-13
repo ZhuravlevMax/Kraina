@@ -91,11 +91,11 @@ class ModelViewController: UIViewController {
         return button
     }()
     
-    private lazy var modelDescription: UILabel = {
+    lazy var modelDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 14,
+        label.font = UIFont.systemFont(ofSize: 15,
                                        weight: .light)
         return label
     }()

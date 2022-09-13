@@ -72,3 +72,6 @@
 "Error" = "Упс!";
 "emptyFields" = "Заполните все поля!";
 "PasswordsDoNotMatch" = "Пароли не совпадают!";
+
+//MARK: - FavoriteViewController
+"FavoriteViewController.nothingAddedLabel.text" = "Вы пока ничего не добавили";
