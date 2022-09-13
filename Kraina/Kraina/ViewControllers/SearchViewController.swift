@@ -52,6 +52,7 @@ class SearchViewController: UIViewController {
         tableView.register(SearchTableViewCell.self,
                                  forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     

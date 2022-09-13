@@ -54,6 +54,7 @@ class SearchOnMapViewController: UIViewController {
         tableView.register(SearchTableViewCell.self,
                                  forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
@@ -88,6 +89,8 @@ class SearchOnMapViewController: UIViewController {
         
         backToVC()
     }
+    
+    
     
     //MARK: - метод для кнопки назад в нав баре
     @objc private func backButtonPressed() {
