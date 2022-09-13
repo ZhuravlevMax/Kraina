@@ -210,7 +210,7 @@ class ModelViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
-        
+        print(imagesCollectionView.frame)
         backToRoot()
         updateViewConstraints()
         

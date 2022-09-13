@@ -30,15 +30,28 @@ class ImagesCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    lazy var forShadowView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     //MARK: - Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         contentView.addSubview(mainView)
         mainView.addSubview(mainImageView)
+        mainView.addSubview(forShadowView)
         
         updateViewConstraints()
         
+        forShadowView.frame.size = CGSize(width: contentView.frame.width,
+                                     height: contentView.frame.height/2.5)
+        
+        forShadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.8),
+                                       secondColor: .clear)
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +72,10 @@ class ImagesCollectionViewCell: UICollectionViewCell {
         }
         
         mainImageView.snp.makeConstraints {
+            $0.left.top.right.bottom.equalToSuperview()
+        }
+        
+        forShadowView.snp.makeConstraints {
             $0.left.top.right.bottom.equalToSuperview()
         }
     }
