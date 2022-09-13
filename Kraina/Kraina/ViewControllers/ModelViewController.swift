@@ -192,8 +192,10 @@ class ModelViewController: UIViewController {
         self.adressLabel.text = showLocalizedModelAdress(for: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         
-        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model) : FireBaseManager.shared.getModelDescriptionEn(model: model)
+        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model).replacingOccurrences(of: "\\n", with: "\n") : FireBaseManager.shared.getModelDescriptionEn(model: model).replacingOccurrences(of: "\\n", with: "\n")
         
+        self.modelDescription.textAlignment = .justified
+        self.modelDescription.lineBreakMode = .byWordWrapping
         FireBaseManager.shared.getUserFavoritesArray { [weak self] in
             guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)

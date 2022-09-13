@@ -39,6 +39,7 @@
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94CE010E28CE13F100E858DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CE011028CE13F100E858DA /* InfoPlist.strings */; };
 		94CE011528CE2B8400E858DA /* UserDefaultsKeysEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011428CE2B8300E858DA /* UserDefaultsKeysEnum.swift */; };
+		94CE011728D0D67600E858DA /* String+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011628D0D67500E858DA /* String+Exstension.swift */; };
 		94D8498428A29D9C00A06B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498328A29D9C00A06B6D /* AppDelegate.swift */; };
 		94D8498628A29D9C00A06B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498528A29D9C00A06B6D /* SceneDelegate.swift */; };
 		94D8498828A29D9C00A06B6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D8498728A29D9C00A06B6D /* MainViewController.swift */; };
@@ -116,6 +117,7 @@
 		94CE011128CE13F200E858DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011328CE14D900E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		94CE011428CE2B8300E858DA /* UserDefaultsKeysEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeysEnum.swift; sourceTree = "<group>"; };
+		94CE011628D0D67500E858DA /* String+Exstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Exstension.swift"; sourceTree = "<group>"; };
 		94D8498028A29D9C00A06B6D /* Kraina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kraina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D8498328A29D9C00A06B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94D8498528A29D9C00A06B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				945F75FA28A96FFE0013122D /* Image+Extension.swift */,
 				949EC2DC28BC07830055EF48 /* CollectionView+Extension.swift */,
 				94D849AD28A2E87A00A06B6D /* UIViewController+Extension.swift */,
+				94CE011628D0D67500E858DA /* String+Exstension.swift */,
 				94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */,
 			);
 			path = Extensions;
@@ -561,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94CE011728D0D67600E858DA /* String+Exstension.swift in Sources */,
 				94D849AE28A2E87A00A06B6D /* UIViewController+Extension.swift in Sources */,
 				940B0FD528C6213B002BE48F /* AuthErrorCode+Extension.swift in Sources */,
 				94D8499828A29E7000A06B6D /* TabBarViewController.swift in Sources */,
