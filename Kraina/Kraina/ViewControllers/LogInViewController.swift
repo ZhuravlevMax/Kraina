@@ -22,7 +22,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
-    private lazy var logInView: UIView = {
+    private lazy var logInEmailView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
+        view.dropShadow()
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
+    private lazy var logInTypeView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         view.dropShadow()
@@ -36,6 +44,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         nameLabel.text = NSLocalizedString("LoginViewController.titleLoginLable.text",
                                            comment: "")
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return nameLabel
+    }()
+    
+    private lazy var titleLoginWithEmailLable: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.numberOfLines = 0
+        nameLabel.text = NSLocalizedString("LoginViewController.titleLoginWithEmailLable.text",
+                                           comment: "")
+        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return nameLabel
+    }()
+    
+    private lazy var orGoogleLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.numberOfLines = 0
+        nameLabel.text = NSLocalizedString("LoginViewController.createAccLabel.text",
+                                           comment: "")
+        nameLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
         return nameLabel
     }()
     
@@ -91,6 +117,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    private lazy var logInWithEmailButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
+        button.setTitle(NSLocalizedString("LoginViewController.logInWithEmailButton.title",
+                                          comment: ""), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.layer.cornerRadius = 2
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.green, for: .highlighted)
+        button.dropShadow()
+        button.addTarget(self,
+                         action: #selector(self.logInWithEmailButtonPressed),
+                         for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var createAccLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.numberOfLines = 0
@@ -121,8 +163,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                          action: #selector(self.сreateAccGoogleButtonPressed),
                          for: .touchUpInside)
         button.layer.cornerRadius = 20
-        button.clipsToBounds = true
+        
         button.dropShadow()
+        return button
+    }()
+    
+    private lazy var backToLoginTypeButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self,
+                         action: #selector(self.backToLoginTypeButtonPressed),
+                         for: .touchUpInside)
+        button.setTitle(NSLocalizedString("LoginViewController.backToLoginTypeButton.title",
+                                          comment: ""), for: .normal)
+        button.setTitleColor(UIColor(named: "\(NameColorForThemesEnum.reversedBackgroundColor)"), for: .normal)
+        button.setTitleColor(.green, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .light)
+        button.contentHorizontalAlignment = .left
         return button
     }()
     
@@ -142,6 +198,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+        сreateAccGoogleButton.style = .wide
         
         view.layoutSubviews()
         
@@ -149,30 +206,61 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)
-        mainView.addSubview(logInView)
-        logInView.addSubview(titleLoginLable)
-        logInView.addSubview(emailTextField)
-        logInView.addSubview(passwordTextField)
-        logInView.addSubview(logInButton)
-        logInView.addSubview(createAccLabel)
-        logInView.addSubview(сreateAccButton)
-        logInView.addSubview(сreateAccGoogleButton)
+        mainView.addSubview(logInEmailView)
+        mainView.addSubview(logInTypeView)
         
+        logInEmailView.addSubview(titleLoginWithEmailLable)
+        logInEmailView.addSubview(emailTextField)
+        logInEmailView.addSubview(passwordTextField)
+        logInEmailView.addSubview(logInButton)
+        logInEmailView.addSubview(createAccLabel)
+        logInEmailView.addSubview(сreateAccButton)
+        logInEmailView.addSubview(backToLoginTypeButton)
+        logInTypeView.addSubview(titleLoginLable)
+        logInTypeView.addSubview(сreateAccGoogleButton)
+        logInTypeView.addSubview(logInWithEmailButton)
+
         updateViewConstraints()
         
+        if traitCollection.userInterfaceStyle == .dark {
+            сreateAccGoogleButton.colorScheme = .dark
+        } else {
+            сreateAccGoogleButton.colorScheme = .light
+        }
+        
+        //MARK: - Экран изначально с 2 кнопками
+        logInEmailView.alpha = 0
+        logInTypeView.alpha = 1
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            сreateAccGoogleButton.colorScheme = .dark
+        } else {
+            сreateAccGoogleButton.colorScheme = .light
+        }
     }
     
     //MARK: - Работа с констрейнтами
     override func updateViewConstraints() {
-        
         mainView.snp.makeConstraints {
             $0.trailing.leading.top.bottom.equalToSuperview()
         }
-        
-        logInView.snp.makeConstraints {
+        logInTypeView.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
-            $0.height.equalTo(400)
+            $0.height.equalTo(180)
             $0.trailing.leading.equalToSuperview().inset(20)
+        }
+        logInEmailView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.equalTo(350)
+            $0.trailing.leading.equalToSuperview().inset(20)
+        }
+        
+        titleLoginWithEmailLable.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(10)
         }
         
         titleLoginLable.snp.makeConstraints {
@@ -180,34 +268,37 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             $0.top.equalToSuperview().inset(10)
         }
         
+        logInWithEmailButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(55)
+            $0.top.equalTo(titleLoginLable.snp.bottom).offset(10)
+            $0.height.equalTo(40)
+        }
+        
+        сreateAccGoogleButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(50)
+            $0.bottom.equalToSuperview().inset(20)
+        }
+        
         emailTextField.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(titleLoginLable.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(titleLoginWithEmailLable.snp.bottom).offset(20)
         }
         
         passwordTextField.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(emailTextField.snp.bottom).offset(10)
         }
         
         logInButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
-            $0.right.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview().inset(20)
             $0.top.equalTo(passwordTextField.snp.bottom).offset(20)
             $0.height.equalTo(50)
-        }
-        
-        сreateAccGoogleButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(20)
-            $0.top.equalTo(logInButton.snp.bottom).offset(10)
         }
         
         createAccLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
-            $0.top.equalTo(сreateAccGoogleButton.snp.bottom).offset(20)
+            $0.top.equalTo(self.logInButton.snp.bottom).offset(20)
         }
         
         сreateAccButton.snp.makeConstraints {
@@ -217,9 +308,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             $0.height.equalTo(50)
         }
         
-        
-        
-       // hideKeyboardWhenTappedAround()
+        self.backToLoginTypeButton.snp.makeConstraints {
+            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalTo(self.сreateAccButton.snp.bottom).offset(10)
+            $0.height.equalTo(40)
+        }
         super.updateViewConstraints()
     }
     
@@ -264,6 +357,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             doErrorAlert(title: NSLocalizedString("Error",
                                                   comment: ""), message: NSLocalizedString("emptyFields",
                                                                                            comment: ""))
+        }
+    }
+    
+    //MARK: - Действие кнопки logIn
+    @objc private func logInWithEmailButtonPressed() {
+        
+        UIView.animate(withDuration: 1) { [weak self] in
+            guard let self = self else {return}
+            self.logInEmailView.alpha = 1
+            self.logInTypeView.isHidden = true
+            self.logInEmailView.isHidden = false
+            self.logInTypeView.alpha = 0
+
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -321,5 +428,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.present(registerVC, animated: true)
     }
     
+    //MARK: - Действие кнопки backToLoginTypeButton
+    @objc private func backToLoginTypeButtonPressed() {
+        
+        UIView.animate(withDuration: 1) { [weak self] in
+            guard let self = self else {return}
+            self.logInTypeView.alpha = 1
+            self.logInTypeView.isHidden = false
+            self.logInEmailView.isHidden = true
+            self.logInEmailView.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
-

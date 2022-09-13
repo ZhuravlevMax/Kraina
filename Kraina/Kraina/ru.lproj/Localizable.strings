@@ -56,6 +56,9 @@
 "LoginViewController.titleLoginLable.text" = "Войдите в аккаунт";
 "LoginViewController.logInButton.title" = "Войти";
 "LoginViewController.createAccLabel.text" = "Нет аккаунта?";
+"LoginViewController.logInWithEmailButton.title" = "Войти через Email";
+"LoginViewController.titleLoginWithEmailLable.text" = "Войти через Email";
+"LoginViewController.backToLoginTypeButton.title" = "Назад к выбору способа входа";
 
 //MARK: - errorMessages
 "wrongPassword" = "Неверный пароль.";

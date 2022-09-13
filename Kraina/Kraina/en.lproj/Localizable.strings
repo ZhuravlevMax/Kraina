@@ -54,8 +54,11 @@
 
 //MARK: - LoginViewController
 "LoginViewController.titleLoginLable.text" = "Sign In";
-"LoginViewController.logInButton.title" = "Log In";
+"LoginViewController.logInButton.title" = "Sign In";
 "LoginViewController.createAccLabel.text" = "Have no account?";
+"LoginViewController.logInWithEmailButton.title" = "Sign in with Email";
+"LoginViewController.titleLoginWithEmailLable.text" = "Sign in with Email";
+"LoginViewController.backToLoginTypeButton.title" = "Back to choosing a sign in method";
 
 //MARK: - errorMessages
 "wrongPassword" = "Your password is incorrect.";
