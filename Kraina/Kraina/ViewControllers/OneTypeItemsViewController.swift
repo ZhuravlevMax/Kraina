@@ -8,14 +8,15 @@
 import UIKit
 import Firebase
 
-class OneTypeItemsViewController: UIViewController {
+class OneTypeItemsViewController: UIViewController,
+                                  OneTypeVCDelegate {
     
     //MARK: - Создание переменных
     private var models = [QueryDocumentSnapshot]()
     var favouriteVC: CheckFavouriteDelegate?
     
     //MARK: - Создание элементов UI
-    private lazy var favoutiteTypeTableView: UITableView = {
+    private lazy var oneTypeTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         return tableView
@@ -46,18 +47,18 @@ class OneTypeItemsViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
         
-        favoutiteTypeTableView.delegate = self
-        favoutiteTypeTableView.dataSource = self
-        favoutiteTypeTableView.register(FavouriteTypeTableViewCell.self,
+        oneTypeTableView.delegate = self
+        oneTypeTableView.dataSource = self
+        oneTypeTableView.register(FavouriteTypeTableViewCell.self,
                                         forCellReuseIdentifier: FavouriteTypeTableViewCell.key)
-        favoutiteTypeTableView.separatorStyle = .none
+        oneTypeTableView.separatorStyle = .none
         
-        view.addSubview(favoutiteTypeTableView)
+        view.addSubview(oneTypeTableView)
         
         initialize()
         backToRoot()
         updateViewConstraints()
-        favoutiteTypeTableView.reloadData()
+        oneTypeTableView.reloadData()
 
     }
 
@@ -75,7 +76,7 @@ class OneTypeItemsViewController: UIViewController {
     
     //MARK: - Работа с констрейнтами
     override func updateViewConstraints() {
-        favoutiteTypeTableView.snp.makeConstraints {
+        oneTypeTableView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.height.equalToSuperview()
@@ -93,11 +94,23 @@ extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
+        if let cell = oneTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
                                                                  for: indexPath) as? FavouriteTypeTableViewCell {
             cell.setVar(nameModel: Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: models[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: models[indexPath.row]))
             cell.setImage(model: models[indexPath.row])
             cell.selectionStyle = .none
+            cell.model = models[indexPath.row]
+            cell.oneTypeItemsVC = self
+    
+            
+            FireBaseManager.shared.getUserFavoritesArray { [weak self] favouriteArray in
+                guard let self = self else {return}
+                if favouriteArray.contains(self.models[indexPath.row].documentID) {
+                    cell.addToFavoriteButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                } else {
+                    cell.addToFavoriteButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                }
+            }
             
             return cell
         }
@@ -112,6 +125,7 @@ extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource
         let modelViewController = ModelViewController()
         modelViewController.setModel(modelToSet: models[indexPath.row])
         modelViewController.favouriteModels = models
+        modelViewController.oneTypeItemsVC = self
         self.navigationController?.pushViewController(modelViewController, animated: true)
     }
     
@@ -145,6 +159,36 @@ extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource
     
     func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {
         models = modelsArray
-        favoutiteTypeTableView.reloadData()
+        oneTypeTableView.reloadData()
+    }
+    
+    func reloadOneTypeTableView() {
+        oneTypeTableView.reloadData()
+    }
+    
+    func addToFavouriteFromCell(model: QueryDocumentSnapshot) {
+        FireBaseManager.shared.getUserFavoritesArray { [weak self] favorites in
+            var favoritesArray = favorites
+            guard let userId = Auth.auth().currentUser?.uid,
+                  let self = self
+            else {return}
+            
+            if favoritesArray.contains(model.documentID) {
+                if favoritesArray.contains("\(model.documentID)"){favoritesArray.removeAll(where:{ "\(model.documentID)" == $0 })}
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+                self.oneTypeTableView.reloadData()
+            } else {
+                favoritesArray.append("\(model.documentID)")
+                let ref = Database.database().reference().child("\(UsersFieldsEnum.users)")
+                ref.child(userId).updateChildValues(["\(UsersFieldsEnum.favorites)" : favoritesArray])
+                self.oneTypeTableView.reloadData()
+            }
+
+        }
+        //вибрация по нажатию на иконку
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        //oneTypeTableView.reloadData()
     }
 }

@@ -18,6 +18,7 @@ class ModelViewController: UIViewController {
     private var model: QueryDocumentSnapshot?
     private lazy var favoriteState = false
     weak var favouriteTypeVC: CheckFavouriteDelegate?
+    weak var oneTypeItemsVC: OneTypeVCDelegate?
     var favouriteModels: [QueryDocumentSnapshot]?
     var imagesURLArray: [String] = [] {
         didSet {
@@ -346,6 +347,8 @@ class ModelViewController: UIViewController {
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        oneTypeItemsVC?.reloadOneTypeTableView()
+
     }
 }
 
@@ -400,5 +403,6 @@ extension ModelViewController: UICollectionViewDelegate,
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        
     }
 }

@@ -40,6 +40,7 @@
 		94C921F828D1B06900BC30C6 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F728D1B06900BC30C6 /* style.json */; };
 		94C921FA28D1B73400BC30C6 /* styleDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F928D1B73400BC30C6 /* styleDark.json */; };
 		94C921FF28D22B4800BC30C6 /* OneTypeItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C921FE28D22B4800BC30C6 /* OneTypeItemsViewController.swift */; };
+		94C9220128D23B1B00BC30C6 /* OneTypeVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C9220028D23B1B00BC30C6 /* OneTypeVCDelegate.swift */; };
 		94CE010E28CE13F100E858DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CE011028CE13F100E858DA /* InfoPlist.strings */; };
 		94CE011528CE2B8400E858DA /* UserDefaultsKeysEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011428CE2B8300E858DA /* UserDefaultsKeysEnum.swift */; };
 		94CE011728D0D67600E858DA /* String+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011628D0D67500E858DA /* String+Exstension.swift */; };
@@ -119,6 +120,7 @@
 		94C921F728D1B06900BC30C6 /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		94C921F928D1B73400BC30C6 /* styleDark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = styleDark.json; sourceTree = "<group>"; };
 		94C921FE28D22B4800BC30C6 /* OneTypeItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTypeItemsViewController.swift; sourceTree = "<group>"; };
+		94C9220028D23B1B00BC30C6 /* OneTypeVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTypeVCDelegate.swift; sourceTree = "<group>"; };
 		94CE010F28CE13F100E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011128CE13F200E858DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011328CE14D900E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */,
 				949EC2DE28BCE7A20055EF48 /* CheckFavouriteDelegate.swift */,
 				941FD2C228BF4F9300C800DB /* ModelFromDelegate.swift */,
+				94C9220028D23B1B00BC30C6 /* OneTypeVCDelegate.swift */,
 				94B67B8528C287C700C1E5B8 /* ModelMapDelegate.swift */,
 				94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */,
 			);
@@ -591,6 +594,7 @@
 				94D849AC28A2E5D300A06B6D /* UIView+Extension.swift in Sources */,
 				949EC2D928BBED1F0055EF48 /* FavouriteTypeViewController.swift in Sources */,
 				949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */,
+				94C9220128D23B1B00BC30C6 /* OneTypeVCDelegate.swift in Sources */,
 				94F1A0AC28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift in Sources */,
 				94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */,
 				94C921FF28D22B4800BC30C6 /* OneTypeItemsViewController.swift in Sources */,

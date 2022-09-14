@@ -13,6 +13,8 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     
     //MARK: - Создание переменных
     static let key = "favouriteTypeTableViewCell"
+    weak var oneTypeItemsVC: OneTypeVCDelegate?
+    var model: QueryDocumentSnapshot?
     
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
@@ -48,16 +50,22 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         return nameLabel
     }()
     
+    lazy var addToFavoriteButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.setImage(UIImage(systemName: "bookmark"),
+                        for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.tintColor = UIColor.white
+        button.addTarget(self,
+                         action: #selector(addToFavoriteButtonPressed),
+                         for: .touchUpInside)
+        return button
+    }()
+    
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
-        self.contentView.frame = self.bounds
         
-        //infoView.frame = contentView.frame
-        infoView.frame.size = CGSize(width: contentView.frame.width,
-                                     height: contentView.frame.height/2.5)
-        
-        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
-                                       secondColor: .clear)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -68,6 +76,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         mainView.addSubview(mainImageView)
         mainView.addSubview(infoView)
         infoView.addSubview(nameModelLabel)
+        infoView.addSubview(addToFavoriteButton)
         
         backgroundColor = .clear
         
@@ -80,11 +89,24 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // Initialization code\
+        self.contentView.frame = self.bounds
+        
+        //infoView.frame = contentView.frame
+        infoView.frame.size = CGSize(width: contentView.frame.width,
+                                     height: contentView.frame.height/2.5)
+        
+        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
+                                       secondColor: .clear)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
     }
     
@@ -103,7 +125,13 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         }
         
         nameModelLabel.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(10)
+            $0.left.equalToSuperview().inset(10)
+            $0.right.equalToSuperview().inset(50)
+            $0.top.equalToSuperview().inset(20)
+        }
+        
+        addToFavoriteButton.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(20)
             $0.top.equalToSuperview().inset(20)
         }
     }
@@ -120,6 +148,11 @@ class FavouriteTypeTableViewCell: UITableViewCell {
                                   progressBlock: nil)
     }
     
-    
+    //MARK: - метод для кнопки добавить в избранное addToFavoriteButton
+    @objc private func addToFavoriteButtonPressed() {
+        guard let model = model else {return}
+
+        oneTypeItemsVC?.addToFavouriteFromCell(model: model)
+    }
     
 }
