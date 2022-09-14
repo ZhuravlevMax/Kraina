@@ -178,7 +178,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, ModelFromDelega
     
     func openOneTypeItemsViewController(models: [QueryDocumentSnapshot]) {
         let viewController = OneTypeItemsViewController()
-        viewController.setVar(setFavouriteModels: models)
+        viewController.setVar(setModels: models)
         guard let model = models.first else {return}
         viewController.title = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelRusType(model: model) : FireBaseManager.shared.getModelType(model: model)
         navigationController?.pushViewController(viewController,

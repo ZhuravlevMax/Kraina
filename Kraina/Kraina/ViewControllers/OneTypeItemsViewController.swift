@@ -11,7 +11,7 @@ import Firebase
 class OneTypeItemsViewController: UIViewController {
     
     //MARK: - Создание переменных
-    private var favouriteModels = [QueryDocumentSnapshot]()
+    private var models = [QueryDocumentSnapshot]()
     var favouriteVC: CheckFavouriteDelegate?
     
     //MARK: - Создание элементов UI
@@ -61,8 +61,8 @@ class OneTypeItemsViewController: UIViewController {
 
     }
 
-    func setVar(setFavouriteModels: [QueryDocumentSnapshot]) {
-        favouriteModels = setFavouriteModels
+    func setVar(setModels: [QueryDocumentSnapshot]) {
+        models = setModels
     }
     
     private func initialize() {
@@ -89,14 +89,14 @@ class OneTypeItemsViewController: UIViewController {
 //MARK: - Работа с tableView
 extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favouriteModels.count
+        models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = favoutiteTypeTableView.dequeueReusableCell(withIdentifier: FavouriteTypeTableViewCell.key,
                                                                  for: indexPath) as? FavouriteTypeTableViewCell {
-            cell.setVar(nameModel: Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: favouriteModels[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: favouriteModels[indexPath.row]))
-            cell.setImage(model: favouriteModels[indexPath.row])
+            cell.setVar(nameModel: Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelName(model: models[indexPath.row]) : FireBaseManager.shared.getModelNameEn(model: models[indexPath.row]))
+            cell.setImage(model: models[indexPath.row])
             cell.selectionStyle = .none
             
             return cell
@@ -110,8 +110,8 @@ extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let modelViewController = ModelViewController()
-        modelViewController.setModel(modelToSet: favouriteModels[indexPath.row])
-        modelViewController.favouriteModels = favouriteModels
+        modelViewController.setModel(modelToSet: models[indexPath.row])
+        modelViewController.favouriteModels = models
         self.navigationController?.pushViewController(modelViewController, animated: true)
     }
     
@@ -144,7 +144,7 @@ extension OneTypeItemsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func setFavouriteArray(modelsArray: [QueryDocumentSnapshot]) {
-        favouriteModels = modelsArray
+        models = modelsArray
         favoutiteTypeTableView.reloadData()
     }
 }
