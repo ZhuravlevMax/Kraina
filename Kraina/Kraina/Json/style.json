@@ -1,5 +1,12 @@
 [
   {
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
     "featureType": "administrative",
     "stylers": [
       {
@@ -26,10 +33,18 @@
     ]
   },
   {
+    "featureType": "landscape",
+    "stylers": [
+      {
+        "saturation": -5
+      }
+    ]
+  },
+  {
     "featureType": "landscape.natural",
     "stylers": [
       {
-        "saturation": -60
+        "saturation": -35
       }
     ]
   },
@@ -73,31 +88,15 @@
     "featureType": "road",
     "stylers": [
       {
-        "saturation": -50
+        "saturation": -40
       }
     ]
   },
   {
-    "featureType": "road.arterial",
+    "featureType": "road.highway",
     "stylers": [
       {
-        "color": "#a39f9f"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway.controlled_access",
-    "stylers": [
-      {
-        "color": "#d3cfcf"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "stylers": [
-      {
-        "color": "#888686"
+        "saturation": -55
       }
     ]
   },

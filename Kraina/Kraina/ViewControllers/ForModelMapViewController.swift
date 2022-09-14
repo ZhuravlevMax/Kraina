@@ -126,6 +126,33 @@ class ForModelMapViewController: UIViewController,
                                               longitude: coordinates[FirebaseCoordinateEnum.longtitude.rawValue],
                                               zoom: 13)
         self.mapView = GMSMapView.map(withFrame: self.forMapView.frame, camera: camera)
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            do {
+                        // Set the map style by passing the URL of the local file.
+                        if let styleURL = Bundle.main.url(forResource: "styleDark", withExtension: "json") {
+                            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+
+                        } else {
+                            NSLog("Unable to find style.json")
+                        }
+                    } catch {
+                        NSLog("One or more of the map styles failed to load. \(error)")
+                    }
+        } else {
+            do {
+                        // Set the map style by passing the URL of the local file.
+                        if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
+                            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+
+                        } else {
+                            NSLog("Unable to find style.json")
+                        }
+                    } catch {
+                        NSLog("One or more of the map styles failed to load. \(error)")
+                    }
+        }
+        
         self.forMapView.addSubview(self.mapView)
         
         self.mapView.delegate = self
@@ -296,6 +323,35 @@ class ForModelMapViewController: UIViewController,
         navigationAlert.addAction(yandex)
         navigationAlert.addAction(cancel)
         self.present(navigationAlert, animated: true)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            do {
+                        // Set the map style by passing the URL of the local file.
+                        if let styleURL = Bundle.main.url(forResource: "styleDark", withExtension: "json") {
+                            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+
+                        } else {
+                            NSLog("Unable to find style.json")
+                        }
+                    } catch {
+                        NSLog("One or more of the map styles failed to load. \(error)")
+                    }
+        } else {
+            do {
+                        // Set the map style by passing the URL of the local file.
+                        if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
+                            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+
+                        } else {
+                            NSLog("Unable to find style.json")
+                        }
+                    } catch {
+                        NSLog("One or more of the map styles failed to load. \(error)")
+                    }
+        }
     }
 }
 
