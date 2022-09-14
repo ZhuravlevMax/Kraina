@@ -37,6 +37,8 @@
 		94B67B8828C2ADF500C1E5B8 /* PopupMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */; };
 		94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */; };
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
+		94C921F828D1B06900BC30C6 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F728D1B06900BC30C6 /* style.json */; };
+		94C921FA28D1B73400BC30C6 /* styleDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F928D1B73400BC30C6 /* styleDark.json */; };
 		94CE010E28CE13F100E858DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CE011028CE13F100E858DA /* InfoPlist.strings */; };
 		94CE011528CE2B8400E858DA /* UserDefaultsKeysEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011428CE2B8300E858DA /* UserDefaultsKeysEnum.swift */; };
 		94CE011728D0D67600E858DA /* String+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011628D0D67500E858DA /* String+Exstension.swift */; };
@@ -113,6 +115,8 @@
 		94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMapViewController.swift; sourceTree = "<group>"; };
 		94B67B8928C2AEA600C1E5B8 /* MapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
+		94C921F728D1B06900BC30C6 /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		94C921F928D1B73400BC30C6 /* styleDark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = styleDark.json; sourceTree = "<group>"; };
 		94CE010F28CE13F100E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011128CE13F200E858DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011328CE14D900E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -256,6 +260,15 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		94C921FB28D1C40100BC30C6 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				94C921F728D1B06900BC30C6 /* style.json */,
+				94C921F928D1B73400BC30C6 /* styleDark.json */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
 		94D8497728A29D9C00A06B6D = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +297,7 @@
 				94B67B8328C27F7300C1E5B8 /* MyFloatingPanelLayoutClass.swift */,
 				94C23CC128B55244005965D5 /* Delegates */,
 				94C23CC228B55268005965D5 /* Enums */,
+				94C921FB28D1C40100BC30C6 /* Json */,
 				94DE307428A5158E003B5DF4 /* FireBase */,
 				94DE307528A51599003B5DF4 /* Extensions */,
 				944A14B728B8F1D60024987D /* Cells */,
@@ -473,10 +487,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				94F1A09C28C9DCD00084AB0B /* Localizable.strings in Resources */,
+				94C921FA28D1B73400BC30C6 /* styleDark.json in Resources */,
 				94CE010E28CE13F100E858DA /* InfoPlist.strings in Resources */,
 				94D8499028A29DA000A06B6D /* LaunchScreen.storyboard in Resources */,
 				94D8498D28A29DA000A06B6D /* Assets.xcassets in Resources */,
 				94D8498B28A29D9C00A06B6D /* Main.storyboard in Resources */,
+				94C921F828D1B06900BC30C6 /* style.json in Resources */,
 				94D849A828A2DF1A00A06B6D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
