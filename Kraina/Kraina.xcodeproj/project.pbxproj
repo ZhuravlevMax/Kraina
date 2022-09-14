@@ -39,6 +39,7 @@
 		94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */; };
 		94C921F828D1B06900BC30C6 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F728D1B06900BC30C6 /* style.json */; };
 		94C921FA28D1B73400BC30C6 /* styleDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 94C921F928D1B73400BC30C6 /* styleDark.json */; };
+		94C921FF28D22B4800BC30C6 /* OneTypeItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C921FE28D22B4800BC30C6 /* OneTypeItemsViewController.swift */; };
 		94CE010E28CE13F100E858DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CE011028CE13F100E858DA /* InfoPlist.strings */; };
 		94CE011528CE2B8400E858DA /* UserDefaultsKeysEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011428CE2B8300E858DA /* UserDefaultsKeysEnum.swift */; };
 		94CE011728D0D67600E858DA /* String+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CE011628D0D67500E858DA /* String+Exstension.swift */; };
@@ -117,6 +118,7 @@
 		94C23CBF28B526D4005965D5 /* ChangeTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeDelegate.swift; sourceTree = "<group>"; };
 		94C921F728D1B06900BC30C6 /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		94C921F928D1B73400BC30C6 /* styleDark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = styleDark.json; sourceTree = "<group>"; };
+		94C921FE28D22B4800BC30C6 /* OneTypeItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTypeItemsViewController.swift; sourceTree = "<group>"; };
 		94CE010F28CE13F100E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011128CE13F200E858DA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CE011328CE14D900E858DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				94B67B8128C0881000C1E5B8 /* PopupForModelMapViewController.swift */,
 				94111F2E28C3EF4F00396692 /* MapViewController.swift */,
 				94B67B8728C2ADF500C1E5B8 /* PopupMapViewController.swift */,
+				94C921FE28D22B4800BC30C6 /* OneTypeItemsViewController.swift */,
 				944A14B328B7AD120024987D /* SearchViewController.swift */,
 				94111F2C28C3CD4600396692 /* SearchOnMapViewController.swift */,
 				945F75F628A8E9B90013122D /* ModelViewController.swift */,
@@ -590,6 +593,7 @@
 				949EC2DF28BCE7A20055EF48 /* CheckFavouriteDelegate.swift in Sources */,
 				94F1A0AC28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift in Sources */,
 				94B67B8A28C2AEA600C1E5B8 /* MapViewDelegate.swift in Sources */,
+				94C921FF28D22B4800BC30C6 /* OneTypeItemsViewController.swift in Sources */,
 				94C23CC028B526D4005965D5 /* ChangeTypeDelegate.swift in Sources */,
 				949EC2E328BDF4CF0055EF48 /* TypeCollectionViewCell.swift in Sources */,
 				9469CA4728B3A5450025CD0F /* ColorsEnum.swift in Sources */,
