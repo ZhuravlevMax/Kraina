@@ -98,23 +98,27 @@ class ModelCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Метод при выборе ячейки
     func setSelectedAttribute(isSelected: Bool) {
-        
         mainView.backgroundColor = isSelected ? UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)") : UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
-        guard let models = models else {return}
-        var modelsToMapArray: [QueryDocumentSnapshot] = []
-        if modelType == "\(FireBaseTypeEnum.all)" {
-            modelsToMapArray = models
-        } else {
-            modelsToMapArray = models.filter({
-                self.modelType == FireBaseManager.shared.getModelType(model: $0).lowercased()
-            })
+        
+        if isSelected {
+            
+            guard let models = models else {return}
+            var modelsToMapArray: [QueryDocumentSnapshot] = []
+            if modelType == "\(FireBaseTypeEnum.all)" {
+                modelsToMapArray = models
+            } else {
+                modelsToMapArray = models.filter({
+                    self.modelType == FireBaseManager.shared.getModelType(model: $0).lowercased()
+                })
+            }
+            
+            guard let changeTypeDelegate = self.changeTypeDelegate else {return}
+            changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
+            
+            //вибрация по нажатию
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
         }
         
-        guard let changeTypeDelegate = self.changeTypeDelegate else {return}
-        changeTypeDelegate.changeMarkerType(modelsSet: modelsToMapArray)
-        
-        //вибрация по нажатию
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
     }
 }
