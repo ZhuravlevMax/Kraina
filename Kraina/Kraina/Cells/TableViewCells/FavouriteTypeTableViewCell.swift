@@ -66,6 +66,15 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
         
+        self.contentView.frame = self.bounds
+        
+        infoView.frame = contentView.frame
+        infoView.frame.size = CGSize(width: contentView.frame.width,
+                                     height: contentView.frame.height/2.5)
+        
+        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
+                                       secondColor: .clear)
+        
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -76,7 +85,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
         mainView.addSubview(mainImageView)
         mainView.addSubview(infoView)
         infoView.addSubview(nameModelLabel)
-        infoView.addSubview(addToFavoriteButton)
+        //infoView.addSubview(addToFavoriteButton)
         
         backgroundColor = .clear
         
@@ -90,14 +99,7 @@ class FavouriteTypeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code\
-        self.contentView.frame = self.bounds
         
-        //infoView.frame = contentView.frame
-        infoView.frame.size = CGSize(width: contentView.frame.width,
-                                     height: contentView.frame.height/2.5)
-        
-        infoView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
-                                       secondColor: .clear)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -130,10 +132,10 @@ class FavouriteTypeTableViewCell: UITableViewCell {
             $0.top.equalToSuperview().inset(20)
         }
         
-        addToFavoriteButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(20)
-            $0.top.equalToSuperview().inset(20)
-        }
+//        addToFavoriteButton.snp.makeConstraints {
+//            $0.right.equalToSuperview().inset(20)
+//            $0.top.equalToSuperview().inset(20)
+//        }
     }
     func setVar(nameModel: String) {
         nameModelLabel.text = nameModel
