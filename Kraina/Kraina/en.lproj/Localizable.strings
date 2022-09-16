@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Kraina
 
@@ -20,6 +20,10 @@
 //MARK: - SearchViewController
 "SearchViewController.searchController.placeholder" = "Find sight";
 "SearchViewController.searchController.searchBar" = "Сancel";
+"SearchViewController.searchInfoLabel.text" = "Search to view point of interest card";
+
+//MARK: - SearchOnMapViewController
+"SearchOnMapViewController.searchInfoLabel.text" = "Search for attractions on the map";
 
 //MARK: - ModelViewController
 "ModelViewController.showDescriptionButton.title" = "Show on map";

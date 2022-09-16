@@ -18,7 +18,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Создание элементов UI
     private lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
+        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.navigationBarColor)")
         return view
     }()
     
@@ -187,6 +187,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainView.frame = view.frame
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mainView.addSubview(blurEffectView)
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
@@ -202,7 +210,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         view.layoutSubviews()
         
-        view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
+        //view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.mainAppUIColor)")
         
         //MARK: - Добавление элементов на экран
         view.addSubview(mainView)
@@ -270,7 +278,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         logInWithEmailButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(55)
-            $0.top.equalTo(titleLoginLable.snp.bottom).offset(10)
+            $0.top.equalTo(titleLoginLable.snp.bottom).offset(25)
             $0.height.equalTo(40)
         }
         
