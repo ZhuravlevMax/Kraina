@@ -11,7 +11,19 @@ import Firebase
 class SearchViewController: UIViewController {
     
     //MARK: - Создание переменных
-    private var filteredModels: [QueryDocumentSnapshot] = []
+    private var filteredModels: [QueryDocumentSnapshot] = [] {
+        didSet {
+            if filteredModels.count == 0 {
+                UIView.animate(withDuration: 0.7) { [weak self] in
+                    guard let self = self else {return}
+                    self.searchInfoView.alpha = 1
+                }
+            } else {
+                searchInfoView.alpha = 0
+            }
+            
+        }
+    }
     var models: [QueryDocumentSnapshot]?
     
     //MARK: - Cоздание элементов UI
@@ -23,6 +35,32 @@ class SearchViewController: UIViewController {
         searchController.searchBar.searchTextField.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.tabbarColor)")
         searchController.searchBar.setValue(NSLocalizedString("SearchViewController.searchController.searchBar", comment: ""), forKey: "cancelButtonText")
         return searchController
+    }()
+    
+    private lazy var searchInfoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private lazy var searchInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = NSLocalizedString("SearchViewController.searchInfoLabel.text", comment: "")
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private lazy var mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .clear
+        //imageView.layer.cornerRadius = 6
+        imageView.layer.masksToBounds = true
+        imageView.image = UIImage(named: "search100")
+        return imageView
     }()
     
     private lazy var backButton: UIButton = {
@@ -52,12 +90,13 @@ class SearchViewController: UIViewController {
         tableView.register(SearchTableViewCell.self,
                                  forCellReuseIdentifier: SearchTableViewCell.key)
         tableView.backgroundColor = .clear
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = UIColor(named: "\(NameColorForThemesEnum.backgroundColor)")
 
         //MARK: - Работа с searchController
@@ -78,6 +117,9 @@ class SearchViewController: UIViewController {
         
         //MARK: - Добавление элементов на экран
         view.addSubview(searchTableView)
+        view.addSubview(searchInfoView)
+        searchInfoView.addSubview(searchInfoLabel)
+        searchInfoView.addSubview(mainImageView)
         
         backToVC()
     }
@@ -130,6 +172,23 @@ extension SearchViewController: UISearchResultsUpdating {
             $0.height.equalToSuperview()
             $0.width.equalToSuperview()
         }
+        
+        searchInfoView.snp.makeConstraints {
+            $0.centerY.centerX.equalToSuperview()
+            $0.height.width.equalTo(250)
+        }
+        
+        mainImageView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview().inset(20)
+        }
+        
+        searchInfoLabel.snp.makeConstraints {
+            $0.top.equalTo(mainImageView.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(10)
+        }
+        
+        
+        
         super.updateViewConstraints()
     }
 }

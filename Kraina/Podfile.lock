@@ -849,6 +849,7 @@ DEPENDENCIES:
   - AlignedCollectionViewFlowLayout
   - FAPaginationLayout
   - Firebase
+  - Firebase/Core
   - FirebaseAnalytics
   - FirebaseAuth
   - FirebaseDatabase
@@ -859,7 +860,7 @@ DEPENDENCIES:
   - FloatingPanel
   - Google-Maps-iOS-Utils (~> 4.1.0)
   - GoogleMaps
-  - GoogleSignIn
+  - GoogleSignIn (~> 6.0)
   - GSKStretchyHeaderView
   - Kingfisher (~> 7.0)
   - SnapKit (~> 5.0.0)
@@ -958,6 +959,6 @@ SPEC CHECKSUMS:
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   UltraDrawerView: 1c44968534466a6bff965b3a7d7d64caec225d48
 
-PODFILE CHECKSUM: 888391a61a00c7cac79f4e289e61ded460ec8dea
+PODFILE CHECKSUM: 9cfac442c8533ef4a552b4a781306c84311a585f
 
 COCOAPODS: 1.11.3

@@ -18,6 +18,7 @@ class ModelViewController: UIViewController {
     private var model: QueryDocumentSnapshot?
     private lazy var favoriteState = false
     weak var favouriteTypeVC: CheckFavouriteDelegate?
+    weak var oneTypeItemsVC: OneTypeVCDelegate?
     var favouriteModels: [QueryDocumentSnapshot]?
     var imagesURLArray: [String] = [] {
         didSet {
@@ -91,11 +92,11 @@ class ModelViewController: UIViewController {
         return button
     }()
     
-    private lazy var modelDescription: UILabel = {
+    lazy var modelDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 14,
+        label.font = UIFont.systemFont(ofSize: 15,
                                        weight: .light)
         return label
     }()
@@ -192,8 +193,10 @@ class ModelViewController: UIViewController {
         self.adressLabel.text = showLocalizedModelAdress(for: model)
         self.coordinatesLabel.text = "\(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.latitude.rawValue]), \(FireBaseManager.shared.getCoordinatesArray(model: model)[FirebaseCoordinateEnum.longtitude.rawValue])"
         
-        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model) : FireBaseManager.shared.getModelDescriptionEn(model: model)
+        self.modelDescription.text = Locale.current.languageCode == "\(LanguageEnum.ru)" ? FireBaseManager.shared.getModelDescription(model: model).replacingOccurrences(of: "\\n", with: "\n") : FireBaseManager.shared.getModelDescriptionEn(model: model).replacingOccurrences(of: "\\n", with: "\n")
         
+        self.modelDescription.textAlignment = .justified
+        self.modelDescription.lineBreakMode = .byWordWrapping
         FireBaseManager.shared.getUserFavoritesArray { [weak self] in
             guard let self = self else {return}
             self.favoriteState = $0.contains(model.documentID)
@@ -208,7 +211,7 @@ class ModelViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addToFavoriteButton)
         let leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarButtonItem
-        
+        print(imagesCollectionView.frame)
         backToRoot()
         updateViewConstraints()
         
@@ -344,6 +347,8 @@ class ModelViewController: UIViewController {
     @objc private func backButtonPressed() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        oneTypeItemsVC?.reloadOneTypeTableView()
+
     }
 }
 
@@ -398,5 +403,6 @@ extension ModelViewController: UICollectionViewDelegate,
     @objc func back() {
         guard let navigationControllerUnwrapped = navigationController else {return}
         navigationControllerUnwrapped.popViewController(animated: true)
+        
     }
 }

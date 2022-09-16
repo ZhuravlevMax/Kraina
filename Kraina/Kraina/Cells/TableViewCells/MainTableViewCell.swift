@@ -124,9 +124,10 @@ class MainTableViewCell: UITableViewCell {
         }
     }
     
-    //MARK: - Действие кнопки searchButton
+    //MARK: - Действие кнопки showAllButton
     @objc private func showAllButtonPressed() {
-        forVC?.openFavoriteVC(models: models)
+        forVC?.openOneTypeItemsViewController(models: models)
+
     }
 }
 

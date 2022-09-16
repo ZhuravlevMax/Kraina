@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Kraina
 
@@ -20,6 +20,10 @@
 //MARK: - SearchViewController
 "SearchViewController.searchController.placeholder" = "Найти достопримечательность";
 "SearchViewController.searchController.searchBar" = "Назад";
+"SearchViewController.searchInfoLabel.text" = "Поиск для просмотра карточки достопримечательности";
+
+//MARK: - SearchOnMapViewController
+"SearchOnMapViewController.searchInfoLabel.text" = "Поиск достопримечательности на карте";
 
 //MARK: - ModelViewController
 "ModelViewController.showDescriptionButton.title" = "Показать на карте";
@@ -43,6 +47,7 @@
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Заповедники";
 "MapViewController.doSettingsAlert.settingsButtonAction.title" = "Настройки";
 "MapViewController.doSettingsAlert.cancelButtonAction.title" = "Отмена";
+"MapViewController.doSettingsAlert.title" = "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию";
 
 //MARK: - RegistrationViewController
 "RegistrationViewController.titleRegisterLable.text" = "Регистрация";
@@ -55,6 +60,9 @@
 "LoginViewController.titleLoginLable.text" = "Войдите в аккаунт";
 "LoginViewController.logInButton.title" = "Войти";
 "LoginViewController.createAccLabel.text" = "Нет аккаунта?";
+"LoginViewController.logInWithEmailButton.title" = "Войти через Email";
+"LoginViewController.titleLoginWithEmailLable.text" = "Войти через Email";
+"LoginViewController.backToLoginTypeButton.title" = "Назад к выбору способа входа";
 
 //MARK: - errorMessages
 "wrongPassword" = "Неверный пароль.";
@@ -68,3 +76,6 @@
 "Error" = "Упс!";
 "emptyFields" = "Заполните все поля!";
 "PasswordsDoNotMatch" = "Пароли не совпадают!";
+
+//MARK: - FavoriteViewController
+"FavoriteViewController.nothingAddedLabel.text" = "Вы пока ничего не добавили";

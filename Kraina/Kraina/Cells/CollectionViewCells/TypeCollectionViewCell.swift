@@ -57,14 +57,14 @@ class TypeCollectionViewCell: UICollectionViewCell {
         mainView.dropShadow()
         mainView.layer.cornerRadius = 6
         shadowView.frame.size = CGSize(width: contentView.frame.width,
-                                       height: contentView.frame.height)
+                                       height: contentView.frame.height/2.5)
         
         shadowView.clipsToBounds = true
         contentView.layer.cornerRadius = 6
         contentView.clipsToBounds = false
         contentView.backgroundColor = .clear
         
-        shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.4),
+        shadowView.addGradientBackground(firstColor: .black.withAlphaComponent(0.7),
                                          secondColor: .clear)
         updateViewConstraints()
         

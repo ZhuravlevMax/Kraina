@@ -18,7 +18,7 @@ pod 'FirebaseFirestore'
 pod 'SnapKit', '~> 5.0.0'
 pod 'FirebaseUI/Auth'
 pod 'FirebaseUI/Google'
-pod 'GoogleSignIn'
+pod 'GoogleSignIn', '~> 6.0'
 pod 'Firebase'
 pod 'GSKStretchyHeaderView'
 pod 'UltraDrawerView'
@@ -28,6 +28,7 @@ pod 'FloatingPanel'
 pod "AlignedCollectionViewFlowLayout"
 pod 'FAPaginationLayout'
 pod 'Kingfisher', '~> 7.0'
+pod 'Firebase/Core'
 
 
 end

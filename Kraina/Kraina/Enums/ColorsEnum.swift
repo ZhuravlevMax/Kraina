@@ -16,4 +16,5 @@ enum NameColorForThemesEnum {
     case mainAppUIColor
     case mainAppCGColor
     case borderCGColor
+    case reversedBackgroundColor
 }

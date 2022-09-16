@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   Kraina
 
@@ -20,6 +20,10 @@
 //MARK: - SearchViewController
 "SearchViewController.searchController.placeholder" = "Find sight";
 "SearchViewController.searchController.searchBar" = "Сancel";
+"SearchViewController.searchInfoLabel.text" = "Search to view point of interest card";
+
+//MARK: - SearchOnMapViewController
+"SearchOnMapViewController.searchInfoLabel.text" = "Search for attractions on the map";
 
 //MARK: - ModelViewController
 "ModelViewController.showDescriptionButton.title" = "Show on map";
@@ -41,6 +45,7 @@
 "MapViewController.modelCollectionViewCell.setText.religion" = "Religion";
 "MapViewController.modelCollectionViewCell.setText.museum" = "Museum";
 "MapViewController.modelCollectionViewCell.setText.conservation" = "Conservation";
+"MapViewController.doSettingsAlert.title" = "Please allow access to Geolocation in the settings to determine your position";
 "MapViewController.doSettingsAlert.settingsButtonAction.title" = "Settings";
 "MapViewController.doSettingsAlert.cancelButtonAction.title" = "Cancel";
 
@@ -53,8 +58,11 @@
 
 //MARK: - LoginViewController
 "LoginViewController.titleLoginLable.text" = "Sign In";
-"LoginViewController.logInButton.title" = "Log In";
+"LoginViewController.logInButton.title" = "Sign In";
 "LoginViewController.createAccLabel.text" = "Have no account?";
+"LoginViewController.logInWithEmailButton.title" = "Sign in with Email";
+"LoginViewController.titleLoginWithEmailLable.text" = "Sign in with Email";
+"LoginViewController.backToLoginTypeButton.title" = "Back to choosing a sign in method";
 
 //MARK: - errorMessages
 "wrongPassword" = "Your password is incorrect.";
@@ -68,5 +76,9 @@
 "Error" = "Oops!";
 "emptyFields" = "Fill in all fields!";
 "PasswordsDoNotMatch" = "Passwords do not match!";
+
+//MARK: - FavoriteViewController
+"FavoriteViewController.nothingAddedLabel.text" = "You haven't added anything yet";
+
 
 

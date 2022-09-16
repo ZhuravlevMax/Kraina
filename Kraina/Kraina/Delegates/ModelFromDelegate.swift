@@ -10,6 +10,6 @@ import Firebase
 
 protocol ModelFromDelegate: AnyObject {
     func openModelVC(model: QueryDocumentSnapshot)
-    func openFavoriteVC(models: [QueryDocumentSnapshot])
+    func openOneTypeItemsViewController(models: [QueryDocumentSnapshot])
 }
 
