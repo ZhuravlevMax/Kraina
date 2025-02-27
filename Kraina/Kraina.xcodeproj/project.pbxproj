@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93804CE03B685D497FA40427 /* Pods_Kraina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8430B75F9D2173C28F8D559 /* Pods_Kraina.framework */; };
 		940B0FD528C6213B002BE48F /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B0FD428C6213B002BE48F /* AuthErrorCode+Extension.swift */; };
 		94111F2D28C3CD4600396692 /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94111F2C28C3CD4600396692 /* SearchOnMapViewController.swift */; };
 		94111F2F28C3EF5000396692 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94111F2E28C3EF4F00396692 /* MapViewController.swift */; };
@@ -61,7 +62,6 @@
 		94F1A09C28C9DCD00084AB0B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94F1A09E28C9DCD00084AB0B /* Localizable.strings */; };
 		94F1A0A828CA14DA0084AB0B /* LanguageEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F1A0A728CA14DA0084AB0B /* LanguageEnum.swift */; };
 		94F1A0AC28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */; };
-		A15365B6BB8F12B935496593 /* Pods_Kraina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2904552F156C4587AD370719 /* Pods_Kraina.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,9 +82,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2904552F156C4587AD370719 /* Pods_Kraina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kraina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.release.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.release.xcconfig"; sourceTree = "<group>"; };
-		8BA416F01C6E783477ADC038 /* Pods-Kraina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.debug.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.debug.xcconfig"; sourceTree = "<group>"; };
+		3A8D9302C35F92CF00704F5D /* Pods-Kraina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.release.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.release.xcconfig"; sourceTree = "<group>"; };
 		940B0FD428C6213B002BE48F /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		94111F2C28C3CD4600396692 /* SearchOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapViewController.swift; sourceTree = "<group>"; };
 		94111F2E28C3EF4F00396692 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +145,8 @@
 		94F1A0A028C9DCF60084AB0B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94F1A0A728CA14DA0084AB0B /* LanguageEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageEnum.swift; sourceTree = "<group>"; };
 		94F1A0AB28CCFF9A0084AB0B /* UIViewCollectionCell+Exstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewCollectionCell+Exstension.swift"; sourceTree = "<group>"; };
+		B8430B75F9D2173C28F8D559 /* Pods_Kraina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kraina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC6F2AE008B877B8058104F8 /* Pods-Kraina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kraina.debug.xcconfig"; path = "Target Support Files/Pods-Kraina/Pods-Kraina.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A15365B6BB8F12B935496593 /* Pods_Kraina.framework in Frameworks */,
+				93804CE03B685D497FA40427 /* Pods_Kraina.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,16 +178,16 @@
 		3EBAADF395618D7A05B458F2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8BA416F01C6E783477ADC038 /* Pods-Kraina.debug.xcconfig */,
-				32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */,
+				CC6F2AE008B877B8058104F8 /* Pods-Kraina.debug.xcconfig */,
+				3A8D9302C35F92CF00704F5D /* Pods-Kraina.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		6FED24C6A47440A6C4E8F100 /* Frameworks */ = {
+		90347A44E8FDE85B319BEDE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2904552F156C4587AD370719 /* Pods_Kraina.framework */,
+				B8430B75F9D2173C28F8D559 /* Pods_Kraina.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -282,7 +282,7 @@
 				9469CA5A28B3F4BF0025CD0F /* KrainaUITests */,
 				94D8498128A29D9C00A06B6D /* Products */,
 				3EBAADF395618D7A05B458F2 /* Pods */,
-				6FED24C6A47440A6C4E8F100 /* Frameworks */,
+				90347A44E8FDE85B319BEDE3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -413,12 +413,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94D8499428A29DA000A06B6D /* Build configuration list for PBXNativeTarget "Kraina" */;
 			buildPhases = (
-				C617D536296EA2F15AA9165A /* [CP] Check Pods Manifest.lock */,
+				B281A6465DEA957912F4D808 /* [CP] Check Pods Manifest.lock */,
 				94D8497C28A29D9C00A06B6D /* Sources */,
 				94D8497D28A29D9C00A06B6D /* Frameworks */,
 				94D8497E28A29D9C00A06B6D /* Resources */,
-				00853D31CCDF7E31D049E9A1 /* [CP] Embed Pods Frameworks */,
-				803E0092A8F64E366F81C9F6 /* [CP] Copy Pods Resources */,
+				1258F4E3A6FC9A6C2323A79F /* [CP] Embed Pods Frameworks */,
+				7D22DFF06146AD935D6D4A83 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -506,7 +506,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00853D31CCDF7E31D049E9A1 /* [CP] Embed Pods Frameworks */ = {
+		1258F4E3A6FC9A6C2323A79F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -523,7 +523,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kraina/Pods-Kraina-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		803E0092A8F64E366F81C9F6 /* [CP] Copy Pods Resources */ = {
+		7D22DFF06146AD935D6D4A83 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -540,7 +540,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kraina/Pods-Kraina-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C617D536296EA2F15AA9165A /* [CP] Check Pods Manifest.lock */ = {
+		B281A6465DEA957912F4D808 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -879,7 +879,7 @@
 		};
 		94D8499528A29DA000A06B6D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8BA416F01C6E783477ADC038 /* Pods-Kraina.debug.xcconfig */;
+			baseConfigurationReference = CC6F2AE008B877B8058104F8 /* Pods-Kraina.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -910,7 +910,7 @@
 		};
 		94D8499628A29DA000A06B6D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32B5013FF1250D241BB57647 /* Pods-Kraina.release.xcconfig */;
+			baseConfigurationReference = 3A8D9302C35F92CF00704F5D /* Pods-Kraina.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

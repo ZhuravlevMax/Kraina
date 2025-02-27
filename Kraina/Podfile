@@ -8,27 +8,25 @@ target 'Kraina' do
   # Pods for Kraina
 
 pod 'GoogleMaps'
-pod 'Google-Maps-iOS-Utils', '~> 4.1.0'
+pod 'Google-Maps-iOS-Utils'
+pod 'Firebase'
 pod 'FirebaseAnalytics'
 pod 'FirebaseStorage'
 pod 'FirebaseDatabase'
 pod 'FirebaseFirestore'
 pod 'FirebaseAuth'
-pod 'FirebaseFirestore'
-pod 'SnapKit', '~> 5.0.0'
+pod 'SnapKit'
 pod 'FirebaseUI/Auth'
 pod 'FirebaseUI/Google'
-pod 'GoogleSignIn', '~> 6.0'
-pod 'Firebase'
-pod 'GSKStretchyHeaderView'
+pod 'GoogleSignIn'
 pod 'UltraDrawerView'
 pod 'SPStorkController'
 pod 'SPLarkController'
 pod 'FloatingPanel'
 pod "AlignedCollectionViewFlowLayout"
 pod 'FAPaginationLayout'
-pod 'Kingfisher', '~> 7.0'
-pod 'Firebase/Core'
+pod 'Kingfisher'
+pod 'FirebaseCore'
 
 
 end
